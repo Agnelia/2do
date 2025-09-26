@@ -37,15 +37,15 @@ class AppConstants {
     'Other': Colors.grey,
   };
 
-  // Sunny Day Category Colors - brighter variants
+  // Sunny Day Category Colors - more vibrant variants
   static const Map<String, Color> sunnyCategoryColors = {
-    'Medication': Color(0xFFE91E63), // Pink 500
-    'Exercise': Color(0xFFFF5722), // Deep Orange 500
-    'Water': Color(0xFF2196F3), // Blue 500
-    'Sleep': Color(0xFF9C27B0), // Purple 500
-    'Nutrition': Color(0xFF4CAF50), // Green 500
-    'Mental Health': Color(0xFF00BCD4), // Cyan 500
-    'Other': Color(0xFF607D8B), // Blue Grey 500
+    'Medication': Color(0xFFE91E63), // Pink 500 - keep as vibrant pink
+    'Exercise': Color(0xFFFF3D00), // Deep Orange 700 - more vibrant orange
+    'Water': Color(0xFF1976D2), // Blue 700 - more vibrant blue
+    'Sleep': Color(0xFF7B1FA2), // Purple 700 - more vibrant purple
+    'Nutrition': Color(0xFF388E3C), // Green 700 - more vibrant green
+    'Mental Health': Color(0xFF0097A7), // Cyan 700 - more vibrant cyan
+    'Other': Color(0xFF455A64), // Blue Grey 700 - more vibrant grey
   };
   
   // Get category colors based on theme
@@ -178,11 +178,11 @@ class ThemeConfig {
   static const Color tealPrimary = Colors.teal;
   static const Color tealSecondary = Colors.tealAccent;
   
-  // Sunny Day Theme Colors
-  static const Color sunnyPrimary = Color(0xFFFF8F00); // Amber 800 - more vibrant orange
-  static const Color sunnySecondary = Color(0xFFFFD54F); // Yellow 300 - bright sunny yellow
-  static const Color sunnyAccent = Color(0xFFFFA726); // Orange 400
-  static const Color sunnyHighlight = Color(0xFFFFC107); // Amber 600
+  // Sunny Day Theme Colors - More vibrant versions
+  static const Color sunnyPrimary = Color(0xFFFF6D00); // Deep Orange 400 - vibrant orange
+  static const Color sunnySecondary = Color(0xFFFFEB3B); // Yellow 500 - vibrant yellow
+  static const Color sunnyAccent = Color(0xFFFF5722); // Deep Orange 500 - intense orange
+  static const Color sunnyHighlight = Color(0xFFFDD835); // Yellow 600 - bright golden yellow
   
   // Get primary color for theme
   static Color getPrimaryColor(AppThemeType theme) {
