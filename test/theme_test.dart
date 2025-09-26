@@ -88,6 +88,20 @@ void main() {
       expect(ThemeConfig.getSecondaryColor(AppThemeType.sunnyDay), ThemeConfig.sunnySecondary);
     });
 
+    test('Sunny Day theme has vibrant colors', () {
+      // Test that the new vibrant colors are applied
+      expect(ThemeConfig.sunnyPrimary, const Color(0xFFFF6D00)); // Deep Orange 400
+      expect(ThemeConfig.sunnySecondary, const Color(0xFFFFEB3B)); // Yellow 500
+      expect(ThemeConfig.sunnyAccent, const Color(0xFFFF5722)); // Deep Orange 500
+      expect(ThemeConfig.sunnyHighlight, const Color(0xFFFDD835)); // Yellow 600
+      
+      // Test that category colors are also more vibrant
+      final sunnyCategoryColors = AppConstants.getCategoryColors(AppThemeType.sunnyDay);
+      expect(sunnyCategoryColors['Exercise'], const Color(0xFFFF3D00)); // Deep Orange 700 - more vibrant
+      expect(sunnyCategoryColors['Water'], const Color(0xFF1976D2)); // Blue 700 - more vibrant
+      expect(sunnyCategoryColors['Sleep'], const Color(0xFF7B1FA2)); // Purple 700 - more vibrant
+    });
+
     test('Theme data generation works for both themes', () {
       // Test light themes
       final tealLightTheme = AppTheme.getLightTheme(AppThemeType.teal);
