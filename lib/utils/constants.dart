@@ -179,10 +179,12 @@ class ThemeConfig {
   static const Color tealSecondary = Colors.tealAccent;
   
   // Sunny Day Theme Colors - More vibrant versions
-  static const Color sunnyPrimary = Color(0xFFFF6D00); // Deep Orange 400 - vibrant orange
+  static const Color sunnyPrimary = Color(0xFFFF5722); // Deep Orange 500 - more intense orange
   static const Color sunnySecondary = Color(0xFFFFEB3B); // Yellow 500 - vibrant yellow
-  static const Color sunnyAccent = Color(0xFFFF5722); // Deep Orange 500 - intense orange
-  static const Color sunnyHighlight = Color(0xFFFDD835); // Yellow 600 - bright golden yellow
+  static const Color sunnyAccent = Color(0xFFFF3D00); // Deep Orange 700 - very intense orange
+  static const Color sunnyHighlight = Color(0xFFFFC107); // Amber 500 - bright golden yellow
+  static const Color sunnyBackground = Color(0xFFFFF3E0); // Orange 50 - warm background
+  static const Color sunnySurface = Color(0xFFFFE0B2); // Orange 100 - warm surface
   
   // Get primary color for theme
   static Color getPrimaryColor(AppThemeType theme) {
@@ -209,6 +211,70 @@ class AppTheme {
   // Generate light theme for a specific theme type
   static ThemeData getLightTheme(AppThemeType themeType) {
     final primaryColor = ThemeConfig.getPrimaryColor(themeType);
+    
+    // Special handling for sunny day theme to make it more vibrant
+    if (themeType == AppThemeType.sunnyDay) {
+      return ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          brightness: Brightness.light,
+          background: ThemeConfig.sunnyBackground,
+          surface: ThemeConfig.sunnySurface,
+        ),
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: ThemeConfig.sunnyBackground,
+        ),
+        cardTheme: CardThemeData(
+          elevation: 4,
+          color: Colors.white,
+          surfaceTintColor: ThemeConfig.sunnyAccent.withOpacity(0.1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusL),
+            side: BorderSide(
+              color: ThemeConfig.sunnyAccent.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: ThemeConfig.sunnyAccent,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: ThemeConfig.sunnyAccent,
+            side: BorderSide(color: ThemeConfig.sunnyAccent),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: ThemeConfig.sunnyAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+        ),
+        scaffoldBackgroundColor: ThemeConfig.sunnyBackground,
+      );
+    }
     
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(

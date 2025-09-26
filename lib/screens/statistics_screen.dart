@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/statistics_provider.dart';
+import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/widgets/statistics_chart.dart';
 import 'package:todo_health_reminders/widgets/progress_ring.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'package:todo_health_reminders/utils/constants.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
@@ -79,64 +81,106 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   }
 
   Widget _buildOverviewCards(StatisticsProvider statsProvider) {
-    return GridView.count(
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 12,
-      crossAxisSpacing: 12,
-      childAspectRatio: 1.5,
-      children: [
-        _buildOverviewCard(
-          'Total Completed',
-          statsProvider.totalCompleted.toString(),
-          Icons.task_alt,
-          Colors.green,
-        ),
-        _buildOverviewCard(
-          'Success Rate',
-          '${statsProvider.successRate.toStringAsFixed(1)}%',
-          Icons.trending_up,
-          Colors.blue,
-        ),
-        _buildOverviewCard(
-          'Best Streak',
-          '${statsProvider.bestStreak} days',
-          Icons.local_fire_department,
-          Colors.orange,
-        ),
-        _buildOverviewCard(
-          'Health Score',
-          '${statsProvider.healthScore}%',
-          Icons.favorite,
-          Colors.red,
-        ),
-      ],
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
+        
+        return GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 1.5,
+          children: [
+            _buildOverviewCard(
+              'Total Completed',
+              statsProvider.totalCompleted.toString(),
+              Icons.task_alt,
+              isSunnyTheme ? const Color(0xFF4CAF50) : Colors.green,
+              isSunnyTheme,
+            ),
+            _buildOverviewCard(
+              'Success Rate',
+              '${statsProvider.successRate.toStringAsFixed(1)}%',
+              Icons.trending_up,
+              isSunnyTheme ? const Color(0xFF2196F3) : Colors.blue,
+              isSunnyTheme,
+            ),
+            _buildOverviewCard(
+              'Best Streak',
+              '${statsProvider.bestStreak} days',
+              Icons.local_fire_department,
+              isSunnyTheme ? const Color(0xFFFF5722) : Colors.orange,
+              isSunnyTheme,
+            ),
+            _buildOverviewCard(
+              'Health Score',
+              '${statsProvider.healthScore}%',
+              Icons.favorite,
+              isSunnyTheme ? const Color(0xFFE53935) : Colors.red, // Really red heart for sunny theme
+              isSunnyTheme,
+            ),
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildOverviewCard(String title, String value, IconData icon, Color color) {
+  Widget _buildOverviewCard(String title, String value, IconData icon, Color color, bool isSunnyTheme) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color, size: 32),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: color,
+      elevation: isSunnyTheme ? 6 : 2,
+      child: Container(
+        decoration: isSunnyTheme ? BoxDecoration(
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white,
+              color.withOpacity(0.05),
+            ],
+          ),
+          border: Border.all(
+            color: color.withOpacity(0.3),
+            width: 1.5,
+          ),
+        ) : null,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
+                decoration: isSunnyTheme ? BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ) : null,
+                child: Icon(
+                  icon, 
+                  color: color, 
+                  size: isSunnyTheme ? 40 : 32,
+                ),
               ),
-            ),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                value,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                  fontSize: isSunnyTheme ? 22 : null,
+                ),
+              ),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: isSunnyTheme ? FontWeight.w600 : null,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
