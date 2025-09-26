@@ -111,7 +111,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               'Best Streak',
               '${statsProvider.bestStreak} days',
               Icons.local_fire_department,
-              isSunnyTheme ? const Color(0xFFFF5722) : Colors.orange,
+              isSunnyTheme ? const Color(0xFFFF9800) : Colors.orange, // Yellow-orange instead of pinkish
               isSunnyTheme,
             ),
             _buildOverviewCard(

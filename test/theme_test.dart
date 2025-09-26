@@ -88,12 +88,12 @@ void main() {
       expect(ThemeConfig.getSecondaryColor(AppThemeType.sunnyDay), ThemeConfig.sunnySecondary);
     });
 
-    test('Sunny Day theme has more vibrant colors', () {\r
-      // Test that the new more vibrant colors are applied\r
-      expect(ThemeConfig.sunnyPrimary, const Color(0xFFFF5722)); // Deep Orange 500 - more intense\r
-      expect(ThemeConfig.sunnySecondary, const Color(0xFFFFEB3B)); // Yellow 500\r
-      expect(ThemeConfig.sunnyAccent, const Color(0xFFFF3D00)); // Deep Orange 700 - very intense\r
-      expect(ThemeConfig.sunnyHighlight, const Color(0xFFFFC107)); // Amber 500\r
+    test('Sunny Day theme has yellow-orange vibrant colors', () {\r
+      // Test that the new yellow-orange colors are applied\r
+      expect(ThemeConfig.sunnyPrimary, const Color(0xFFFF9800)); // Orange 500 - pure orange\r
+      expect(ThemeConfig.sunnySecondary, const Color(0xFFFFC107)); // Amber 500 - bright yellow\r
+      expect(ThemeConfig.sunnyAccent, const Color(0xFFFF8F00)); // Amber 700 - deep golden orange\r
+      expect(ThemeConfig.sunnyHighlight, const Color(0xFFFDD835)); // Yellow 600\r
       \r
       // Test that category colors are also more vibrant\r
       final sunnyCategoryColors = AppConstants.getCategoryColors(AppThemeType.sunnyDay);\r
