@@ -129,58 +129,41 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
   Widget _buildOverviewCard(String title, String value, IconData icon, Color color, bool isSunnyTheme) {
     return Card(
-      elevation: isSunnyTheme ? 6 : 2,
-      child: Container(
-        decoration: isSunnyTheme ? BoxDecoration(
-          borderRadius: BorderRadius.circular(AppConstants.radiusL),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.white,
-              color.withOpacity(0.05),
-            ],
-          ),
-          border: Border.all(
-            color: color.withOpacity(0.3),
-            width: 1.5,
-          ),
-        ) : null,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
-                decoration: isSunnyTheme ? BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ) : null,
-                child: Icon(
-                  icon, 
-                  color: color, 
-                  size: isSunnyTheme ? 40 : 32,
-                ),
+      elevation: isSunnyTheme ? 4 : 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
+              decoration: isSunnyTheme ? BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ) : null,
+              child: Icon(
+                icon, 
+                color: color, 
+                size: isSunnyTheme ? 40 : 32,
               ),
-              const SizedBox(height: 8),
-              Text(
-                value,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: isSunnyTheme ? 22 : null,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: color,
+                fontSize: isSunnyTheme ? 22 : null,
               ),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: isSunnyTheme ? FontWeight.w600 : null,
-                ),
-                textAlign: TextAlign.center,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: isSunnyTheme ? FontWeight.w600 : null,
               ),
-            ],
-          ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

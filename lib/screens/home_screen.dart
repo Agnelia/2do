@@ -173,63 +173,43 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
-        final heartColor = isSunnyTheme ? const Color(0xFFE53935) : Colors.white; // Really red for sunny theme
         
         return Card(
-          elevation: isSunnyTheme ? 6 : 2,
-          child: Container(
-            decoration: isSunnyTheme ? BoxDecoration(
-              borderRadius: BorderRadius.circular(AppConstants.radiusL),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.white,
-                  ThemeConfig.sunnyHighlight.withOpacity(0.1),
-                ],
-              ),
-              border: Border.all(
-                color: ThemeConfig.sunnyAccent.withOpacity(0.2),
-                width: 1.5,
-              ),
-            ) : null,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: isSunnyTheme ? 35 : 30,
-                    backgroundColor: isSunnyTheme ? ThemeConfig.sunnyAccent : Theme.of(context).colorScheme.primary,
-                    child: Icon(
-                      Icons.favorite,
-                      color: heartColor,
-                      size: isSunnyTheme ? 35 : 30,
-                    ),
+          elevation: isSunnyTheme ? 4 : 2,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: isSunnyTheme ? 35 : 30,
+                  backgroundColor: isSunnyTheme ? Colors.white : Theme.of(context).colorScheme.primary,
+                  child: Icon(
+                    Icons.favorite,
+                    color: isSunnyTheme ? const Color(0xFFE53935) : Colors.white, // Really red heart with white background for visibility
+                    size: isSunnyTheme ? 35 : 30,
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Good day!',
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: isSunnyTheme ? FontWeight.bold : null,
-                            color: isSunnyTheme ? ThemeConfig.sunnyAccent : null,
-                          ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Good day!',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: isSunnyTheme ? FontWeight.bold : null,
+                          color: isSunnyTheme ? ThemeConfig.sunnyAccent : null, // Keep red as requested
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Keep up with your health goals',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: isSunnyTheme ? FontWeight.w500 : null,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Keep up with your health goals',
+                        style: Theme.of(context).textTheme.bodyMedium, // Keep default colors (black/grey)
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -242,8 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, statsProvider, themeProvider, child) {
         final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
         
-        return SizedBox(
-          height: isSunnyTheme ? 140 : 120,
+        return IntrinsicHeight(
           child: Row(
             children: [
               Expanded(
@@ -287,58 +266,41 @@ class _HomeScreenState extends State<HomeScreen> {
     final padding = isSunnyTheme ? 16.0 : 12.0;
     
     return Card(
-      elevation: isSunnyTheme ? 6 : 2,
-      child: Container(
-        decoration: isSunnyTheme ? BoxDecoration(
-          borderRadius: BorderRadius.circular(AppConstants.radiusL),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.white,
-              color.withOpacity(0.05),
-            ],
-          ),
-          border: Border.all(
-            color: color.withOpacity(0.3),
-            width: 1.5,
-          ),
-        ) : null,
-        child: Padding(
-          padding: EdgeInsets.all(padding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
-                decoration: isSunnyTheme ? BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ) : null,
-                child: Icon(
-                  icon, 
-                  color: color, 
-                  size: iconSize,
-                ),
+      elevation: isSunnyTheme ? 4 : 2,
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
+              decoration: isSunnyTheme ? BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ) : null,
+              child: Icon(
+                icon, 
+                color: color, 
+                size: iconSize,
               ),
-              const SizedBox(height: 8),
-              Text(
-                value,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: isSunnyTheme ? 18 : null,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: color,
+                fontSize: isSunnyTheme ? 18 : null,
               ),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontWeight: isSunnyTheme ? FontWeight.w600 : null,
-                ),
-                textAlign: TextAlign.center,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: isSunnyTheme ? FontWeight.w600 : null,
               ),
-            ],
-          ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
