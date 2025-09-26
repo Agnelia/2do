@@ -453,7 +453,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
         description: _descriptionController.text.trim(),
         category: _selectedCategory,
         frequency: _selectedFrequency,
-  time: model.RTimeOfDay.fromFlutterTimeOfDay(_selectedTime),
+        time: model.R_TimeOfDay.fromFlutterTimeOfDay(_selectedTime),
         nextDueDate: nextDueDate.isBefore(now) 
             ? nextDueDate.add(const Duration(days: 1)) 
             : nextDueDate,

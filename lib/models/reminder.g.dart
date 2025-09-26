@@ -12,7 +12,7 @@ Reminder _$ReminderFromJson(Map<String, dynamic> json) => Reminder(
       description: json['description'] as String,
       category: json['category'] as String,
       frequency: $enumDecode(_$ReminderFrequencyEnumMap, json['frequency']),
-      time: RTimeOfDay.fromJson(json['time'] as Map<String, dynamic>),
+      time: R_TimeOfDay.fromJson(json['time'] as Map<String, dynamic>),
       nextDueDate: DateTime.parse(json['nextDueDate'] as String),
       isActive: json['isActive'] as bool? ?? true,
       createdAt: DateTime.parse(json['createdAt'] as String),
@@ -66,12 +66,12 @@ const _$ReminderPriorityEnumMap = {
   ReminderPriority.urgent: 'urgent',
 };
 
-RTimeOfDay _$RTimeOfDayFromJson(Map<String, dynamic> json) => RTimeOfDay(
+R_TimeOfDay _$R_TimeOfDayFromJson(Map<String, dynamic> json) => R_TimeOfDay(
       hour: (json['hour'] as num).toInt(),
       minute: (json['minute'] as num).toInt(),
     );
 
-Map<String, dynamic> _$RTimeOfDayToJson(RTimeOfDay instance) =>
+Map<String, dynamic> _$R_TimeOfDayToJson(R_TimeOfDay instance) =>
     <String, dynamic>{
       'hour': instance.hour,
       'minute': instance.minute,
