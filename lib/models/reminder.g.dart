@@ -12,19 +12,20 @@ Reminder _$ReminderFromJson(Map<String, dynamic> json) => Reminder(
       description: json['description'] as String,
       category: json['category'] as String,
       frequency: $enumDecode(_$ReminderFrequencyEnumMap, json['frequency']),
-      time: TimeOfDay.fromJson(json['time'] as Map<String, dynamic>),
+      time: RTimeOfDay.fromJson(json['time'] as Map<String, dynamic>),
       nextDueDate: DateTime.parse(json['nextDueDate'] as String),
       isActive: json['isActive'] as bool? ?? true,
       createdAt: DateTime.parse(json['createdAt'] as String),
       lastCompleted: json['lastCompleted'] == null
           ? null
           : DateTime.parse(json['lastCompleted'] as String),
-      completionCount: json['completionCount'] as int? ?? 0,
-      weekday: json['weekday'] as int?,
-      dayOfMonth: json['dayOfMonth'] as int?,
-      customInterval: json['customInterval'] as int?,
-      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-          const [],
+      completionCount: (json['completionCount'] as num?)?.toInt() ?? 0,
+      weekday: (json['weekday'] as num?)?.toInt(),
+      dayOfMonth: (json['dayOfMonth'] as num?)?.toInt(),
+      customInterval: (json['customInterval'] as num?)?.toInt(),
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
       priority:
           $enumDecodeNullable(_$ReminderPriorityEnumMap, json['priority']) ??
               ReminderPriority.medium,
@@ -37,7 +38,7 @@ Map<String, dynamic> _$ReminderToJson(Reminder instance) => <String, dynamic>{
       'description': instance.description,
       'category': instance.category,
       'frequency': _$ReminderFrequencyEnumMap[instance.frequency]!,
-      'time': instance.time.toJson(),
+      'time': instance.time,
       'nextDueDate': instance.nextDueDate.toIso8601String(),
       'isActive': instance.isActive,
       'createdAt': instance.createdAt.toIso8601String(),
@@ -65,12 +66,13 @@ const _$ReminderPriorityEnumMap = {
   ReminderPriority.urgent: 'urgent',
 };
 
-TimeOfDay _$TimeOfDayFromJson(Map<String, dynamic> json) => TimeOfDay(
-      hour: json['hour'] as int,
-      minute: json['minute'] as int,
+RTimeOfDay _$RTimeOfDayFromJson(Map<String, dynamic> json) => RTimeOfDay(
+      hour: (json['hour'] as num).toInt(),
+      minute: (json['minute'] as num).toInt(),
     );
 
-Map<String, dynamic> _$TimeOfDayToJson(TimeOfDay instance) => <String, dynamic>{
+Map<String, dynamic> _$RTimeOfDayToJson(RTimeOfDay instance) =>
+    <String, dynamic>{
       'hour': instance.hour,
       'minute': instance.minute,
     };

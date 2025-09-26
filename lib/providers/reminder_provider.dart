@@ -153,12 +153,12 @@ class ReminderProvider extends ChangeNotifier {
         return DateTime(now.year, now.month, now.day + 1, 
                        reminder.time.hour, reminder.time.minute);
       case ReminderFrequency.weekly:
-        final daysUntilNext = (reminder.weekday - now.weekday + 7) % 7;
+        final daysUntilNext = (reminder.weekday! - now.weekday + 7) % 7;
         final nextWeek = daysUntilNext == 0 ? 7 : daysUntilNext;
         return DateTime(now.year, now.month, now.day + nextWeek,
                        reminder.time.hour, reminder.time.minute);
       case ReminderFrequency.monthly:
-        var nextMonth = DateTime(now.year, now.month + 1, reminder.dayOfMonth);
+        var nextMonth = DateTime(now.year, now.month + 1, reminder.dayOfMonth ?? 1); //fix ?? 1
         if (nextMonth.month != now.month + 1) {
           // Handle cases where the day doesn't exist in the next month
           nextMonth = DateTime(now.year, now.month + 2, 0); // Last day of next month

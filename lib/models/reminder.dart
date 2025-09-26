@@ -1,3 +1,6 @@
+
+
+import 'package:flutter/material.dart' as flutter show TimeOfDay;
 import 'package:json_annotation/json_annotation.dart';
 
 part 'reminder.g.dart';
@@ -9,7 +12,7 @@ class Reminder {
   final String description;
   final String category;
   final ReminderFrequency frequency;
-  final TimeOfDay time;
+  final RTimeOfDay time;
   final DateTime nextDueDate;
   final bool isActive;
   final DateTime createdAt;
@@ -50,8 +53,8 @@ class Reminder {
     String? title,
     String? description,
     String? category,
-    ReminderFrequency? frequency,
-    TimeOfDay? time,
+  ReminderFrequency? frequency,
+  RTimeOfDay? time,
     DateTime? nextDueDate,
     bool? isActive,
     DateTime? createdAt,
@@ -70,7 +73,7 @@ class Reminder {
       description: description ?? this.description,
       category: category ?? this.category,
       frequency: frequency ?? this.frequency,
-      time: time ?? this.time,
+  time: time ?? this.time,
       nextDueDate: nextDueDate ?? this.nextDueDate,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
@@ -98,9 +101,9 @@ class Reminder {
   }
 
   String get formattedTime {
-    final hour = time.hour.toString().padLeft(2, '0');
-    final minute = time.minute.toString().padLeft(2, '0');
-    return '$hour:$minute';
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
   }
 
   String get frequencyDescription {
@@ -141,34 +144,36 @@ enum ReminderPriority {
   urgent,
 }
 
+typedef flutter_TimeOfDay = flutter.TimeOfDay;
+
 @JsonSerializable()
-class TimeOfDay {
+class RTimeOfDay {
   final int hour;
   final int minute;
 
-  const TimeOfDay({
+  const RTimeOfDay({
     required this.hour,
     required this.minute,
   });
 
-  factory TimeOfDay.fromJson(Map<String, dynamic> json) => _$TimeOfDayFromJson(json);
-  Map<String, dynamic> toJson() => _$TimeOfDayToJson(this);
+  factory RTimeOfDay.fromJson(Map<String, dynamic> json) => _$RTimeOfDayFromJson(json);
+  Map<String, dynamic> toJson() => _$RTimeOfDayToJson(this);
 
-  factory TimeOfDay.fromFlutterTimeOfDay(flutter_TimeOfDay timeOfDay) {
-    return TimeOfDay(
+  factory RTimeOfDay.fromFlutterTimeOfDay(flutter.TimeOfDay timeOfDay) {
+    return RTimeOfDay(
       hour: timeOfDay.hour,
       minute: timeOfDay.minute,
     );
   }
 
-  flutter_TimeOfDay toFlutterTimeOfDay() {
-    return flutter_TimeOfDay(hour: hour, minute: minute);
+  flutter.TimeOfDay toFlutterTimeOfDay() {
+    return flutter.TimeOfDay(hour: hour, minute: minute);
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TimeOfDay &&
+      other is RTimeOfDay &&
           runtimeType == other.runtimeType &&
           hour == other.hour &&
           minute == other.minute;
@@ -176,7 +181,3 @@ class TimeOfDay {
   @override
   int get hashCode => hour.hashCode ^ minute.hashCode;
 }
-
-// Import Flutter's TimeOfDay for conversion
-import 'package:flutter/material.dart' as flutter show TimeOfDay;
-typedef flutter_TimeOfDay = flutter.TimeOfDay;

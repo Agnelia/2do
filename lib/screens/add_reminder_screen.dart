@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as flutter show TimeOfDay;
 import 'package:provider/provider.dart';
-import 'package:todo_health_reminders/models/reminder.dart';
+import 'package:todo_health_reminders/models/reminder.dart' as model;
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class AddReminderScreen extends StatefulWidget {
-  final Reminder? reminderToEdit;
+  final model.Reminder? reminderToEdit;
 
   const AddReminderScreen({
     super.key,
@@ -23,9 +24,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   final _notesController = TextEditingController();
 
   String _selectedCategory = 'Medication';
-  ReminderFrequency _selectedFrequency = ReminderFrequency.daily;
-  ReminderPriority _selectedPriority = ReminderPriority.medium;
-  TimeOfDay _selectedTime = const TimeOfDay(hour: 9, minute: 0);
+  model.ReminderFrequency _selectedFrequency = model.ReminderFrequency.daily;
+  model.ReminderPriority _selectedPriority = model.ReminderPriority.medium;
+  flutter.TimeOfDay _selectedTime = const flutter.TimeOfDay(hour: 9, minute: 0);
   int? _customInterval;
   List<String> _tags = [];
   final _tagController = TextEditingController();
@@ -54,9 +55,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     _descriptionController.text = reminder.description;
     _notesController.text = reminder.notes ?? '';
     _selectedCategory = reminder.category;
-    _selectedFrequency = reminder.frequency;
-    _selectedPriority = reminder.priority;
-    _selectedTime = reminder.time.toFlutterTimeOfDay();
+  _selectedFrequency = reminder.frequency;
+  _selectedPriority = reminder.priority;
+  _selectedTime = reminder.time.toFlutterTimeOfDay();
     _customInterval = reminder.customInterval;
     _tags = List.from(reminder.tags);
   }
@@ -145,13 +146,13 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
               maxLines: 3,
             ),
             const SizedBox(height: 16),
-            DropdownButtonFormField<ReminderPriority>(
+            DropdownButtonFormField<model.ReminderPriority>(
               value: _selectedPriority,
               decoration: const InputDecoration(
                 labelText: 'Priority',
                 border: OutlineInputBorder(),
               ),
-              items: ReminderPriority.values.map((priority) {
+              items: model.ReminderPriority.values.map((priority) {
                 return DropdownMenuItem(
                   value: priority,
                   child: Row(
@@ -194,13 +195,13 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
               onTap: _selectTime,
             ),
             const SizedBox(height: 8),
-            DropdownButtonFormField<ReminderFrequency>(
+            DropdownButtonFormField<model.ReminderFrequency>(
               value: _selectedFrequency,
               decoration: const InputDecoration(
                 labelText: 'Frequency',
                 border: OutlineInputBorder(),
               ),
-              items: ReminderFrequency.values.map((frequency) {
+              items: model.ReminderFrequency.values.map((frequency) {
                 return DropdownMenuItem(
                   value: frequency,
                   child: Text(_getFrequencyLabel(frequency)),
@@ -212,7 +213,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
                 });
               },
             ),
-            if (_selectedFrequency == ReminderFrequency.custom) ...[
+            if (_selectedFrequency == model.ReminderFrequency.custom) ...[
               const SizedBox(height: 16),
               TextFormField(
                 initialValue: _customInterval?.toString(),
@@ -223,7 +224,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
-                  if (_selectedFrequency == ReminderFrequency.custom) {
+                  if (_selectedFrequency == model.ReminderFrequency.custom) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter the interval';
                     }
@@ -300,7 +301,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
                       hintText: 'Add a tag',
                       border: OutlineInputBorder(),
                     ),
-                    onSubmitted: _addTag,
+                    // onSubmitted: _addTag, // Removed invalid parameter
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -368,19 +369,19 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     );
   }
 
-  Widget _buildPriorityIcon(ReminderPriority priority) {
+  Widget _buildPriorityIcon(model.ReminderPriority priority) {
     Color color;
     switch (priority) {
-      case ReminderPriority.urgent:
+      case model.ReminderPriority.urgent:
         color = Colors.red;
         break;
-      case ReminderPriority.high:
+      case model.ReminderPriority.high:
         color = Colors.orange;
         break;
-      case ReminderPriority.medium:
+      case model.ReminderPriority.medium:
         color = Colors.yellow;
         break;
-      case ReminderPriority.low:
+      case model.ReminderPriority.low:
         color = Colors.green;
         break;
     }
@@ -395,21 +396,21 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     );
   }
 
-  String _getFrequencyLabel(ReminderFrequency frequency) {
+  String _getFrequencyLabel(model.ReminderFrequency frequency) {
     switch (frequency) {
-      case ReminderFrequency.daily:
+      case model.ReminderFrequency.daily:
         return 'Daily';
-      case ReminderFrequency.weekly:
+      case model.ReminderFrequency.weekly:
         return 'Weekly';
-      case ReminderFrequency.monthly:
+      case model.ReminderFrequency.monthly:
         return 'Monthly';
-      case ReminderFrequency.custom:
+      case model.ReminderFrequency.custom:
         return 'Custom';
     }
   }
 
   Future<void> _selectTime() async {
-    final TimeOfDay? picked = await showTimePicker(
+  final flutter.TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: _selectedTime,
     );
@@ -446,13 +447,13 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
         _selectedTime.minute,
       );
 
-      final reminder = Reminder(
+      final reminder = model.Reminder(
         id: widget.reminderToEdit?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
         category: _selectedCategory,
         frequency: _selectedFrequency,
-        time: TimeOfDay.fromFlutterTimeOfDay(_selectedTime),
+  time: model.RTimeOfDay.fromFlutterTimeOfDay(_selectedTime),
         nextDueDate: nextDueDate.isBefore(now) 
             ? nextDueDate.add(const Duration(days: 1)) 
             : nextDueDate,
