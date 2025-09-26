@@ -87,4 +87,7 @@ class ThemeProvider extends ChangeNotifier {
 
   // Get secondary color for current theme
   Color get secondaryColor => ThemeConfig.getSecondaryColor(_currentTheme);
+
+  // Get category colors for current theme
+  Map<String, Color> get categoryColors => AppConstants.getCategoryColors(_currentTheme);
 }
