@@ -7,6 +7,7 @@ import 'package:todo_health_reminders/widgets/statistics_chart.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 import 'package:todo_health_reminders/screens/add_reminder_screen.dart';
 import 'package:todo_health_reminders/screens/statistics_screen.dart';
+import 'package:todo_health_reminders/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -172,10 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.teal,
-              child: Icon(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: const Icon(
                 Icons.favorite,
                 color: Colors.white,
                 size: 30,
@@ -282,11 +283,11 @@ class _HomeScreenState extends State<HomeScreen> {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 24),
-          const Center(
+          Center(
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: Colors.teal,
-              child: Icon(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: const Icon(
                 Icons.person,
                 color: Colors.white,
                 size: 50,
@@ -299,6 +300,20 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text('User Profile'),
             subtitle: Text('Manage your account settings'),
             trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            subtitle: const Text('App preferences and theme'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
           ),
           const ListTile(
             leading: Icon(Icons.notifications),

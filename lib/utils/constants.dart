@@ -145,94 +145,147 @@ class AppConstants {
   static const int minCustomInterval = 1; // days
 }
 
-class AppTheme {
-  static ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppConstants.primaryColor,
-      brightness: Brightness.light,
-    ),
-    useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusL),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
-      ),
-      filled: true,
-    ),
-  );
+// Theme Enums
+enum AppThemeType {
+  teal,
+  sunnyDay,
+}
 
-  static ThemeData darkTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppConstants.primaryColor,
-      brightness: Brightness.dark,
-    ),
-    useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusL),
+// Theme Configuration
+class ThemeConfig {
+  // Teal Theme Colors (original)
+  static const Color tealPrimary = Colors.teal;
+  static const Color tealSecondary = Colors.tealAccent;
+  
+  // Sunny Day Theme Colors
+  static const Color sunnyPrimary = Colors.orange;
+  static const Color sunnySecondary = Colors.amber;
+  static const Color sunnyAccent = Color(0xFFFFA726); // Orange 400
+  static const Color sunnyHighlight = Color(0xFFFFC107); // Amber 600
+  
+  // Get primary color for theme
+  static Color getPrimaryColor(AppThemeType theme) {
+    switch (theme) {
+      case AppThemeType.teal:
+        return tealPrimary;
+      case AppThemeType.sunnyDay:
+        return sunnyPrimary;
+    }
+  }
+  
+  // Get secondary color for theme
+  static Color getSecondaryColor(AppThemeType theme) {
+    switch (theme) {
+      case AppThemeType.teal:
+        return tealSecondary;
+      case AppThemeType.sunnyDay:
+        return sunnySecondary;
+    }
+  }
+}
+
+class AppTheme {
+  // Generate light theme for a specific theme type
+  static ThemeData getLightTheme(AppThemeType themeType) {
+    final primaryColor = ThemeConfig.getPrimaryColor(themeType);
+    
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        brightness: Brightness.light,
       ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
+      useMaterial3: true,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+      ),
+      cardTheme: CardTheme(
+        elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
         ),
       ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
         ),
       ),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
         ),
       ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
       ),
-      filled: true,
-    ),
-  );
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        ),
+        filled: true,
+      ),
+    );
+  }
+
+  // Generate dark theme for a specific theme type
+  static ThemeData getDarkTheme(AppThemeType themeType) {
+    final primaryColor = ThemeConfig.getPrimaryColor(themeType);
+    
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        brightness: Brightness.dark,
+      ),
+      useMaterial3: true,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+      ),
+      cardTheme: CardTheme(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        ),
+        filled: true,
+      ),
+    );
+  }
+
+  // Legacy getters for backward compatibility
+  static ThemeData get lightTheme => getLightTheme(AppThemeType.teal);
+  static ThemeData get darkTheme => getDarkTheme(AppThemeType.teal);
 }
