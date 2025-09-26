@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Theme Enums
+enum AppThemeType {
+  teal,
+  sunnyDay,
+}
+
 class AppConstants {
   // App Information
   static const String appName = '2do Health Reminders';
@@ -30,6 +36,27 @@ class AppConstants {
     'Mental Health': Colors.teal,
     'Other': Colors.grey,
   };
+
+  // Sunny Day Category Colors - brighter variants
+  static const Map<String, Color> sunnyCategoryColors = {
+    'Medication': Color(0xFFE91E63), // Pink 500
+    'Exercise': Color(0xFFFF5722), // Deep Orange 500
+    'Water': Color(0xFF2196F3), // Blue 500
+    'Sleep': Color(0xFF9C27B0), // Purple 500
+    'Nutrition': Color(0xFF4CAF50), // Green 500
+    'Mental Health': Color(0xFF00BCD4), // Cyan 500
+    'Other': Color(0xFF607D8B), // Blue Grey 500
+  };
+  
+  // Get category colors based on theme
+  static Map<String, Color> getCategoryColors(AppThemeType theme) {
+    switch (theme) {
+      case AppThemeType.teal:
+        return categoryColors;
+      case AppThemeType.sunnyDay:
+        return sunnyCategoryColors;
+    }
+  }
 
   // Category Icons
   static const Map<String, IconData> categoryIcons = {
@@ -145,94 +172,141 @@ class AppConstants {
   static const int minCustomInterval = 1; // days
 }
 
-class AppTheme {
-  static ThemeData lightTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppConstants.primaryColor,
-      brightness: Brightness.light,
-    ),
-    useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusL),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        ),
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
-      ),
-      filled: true,
-    ),
-  );
+// Theme Configuration
+class ThemeConfig {
+  // Teal Theme Colors (original)
+  static const Color tealPrimary = Colors.teal;
+  static const Color tealSecondary = Colors.tealAccent;
+  
+  // Sunny Day Theme Colors
+  static const Color sunnyPrimary = Color(0xFFFF8F00); // Amber 800 - more vibrant orange
+  static const Color sunnySecondary = Color(0xFFFFD54F); // Yellow 300 - bright sunny yellow
+  static const Color sunnyAccent = Color(0xFFFFA726); // Orange 400
+  static const Color sunnyHighlight = Color(0xFFFFC107); // Amber 600
+  
+  // Get primary color for theme
+  static Color getPrimaryColor(AppThemeType theme) {
+    switch (theme) {
+      case AppThemeType.teal:
+        return tealPrimary;
+      case AppThemeType.sunnyDay:
+        return sunnyPrimary;
+    }
+  }
+  
+  // Get secondary color for theme
+  static Color getSecondaryColor(AppThemeType theme) {
+    switch (theme) {
+      case AppThemeType.teal:
+        return tealSecondary;
+      case AppThemeType.sunnyDay:
+        return sunnySecondary;
+    }
+  }
+}
 
-  static ThemeData darkTheme = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppConstants.primaryColor,
-      brightness: Brightness.dark,
-    ),
-    useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-    ),
-    cardTheme: CardTheme(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusL),
+class AppTheme {
+  // Generate light theme for a specific theme type
+  static ThemeData getLightTheme(AppThemeType themeType) {
+    final primaryColor = ThemeConfig.getPrimaryColor(themeType);
+    
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        brightness: Brightness.light,
       ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
+      useMaterial3: true,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+      ),
+      cardTheme: CardTheme(
+        elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
         ),
       ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
         ),
       ),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
         ),
       ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
       ),
-      filled: true,
-    ),
-  );
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        ),
+        filled: true,
+      ),
+    );
+  }
+
+  // Generate dark theme for a specific theme type
+  static ThemeData getDarkTheme(AppThemeType themeType) {
+    final primaryColor = ThemeConfig.getPrimaryColor(themeType);
+    
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        brightness: Brightness.dark,
+      ),
+      useMaterial3: true,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        centerTitle: true,
+      ),
+      cardTheme: CardTheme(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.radiusM),
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        ),
+        filled: true,
+      ),
+    );
+  }
+
+  // Legacy getters for backward compatibility
+  static ThemeData get lightTheme => getLightTheme(AppThemeType.teal);
+  static ThemeData get darkTheme => getDarkTheme(AppThemeType.teal);
 }
