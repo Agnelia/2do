@@ -24,14 +24,28 @@ git checkout -b test
 git push origin test
 ```
 
-## 2. Set Default Branch for Copilot
+## 2. Configure Copilot Branch Targeting (Manual Setup Required)
 
-To ensure Copilot creates PRs targeting the test branch:
+**Important**: The Copilot integration requires manual configuration - it's not automatically applied by the configuration files.
 
+To ensure Copilot creates PRs targeting the test branch, choose one of these approaches:
+
+### Option A: Change Repository Default Branch (Recommended)
 1. Go to GitHub repository settings
 2. Navigate to "General" → "Default branch"
-3. Change default branch to `test` (temporarily)
-4. Or configure branch protection rules to guide PR creation
+3. Change default branch from `main` to `test`
+4. This will make all new PRs (including Copilot PRs) target `test` by default
+
+### Option B: Configure Branch Protection Rules
+1. Go to GitHub repository settings
+2. Navigate to "Branches" → "Branch protection rules"
+3. Set up rules that encourage PR creation to target `test` branch
+4. Configure `main` branch to require PRs from `test` branch
+
+### Option C: Organization/Team Copilot Policies
+If you have GitHub Copilot for Business, configure organization-level policies to set default branch targeting.
+
+**Note**: The `.github/copilot-config.yml` file is documentation/reference only - it doesn't automatically configure Copilot behavior.
 
 ## 3. Azure Resources Setup
 

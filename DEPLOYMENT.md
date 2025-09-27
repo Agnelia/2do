@@ -128,23 +128,41 @@ You can also deploy manually using the deployment script:
 ### Test Environment
 - **URL**: https://test-2do-health-reminders.azurestaticapps.net
 - **Branch**: `test`
-- **Debug Mode**: Enabled
-- **Analytics**: Disabled
+- **Debug Mode**: Enabled (`ENABLE_DEBUG: "true"`)
+- **Analytics**: Disabled (`ANALYTICS_ENABLED: "false"`)
 - **Cache Policy**: No cache (for testing)
 
 ### Production Environment
 - **URL**: https://2do-health-reminders.azurestaticapps.net
 - **Branch**: `main`
-- **Debug Mode**: Disabled
-- **Analytics**: Enabled
+- **Debug Mode**: Disabled (`ENABLE_DEBUG: "false"`)
+- **Analytics**: Enabled (`ANALYTICS_ENABLED: "true"`)
 - **Cache Policy**: 1 hour cache
+
+**Note on Analytics**: The `ANALYTICS_ENABLED` setting is a configuration flag that can be used by the Flutter application to conditionally enable analytics services (such as Google Analytics, Firebase Analytics, or Azure Application Insights). The actual analytics implementation depends on what the Flutter app chooses to integrate with when this flag is true.
 
 ## Copilot Integration
 
-GitHub Copilot is configured to target the `test` branch for pull requests. This ensures:
-- Copilot changes are tested in the test environment first
-- Production stability is maintained
-- Proper review process for production deployments
+The repository includes configuration guidance for GitHub Copilot to target the `test` branch for pull requests. **Note: This requires manual setup by the repository owner.**
+
+### How Copilot Integration Works:
+
+1. **Manual Configuration Required**: The `.github/copilot-config.yml` file is a reference configuration that documents the intended branch targeting strategy, but GitHub Copilot's branch targeting must be configured manually through:
+   - Repository default branch settings
+   - Branch protection rules
+   - Team/organization Copilot policies
+
+2. **Intended Workflow**:
+   - Copilot-generated PRs → Target `test` branch → Deploy to test environment
+   - Manual review and testing in test environment
+   - After approval, changes can be merged to `main` for production deployment
+
+3. **Benefits**:
+   - Copilot changes are tested in the test environment first
+   - Production stability is maintained through staged deployments
+   - Proper review process for production deployments
+
+**Implementation Steps**: See `SETUP-INSTRUCTIONS.md` section "Set Default Branch for Copilot" for manual configuration steps.
 
 ## Monitoring and Troubleshooting
 
