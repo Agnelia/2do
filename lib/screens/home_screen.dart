@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/providers/statistics_provider.dart';
+import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/widgets/reminder_card.dart';
 import 'package:todo_health_reminders/widgets/statistics_chart.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
@@ -9,6 +10,8 @@ import 'package:todo_health_reminders/screens/add_reminder_screen.dart';
 import 'package:todo_health_reminders/screens/statistics_screen.dart';
 import 'package:todo_health_reminders/screens/settings_screen.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
+import 'package:todo_health_reminders/utils/constants.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -171,48 +174,59 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildWelcomeCard() {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: const Icon(
-                Icons.favorite,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Good day!',
-                    style: Theme.of(context).textTheme.headlineSmall,
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
+        
+        return Card(
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: isSunnyTheme ?const Color.fromARGB(232, 252, 171, 58)  : Theme.of(context).colorScheme.primary,
+                  child: Icon(
+                    Icons.favorite,
+                    color: isSunnyTheme ? const Color(0xFFE53935) : Colors.white, // Really red heart with white background for visibility
+                    size: 40,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Keep up with your health goals',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Good day!',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: isSunnyTheme ? FontWeight.bold : null,
+                          color: isSunnyTheme ? ThemeConfig.sunnyAccent : null, // Keep red as requested
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Keep up with your health goals',
+                        style: Theme.of(context).textTheme.bodyMedium, // Keep default colors (black/grey)
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildQuickStats() {
-    return Consumer<StatisticsProvider>(
-      builder: (context, statsProvider, child) {
-        return SizedBox(
-          height: 120,
+    return Consumer2<StatisticsProvider, ThemeProvider>(
+      builder: (context, statsProvider, themeProvider, child) {
+        final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
+        
+        return IntrinsicHeight(
           child: Row(
             children: [
               Expanded(
@@ -220,7 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Completed Today',
                   statsProvider.completedToday.toString(),
                   Icons.check_circle,
-                  Colors.green,
+                  isSunnyTheme ? const Color(0xFF4CAF50) : Colors.green, // More vibrant green
+                  isSunnyTheme,
                 ),
               ),
               const SizedBox(width: 8),
@@ -229,7 +244,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Weekly Streak',
                   '${statsProvider.weeklyStreak} days',
                   Icons.local_fire_department,
-                  Colors.orange,
+                  isSunnyTheme ? const Color(0xFFFF9800) : Colors.orange, // Yellow-orange instead of pinkish orange
+                  isSunnyTheme,
                 ),
               ),
               const SizedBox(width: 8),
@@ -238,7 +254,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Health Score',
                   '${statsProvider.healthScore}%',
                   Icons.trending_up,
-                  Colors.blue,
+                  isSunnyTheme ? const Color(0xFF2196F3) : Colors.blue, // More vibrant blue
+                  isSunnyTheme,
                 ),
               ),
             ],
@@ -248,25 +265,43 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(String title, String value, IconData icon, Color color, bool isSunnyTheme) {
+    final iconSize = isSunnyTheme ? 36.0 : 24.0;
+    final padding = isSunnyTheme ? 16.0 : 12.0;
+    
     return Card(
+      elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(padding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color, size: 24),
+            Container(
+              padding: isSunnyTheme ? const EdgeInsets.all(8) : null,
+              decoration: isSunnyTheme ? BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ) : null,
+              child: Icon(
+                icon, 
+                color: color, 
+                size: iconSize,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               value,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: color,
+                fontSize: isSunnyTheme ? 18 : null,
               ),
             ),
             Text(
               title,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: isSunnyTheme ? FontWeight.w600 : null,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
