@@ -253,6 +253,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// Add reminder page title
+  String get addReminder;
+
+  /// Edit reminder page title
+  String get editReminder;
+
+  /// Save button label
+  String get save;
+
+  /// Update button label
+  String get update;
+
+  /// Schedule section header
+  String get schedule;
+
+  /// Time field label
+  String get time;
+
+  /// Frequency field label
+  String get frequency;
+
+  /// Priority field label
+  String get priority;
+
+  /// Category field label
+  String get category;
+
+  /// Daily frequency option
+  String get daily;
+
+  /// Weekly frequency option
+  String get weekly;
+
+  /// Monthly frequency option
+  String get monthly;
+
+  /// Custom frequency option
+  String get custom;
+
+  /// Select days label for weekday selection
+  String get selectDays;
+
+  /// Monday day name
+  String get monday;
+
+  /// Tuesday day name
+  String get tuesday;
+
+  /// Wednesday day name
+  String get wednesday;
+
+  /// Thursday day name
+  String get thursday;
+
+  /// Friday day name
+  String get friday;
+
+  /// Saturday day name
+  String get saturday;
+
+  /// Sunday day name
+  String get sunday;
+
+  /// Multiple times label
+  String get times;
+
+  /// Add time button label
+  String get addTime;
+
+  /// Save reminder button label
+  String get saveReminder;
+
+  /// Custom interval label
+  String get everyXDays;
+
+  /// Custom interval hint text
+  String get enterNumberOfDays;
 }
 
 class _AppLocalizationsDelegate

@@ -13,6 +13,12 @@ Reminder _$ReminderFromJson(Map<String, dynamic> json) => Reminder(
       category: json['category'] as String,
       frequency: $enumDecode(_$ReminderFrequencyEnumMap, json['frequency']),
       time: R_TimeOfDay.fromJson(json['time'] as Map<String, dynamic>),
+      times: (json['times'] as List<dynamic>?)
+          ?.map((e) => R_TimeOfDay.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      selectedWeekdays: (json['selectedWeekdays'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       nextDueDate: DateTime.parse(json['nextDueDate'] as String),
       isActive: json['isActive'] as bool? ?? true,
       createdAt: DateTime.parse(json['createdAt'] as String),
@@ -39,6 +45,8 @@ Map<String, dynamic> _$ReminderToJson(Reminder instance) => <String, dynamic>{
       'category': instance.category,
       'frequency': _$ReminderFrequencyEnumMap[instance.frequency]!,
       'time': instance.time,
+      'times': instance.times,
+      'selectedWeekdays': instance.selectedWeekdays,
       'nextDueDate': instance.nextDueDate.toIso8601String(),
       'isActive': instance.isActive,
       'createdAt': instance.createdAt.toIso8601String(),

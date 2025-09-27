@@ -86,4 +86,82 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get addReminder => 'Add Reminder';
+
+  @override
+  String get editReminder => 'Edit Reminder';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get frequency => 'Frequency';
+
+  @override
+  String get priority => 'Priority';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get daily => 'Daily';
+
+  @override
+  String get weekly => 'Weekly';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get selectDays => 'Select Days';
+
+  @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get times => 'Times';
+
+  @override
+  String get addTime => 'Add Time';
+
+  @override
+  String get saveReminder => 'Save Reminder';
+
+  @override
+  String get everyXDays => 'Every X days';
+
+  @override
+  String get enterNumberOfDays => 'Enter number of days';
 }

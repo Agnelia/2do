@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/models/reminder.dart' as model;
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
 class AddReminderScreen extends StatefulWidget {
   final model.Reminder? reminderToEdit;
@@ -27,6 +28,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   model.ReminderFrequency _selectedFrequency = model.ReminderFrequency.daily;
   model.ReminderPriority _selectedPriority = model.ReminderPriority.medium;
   flutter.TimeOfDay _selectedTime = const flutter.TimeOfDay(hour: 9, minute: 0);
+  List<flutter.TimeOfDay> _selectedTimes = [];
+  List<int> _selectedWeekdays = [];
   int? _customInterval;
   List<String> _tags = [];
   final _tagController = TextEditingController();
@@ -46,6 +49,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     super.initState();
     if (widget.reminderToEdit != null) {
       _loadReminderData();
+    } else {
+      // For new reminders, start with a default time
+      _selectedTimes = [_selectedTime];
     }
   }
 
@@ -60,21 +66,34 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   _selectedTime = reminder.time.toFlutterTimeOfDay();
     _customInterval = reminder.customInterval;
     _tags = List.from(reminder.tags);
+    
+    // Load new fields
+    if (reminder.times != null && reminder.times!.isNotEmpty) {
+      _selectedTimes = reminder.times!.map((t) => t.toFlutterTimeOfDay()).toList();
+    } else {
+      // If no times are set, use the primary time
+      _selectedTimes = [reminder.time.toFlutterTimeOfDay()];
+    }
+    
+    if (reminder.selectedWeekdays != null) {
+      _selectedWeekdays = List.from(reminder.selectedWeekdays!);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.reminderToEdit != null;
+    final l10n = AppLocalizations.of(context)!;
     
     return ResponsiveLayout(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(isEditing ? 'Edit Reminder' : 'Add Reminder'),
+          title: Text(isEditing ? l10n.editReminder : l10n.addReminder),
           actions: [
             TextButton(
               onPressed: _saveReminder,
               child: Text(
-                isEditing ? 'Update' : 'Save',
+                isEditing ? l10n.update : l10n.save,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
@@ -110,6 +129,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   }
 
   Widget _buildBasicInfoSection() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -148,9 +169,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
             const SizedBox(height: 16),
             DropdownButtonFormField<model.ReminderPriority>(
               value: _selectedPriority,
-              decoration: const InputDecoration(
-                labelText: 'Priority',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.priority,
+                border: const OutlineInputBorder(),
               ),
               items: model.ReminderPriority.values.map((priority) {
                 return DropdownMenuItem(
@@ -177,6 +198,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   }
 
   Widget _buildScheduleSection() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -184,43 +207,66 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Schedule',
+              l10n.schedule,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.access_time),
-              title: Text('Time: ${_selectedTime.format(context)}'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: _selectTime,
-            ),
-            const SizedBox(height: 8),
             DropdownButtonFormField<model.ReminderFrequency>(
               value: _selectedFrequency,
-              decoration: const InputDecoration(
-                labelText: 'Frequency',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.frequency,
+                border: const OutlineInputBorder(),
               ),
               items: model.ReminderFrequency.values.map((frequency) {
                 return DropdownMenuItem(
                   value: frequency,
-                  child: Text(_getFrequencyLabel(frequency)),
+                  child: Text(_getFrequencyLabel(frequency, l10n)),
                 );
               }).toList(),
               onChanged: (value) {
                 setState(() {
                   _selectedFrequency = value!;
+                  // Reset related fields when frequency changes
+                  if (_selectedFrequency != model.ReminderFrequency.daily && 
+                      _selectedFrequency != model.ReminderFrequency.weekly) {
+                    _selectedWeekdays.clear();
+                    _selectedTimes.clear();
+                  }
                 });
               },
             ),
+            // Show weekday selection for daily and weekly frequency
+            if (_selectedFrequency == model.ReminderFrequency.daily || 
+                _selectedFrequency == model.ReminderFrequency.weekly) ...[
+              const SizedBox(height: 16),
+              Text(
+                l10n.selectDays,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 8),
+              _buildWeekdaySelection(l10n),
+              const SizedBox(height: 16),
+              Text(
+                l10n.times,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 8),
+              _buildTimesList(l10n),
+              const SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: _addTime,
+                icon: const Icon(Icons.add),
+                label: Text(l10n.addTime),
+              ),
+            ],
             if (_selectedFrequency == model.ReminderFrequency.custom) ...[
               const SizedBox(height: 16),
               TextFormField(
                 initialValue: _customInterval?.toString(),
-                decoration: const InputDecoration(
-                  labelText: 'Every X days',
-                  hintText: 'Enter number of days',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.everyXDays,
+                  hintText: l10n.enterNumberOfDays,
+                  border: const OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -247,6 +293,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   }
 
   Widget _buildCategorySection() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -254,7 +302,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Category',
+              l10n.category,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
@@ -357,6 +405,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
   }
 
   Widget _buildSaveButton() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -364,7 +414,7 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 16),
         ),
-        child: const Text('Save Reminder'),
+        child: Text(l10n.saveReminder),
       ),
     );
   }
@@ -396,16 +446,89 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     );
   }
 
-  String _getFrequencyLabel(model.ReminderFrequency frequency) {
+  String _getFrequencyLabel(model.ReminderFrequency frequency, AppLocalizations l10n) {
     switch (frequency) {
       case model.ReminderFrequency.daily:
-        return 'Daily';
+        return l10n.daily;
       case model.ReminderFrequency.weekly:
-        return 'Weekly';
+        return l10n.weekly;
       case model.ReminderFrequency.monthly:
-        return 'Monthly';
+        return l10n.monthly;
       case model.ReminderFrequency.custom:
-        return 'Custom';
+        return l10n.custom;
+    }
+  }
+
+  Widget _buildWeekdaySelection(AppLocalizations l10n) {
+    final dayNames = [
+      l10n.monday,
+      l10n.tuesday,
+      l10n.wednesday,
+      l10n.thursday,
+      l10n.friday,
+      l10n.saturday,
+      l10n.sunday,
+    ];
+    
+    return Wrap(
+      spacing: 8,
+      children: List.generate(7, (index) {
+        final dayNumber = index + 1;
+        final isSelected = _selectedWeekdays.contains(dayNumber);
+        
+        return FilterChip(
+          label: Text(dayNames[index]),
+          selected: isSelected,
+          onSelected: (selected) {
+            setState(() {
+              if (selected) {
+                _selectedWeekdays.add(dayNumber);
+              } else {
+                _selectedWeekdays.remove(dayNumber);
+              }
+              _selectedWeekdays.sort();
+            });
+          },
+        );
+      }),
+    );
+  }
+
+  Widget _buildTimesList(AppLocalizations l10n) {
+    return Column(
+      children: _selectedTimes.map((time) {
+        return Card(
+          child: ListTile(
+            leading: const Icon(Icons.access_time),
+            title: Text(time.format(context)),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                setState(() {
+                  _selectedTimes.remove(time);
+                });
+              },
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Future<void> _addTime() async {
+    final flutter.TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: const flutter.TimeOfDay(hour: 12, minute: 0),
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedTimes.add(picked);
+        _selectedTimes.sort((a, b) {
+          final aMinutes = a.hour * 60 + a.minute;
+          final bMinutes = b.hour * 60 + b.minute;
+          return aMinutes.compareTo(bMinutes);
+        });
+      });
     }
   }
 
@@ -438,13 +561,26 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
 
   void _saveReminder() {
     if (_formKey.currentState!.validate()) {
+      // Ensure we have at least one time selected
+      if (_selectedTimes.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please add at least one time for the reminder'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       final now = DateTime.now();
+      // Use the first time from the list for nextDueDate calculation
+      final firstTime = _selectedTimes.first;
       final nextDueDate = DateTime(
         now.year,
         now.month,
         now.day,
-        _selectedTime.hour,
-        _selectedTime.minute,
+        firstTime.hour,
+        firstTime.minute,
       );
 
       final reminder = model.Reminder(
@@ -453,7 +589,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
         description: _descriptionController.text.trim(),
         category: _selectedCategory,
         frequency: _selectedFrequency,
-        time: model.R_TimeOfDay.fromFlutterTimeOfDay(_selectedTime),
+        time: model.R_TimeOfDay.fromFlutterTimeOfDay(firstTime), // Use first time as primary
+        times: _selectedTimes.map((t) => model.R_TimeOfDay.fromFlutterTimeOfDay(t)).toList(),
+        selectedWeekdays: _selectedWeekdays.isNotEmpty ? _selectedWeekdays : null,
         nextDueDate: nextDueDate.isBefore(now) 
             ? nextDueDate.add(const Duration(days: 1)) 
             : nextDueDate,

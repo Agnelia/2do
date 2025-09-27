@@ -103,5 +103,109 @@
   "profile": "Profile",
   "@profile": {
     "description": "Profile navigation label"
+  },
+  "addReminder": "Add Reminder",
+  "@addReminder": {
+    "description": "Add reminder page title"
+  },
+  "editReminder": "Edit Reminder",
+  "@editReminder": {
+    "description": "Edit reminder page title"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button label"
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Update button label"
+  },
+  "schedule": "Schedule",
+  "@schedule": {
+    "description": "Schedule section header"
+  },
+  "time": "Time",
+  "@time": {
+    "description": "Time field label"
+  },
+  "frequency": "Frequency",
+  "@frequency": {
+    "description": "Frequency field label"
+  },
+  "priority": "Priority",
+  "@priority": {
+    "description": "Priority field label"
+  },
+  "category": "Category",
+  "@category": {
+    "description": "Category field label"
+  },
+  "daily": "Daily",
+  "@daily": {
+    "description": "Daily frequency option"
+  },
+  "weekly": "Weekly",
+  "@weekly": {
+    "description": "Weekly frequency option"
+  },
+  "monthly": "Monthly",
+  "@monthly": {
+    "description": "Monthly frequency option"
+  },
+  "custom": "Custom",
+  "@custom": {
+    "description": "Custom frequency option"
+  },
+  "selectDays": "Select Days",
+  "@selectDays": {
+    "description": "Select days label for weekday selection"
+  },
+  "monday": "Monday",
+  "@monday": {
+    "description": "Monday day name"
+  },
+  "tuesday": "Tuesday",
+  "@tuesday": {
+    "description": "Tuesday day name"
+  },
+  "wednesday": "Wednesday",
+  "@wednesday": {
+    "description": "Wednesday day name"
+  },
+  "thursday": "Thursday",
+  "@thursday": {
+    "description": "Thursday day name"
+  },
+  "friday": "Friday",
+  "@friday": {
+    "description": "Friday day name"
+  },
+  "saturday": "Saturday",
+  "@saturday": {
+    "description": "Saturday day name"
+  },
+  "sunday": "Sunday",
+  "@sunday": {
+    "description": "Sunday day name"
+  },
+  "times": "Times",
+  "@times": {
+    "description": "Multiple times label"
+  },
+  "addTime": "Add Time",
+  "@addTime": {
+    "description": "Add time button label"
+  },
+  "saveReminder": "Save Reminder",
+  "@saveReminder": {
+    "description": "Save reminder button label"
+  },
+  "everyXDays": "Every X days",
+  "@everyXDays": {
+    "description": "Custom interval label"
+  },
+  "enterNumberOfDays": "Enter number of days",
+  "@enterNumberOfDays": {
+    "description": "Custom interval hint text"
   }
 }

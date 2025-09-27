@@ -55,6 +55,18 @@ class ReminderCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ],
+                        if (reminder.notes != null && reminder.notes!.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            reminder.notes!,
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.grey[500],
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ],
                     ),
                   ),
@@ -71,7 +83,7 @@ class ReminderCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    reminder.formattedTime,
+                    reminder.formattedTimes,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Colors.grey[600],
                     ),

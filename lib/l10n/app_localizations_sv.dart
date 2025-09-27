@@ -39,7 +39,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get chooseTheme => 'Välj ditt föredragna färgtema';
 
   @override
-  String get oceanTeal => 'Havsblågrön';
+  String get oceanTeal => 'Havsblägrön';
 
   @override
   String get oceanTealDesc => 'Lugnt och avkopplande blågrönt tema';
@@ -86,4 +86,82 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get profile => 'Profil';
+
+  @override
+  String get addReminder => 'Lägg till påminnelse';
+
+  @override
+  String get editReminder => 'Redigera påminnelse';
+
+  @override
+  String get save => 'Spara';
+
+  @override
+  String get update => 'Uppdatera';
+
+  @override
+  String get schedule => 'Schema';
+
+  @override
+  String get time => 'Tid';
+
+  @override
+  String get frequency => 'Frekvens';
+
+  @override
+  String get priority => 'Prioritet';
+
+  @override
+  String get category => 'Kategori';
+
+  @override
+  String get daily => 'Dagligen';
+
+  @override
+  String get weekly => 'Veckovis';
+
+  @override
+  String get monthly => 'Månadsvis';
+
+  @override
+  String get custom => 'Anpassad';
+
+  @override
+  String get selectDays => 'Välj dagar';
+
+  @override
+  String get monday => 'Måndag';
+
+  @override
+  String get tuesday => 'Tisdag';
+
+  @override
+  String get wednesday => 'Onsdag';
+
+  @override
+  String get thursday => 'Torsdag';
+
+  @override
+  String get friday => 'Fredag';
+
+  @override
+  String get saturday => 'Lördag';
+
+  @override
+  String get sunday => 'Söndag';
+
+  @override
+  String get times => 'Tider';
+
+  @override
+  String get addTime => 'Lägg till tid';
+
+  @override
+  String get saveReminder => 'Spara påminnelse';
+
+  @override
+  String get everyXDays => 'Var X dag';
+
+  @override
+  String get enterNumberOfDays => 'Ange antal dagar';
 }
