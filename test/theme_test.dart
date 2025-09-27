@@ -7,23 +7,23 @@ import 'package:todo_health_reminders/screens/settings_screen.dart';
 
 void main() {
   group('Theme System Tests', () {
-    testWidgets('ThemeProvider initializes with default teal theme', (WidgetTester tester) async {
+    testWidgets('ThemeProvider initializes with default sunny day theme', (WidgetTester tester) async {
       final themeProvider = ThemeProvider();
       
-      // Should start with teal theme
-      expect(themeProvider.currentTheme, AppThemeType.teal);
-      expect(themeProvider.themeName, 'Ocean Teal');
-      expect(themeProvider.primaryColor, ThemeConfig.tealPrimary);
-    });
-
-    testWidgets('ThemeProvider can switch to sunny day theme', (WidgetTester tester) async {
-      final themeProvider = ThemeProvider();
-      
-      // Switch to sunny day theme
-      await themeProvider.setTheme(AppThemeType.sunnyDay);
-      
+      // Should start with sunny day theme (now default)
       expect(themeProvider.currentTheme, AppThemeType.sunnyDay);
       expect(themeProvider.themeName, 'Sunny Day');
+      expect(themeProvider.primaryColor, ThemeConfig.sunnyPrimary);
+    });
+
+    testWidgets('ThemeProvider can switch to teal theme', (WidgetTester tester) async {
+      final themeProvider = ThemeProvider();
+      
+      // Switch to teal theme
+      await themeProvider.setTheme(AppThemeType.teal);
+      
+      expect(themeProvider.currentTheme, AppThemeType.teal);
+      expect(themeProvider.themeName, 'Ocean Teal');
       expect(themeProvider.primaryColor, ThemeConfig.sunnyPrimary);
     });
 
@@ -67,15 +67,15 @@ void main() {
         ),
       );
 
-      // Initially teal should be selected
-      expect(themeProvider.currentTheme, AppThemeType.teal);
+      // Initially sunny day should be selected (new default)
+      expect(themeProvider.currentTheme, AppThemeType.sunnyDay);
       
-      // Tap on Sunny Day option
-      await tester.tap(find.text('Sunny Day'));
+      // Tap on Ocean Teal option
+      await tester.tap(find.text('Ocean Teal'));
       await tester.pumpAndSettle();
 
-      // Should have switched to sunny day theme
-      expect(themeProvider.currentTheme, AppThemeType.sunnyDay);
+      // Should have switched to teal theme
+      expect(themeProvider.currentTheme, AppThemeType.teal);
     });
 
     test('Theme colors are configured correctly', () {
@@ -88,18 +88,18 @@ void main() {
       expect(ThemeConfig.getSecondaryColor(AppThemeType.sunnyDay), ThemeConfig.sunnySecondary);
     });
 
-    test('Sunny Day theme has vibrant colors', () {
-      // Test that the new vibrant colors are applied
-      expect(ThemeConfig.sunnyPrimary, const Color(0xFFFF6D00)); // Deep Orange 400
-      expect(ThemeConfig.sunnySecondary, const Color(0xFFFFEB3B)); // Yellow 500
-      expect(ThemeConfig.sunnyAccent, const Color(0xFFFF5722)); // Deep Orange 500
-      expect(ThemeConfig.sunnyHighlight, const Color(0xFFFDD835)); // Yellow 600
-      
-      // Test that category colors are also more vibrant
-      final sunnyCategoryColors = AppConstants.getCategoryColors(AppThemeType.sunnyDay);
-      expect(sunnyCategoryColors['Exercise'], const Color(0xFFFF3D00)); // Deep Orange 700 - more vibrant
-      expect(sunnyCategoryColors['Water'], const Color(0xFF1976D2)); // Blue 700 - more vibrant
-      expect(sunnyCategoryColors['Sleep'], const Color(0xFF7B1FA2)); // Purple 700 - more vibrant
+    test('Sunny Day theme has yellow-orange vibrant colors', () {\r
+      // Test that the new yellow-orange colors are applied\r
+      expect(ThemeConfig.sunnyPrimary, const Color(0xFFFF9800)); // Orange 500 - pure orange\r
+      expect(ThemeConfig.sunnySecondary, const Color(0xFFFFC107)); // Amber 500 - bright yellow\r
+      expect(ThemeConfig.sunnyAccent, const Color(0xFFFF8F00)); // Amber 700 - deep golden orange\r
+      expect(ThemeConfig.sunnyHighlight, const Color(0xFFFDD835)); // Yellow 600\r
+      \r
+      // Test that category colors are also more vibrant\r
+      final sunnyCategoryColors = AppConstants.getCategoryColors(AppThemeType.sunnyDay);\r
+      expect(sunnyCategoryColors['Exercise'], const Color(0xFFFF3D00)); // Deep Orange 700 - more vibrant\r
+      expect(sunnyCategoryColors['Water'], const Color(0xFF1976D2)); // Blue 700 - more vibrant\r
+      expect(sunnyCategoryColors['Sleep'], const Color(0xFF7B1FA2)); // Purple 700 - more vibrant\r
     });
 
     test('Theme data generation works for both themes', () {

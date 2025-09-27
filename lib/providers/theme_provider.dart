@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_health_reminders/utils/constants.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  AppThemeType _currentTheme = AppThemeType.teal;
+  AppThemeType _currentTheme = AppThemeType.sunnyDay;
   static const String _themePreferenceKey = 'selected_theme';
 
   AppThemeType get currentTheme => _currentTheme;
