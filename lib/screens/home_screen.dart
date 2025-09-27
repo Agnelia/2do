@@ -175,18 +175,18 @@ class _HomeScreenState extends State<HomeScreen> {
         final isSunnyTheme = themeProvider.currentTheme == AppThemeType.sunnyDay;
         
         return Card(
-          elevation: isSunnyTheme ? 4 : 2,
+          elevation: 2,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
                 CircleAvatar(
-                  radius: isSunnyTheme ? 35 : 30,
-                  backgroundColor: isSunnyTheme ? Colors.white : Theme.of(context).colorScheme.primary,
+                  radius: 30,
+                  backgroundColor: isSunnyTheme ?const Color.fromARGB(232, 252, 171, 58)  : Theme.of(context).colorScheme.primary,
                   child: Icon(
                     Icons.favorite,
                     color: isSunnyTheme ? const Color(0xFFE53935) : Colors.white, // Really red heart with white background for visibility
-                    size: isSunnyTheme ? 35 : 30,
+                    size: 40,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final padding = isSunnyTheme ? 16.0 : 12.0;
     
     return Card(
-      elevation: isSunnyTheme ? 4 : 2,
+      elevation: 2,
       child: Padding(
         padding: EdgeInsets.all(padding),
         child: Column(
