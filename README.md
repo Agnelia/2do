@@ -114,6 +114,19 @@ flutter build ios --release
 2. Build the web app: `flutter build web`
 3. Deploy: `vercel --prod`
 
+#### Azure Static Web Apps (Recommended)
+**Automated deployment with GitHub Actions**
+1. Follow setup instructions in `SETUP-INSTRUCTIONS.md`
+2. Run deployment script: `./deploy-azure.sh setup test && ./deploy-azure.sh setup prod`
+3. Configure GitHub secrets with Azure deployment tokens
+4. Create PRs targeting `test` branch for testing, `main` branch for production
+
+**Environment URLs:**
+- Test: https://test-2do-health-reminders.azurestaticapps.net
+- Production: https://2do-health-reminders.azurestaticapps.net
+
+For detailed deployment information, see `DEPLOYMENT.md`.
+
 ### Mobile App Stores
 
 #### Google Play Store
