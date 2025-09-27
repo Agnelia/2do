@@ -12,6 +12,8 @@ class Reminder {
   final String category;
   final ReminderFrequency frequency;
   final R_TimeOfDay time;
+  final List<R_TimeOfDay>? times; // Multiple times per day for advanced repetition
+  final List<int>? selectedWeekdays; // Specific weekdays for daily frequency (1-7, Monday to Sunday)
   final DateTime nextDueDate;
   final bool isActive;
   final DateTime createdAt;
@@ -31,6 +33,8 @@ class Reminder {
     required this.category,
     required this.frequency,
     required this.time,
+    this.times,
+    this.selectedWeekdays,
     required this.nextDueDate,
     this.isActive = true,
     required this.createdAt,
@@ -54,6 +58,8 @@ class Reminder {
     String? category,
   ReminderFrequency? frequency,
     R_TimeOfDay? time,
+    List<R_TimeOfDay>? times,
+    List<int>? selectedWeekdays,
     DateTime? nextDueDate,
     bool? isActive,
     DateTime? createdAt,
@@ -73,6 +79,8 @@ class Reminder {
       category: category ?? this.category,
       frequency: frequency ?? this.frequency,
   time: time ?? this.time,
+      times: times ?? this.times,
+      selectedWeekdays: selectedWeekdays ?? this.selectedWeekdays,
       nextDueDate: nextDueDate ?? this.nextDueDate,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
@@ -103,6 +111,25 @@ class Reminder {
   final hour = time.hour.toString().padLeft(2, '0');
   final minute = time.minute.toString().padLeft(2, '0');
   return '$hour:$minute';
+  }
+
+  String get formattedTimes {
+    if (times != null && times!.isNotEmpty) {
+      return times!.map((t) {
+        final hour = t.hour.toString().padLeft(2, '0');
+        final minute = t.minute.toString().padLeft(2, '0');
+        return '$hour:$minute';
+      }).join(', ');
+    }
+    return formattedTime;
+  }
+
+  String get weekdaysDescription {
+    if (selectedWeekdays != null && selectedWeekdays!.isNotEmpty) {
+      const dayNames = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+      return selectedWeekdays!.map((day) => dayNames[day - 1]).join(', ');
+    }
+    return '';
   }
 
   String get frequencyDescription {
