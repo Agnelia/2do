@@ -1,0 +1,25 @@
+{
+  "environment": "prod",
+  "name": "2do Health Reminders - Production",
+  "description": "Production environment for 2do Health Reminders application",
+  "version": "1.0.0",
+  "build": {
+    "flutter_version": "3.24.0",
+    "flutter_channel": "stable",
+    "build_command": "flutter build web --release --dart-define=ENVIRONMENT=prod",
+    "output_location": "build/web"
+  },
+  "deployment": {
+    "azure_static_web_app_name": "2do-health-reminders-prod",
+    "resource_group": "rg-2do-prod",
+    "subscription_id": "AZURE_SUBSCRIPTION_ID",
+    "location": "West Europe"
+  },
+  "app_settings": {
+    "ENVIRONMENT": "prod",
+    "API_BASE_URL": "https://api.2dohealth.com",
+    "SITE_URL": "https://2do-health-reminders.azurestaticapps.net",
+    "ENABLE_DEBUG": "false",
+    "ANALYTICS_ENABLED": "true"
+  }
+}
