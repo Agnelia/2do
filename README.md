@@ -117,7 +117,7 @@ flutter build ios --release
 #### Azure Static Web Apps (Recommended)
 **Automated deployment with GitHub Actions**
 1. Follow setup instructions in `SETUP-INSTRUCTIONS.md`
-2. Run deployment script: `./deploy-azure.sh setup test && ./deploy-azure.sh setup prod`
+2. **Repository owner**: Run deployment script locally: `./deploy-azure.sh setup test && ./deploy-azure.sh setup prod`
 3. Configure GitHub secrets with Azure deployment tokens
 4. Create PRs targeting `test` branch for testing, `main` branch for production
 

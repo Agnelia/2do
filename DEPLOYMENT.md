@@ -55,9 +55,19 @@ The application is configured for deployment to two environments:
 
 ### 1. Azure Resources Setup
 
+**Who should run this:** Repository owner or team member with Azure subscription admin permissions  
+**Where to run:** Locally on your machine from the repository root directory  
+**Prerequisites:** Azure CLI installed and logged in to Azure
+
 Use the provided deployment script to set up Azure resources:
 
 ```bash
+# Navigate to repository directory
+cd /path/to/your/2do/repository
+
+# Log in to Azure (if not already logged in)
+az login
+
 # Setup test environment
 ./deploy-azure.sh setup test
 
@@ -68,7 +78,7 @@ Use the provided deployment script to set up Azure resources:
 This will:
 - Create Azure Resource Groups
 - Create Azure Static Web Apps
-- Generate deployment tokens
+- Generate deployment tokens (save these for GitHub secrets)
 
 ### 2. GitHub Secrets Configuration
 

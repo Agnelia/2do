@@ -4,10 +4,16 @@ This document provides step-by-step instructions for setting up the Azure Static
 
 ## Prerequisites Checklist
 
-- [ ] Azure subscription with sufficient permissions
-- [ ] GitHub repository with admin access
-- [ ] Azure CLI installed locally
-- [ ] Flutter SDK 3.24.0 or higher
+- [ ] Azure subscription with sufficient permissions (Owner or Contributor role)
+- [ ] GitHub repository with admin access (to add secrets)
+- [ ] Azure CLI installed locally on your machine
+- [ ] Flutter SDK 3.24.0 or higher (for local testing)
+
+## Roles and Permissions
+
+**Repository Owner/Admin**: Must perform steps 3-4 (Azure setup and GitHub secrets)  
+**Developers**: Can perform steps 1-2 and 5+ (branch creation and testing)  
+**Azure Admin**: Must have Owner or Contributor role on Azure subscription
 
 ## 1. Create Test Branch
 
@@ -49,20 +55,51 @@ If you have GitHub Copilot for Business, configure organization-level policies t
 
 ## 3. Azure Resources Setup
 
-Run the deployment script to create Azure resources:
+**Who:** Repository owner or team member with Azure subscription admin permissions  
+**Where:** Run locally on your machine from the repository root directory  
+**Prerequisites:** Azure CLI must be installed and you must be logged in to Azure
 
-```bash
-# Make script executable
-chmod +x deploy-azure.sh
+### Setup Steps:
 
-# Setup test environment
-./deploy-azure.sh setup test
+1. **Open terminal/command prompt on your local machine**
 
-# Setup production environment  
-./deploy-azure.sh setup prod
-```
+2. **Navigate to the repository directory:**
+   ```bash
+   cd /path/to/your/cloned/2do/repository
+   ```
 
-**Important**: Save the deployment tokens provided by the script output.
+3. **Log in to Azure CLI (if not already logged in):**
+   ```bash
+   az login
+   ```
+   This will open a browser window for authentication. Make sure you log in with an account that has Owner or Contributor permissions on your Azure subscription.
+
+4. **Verify your Azure subscription:**
+   ```bash
+   az account show
+   ```
+   Ensure you're logged in to the correct subscription where you want to create the resources.
+
+5. **Make the deployment script executable:**
+   ```bash
+   chmod +x deploy-azure.sh
+   ```
+
+6. **Run the Azure resource setup commands:**
+   ```bash
+   # Setup test environment
+   ./deploy-azure.sh setup test
+   
+   # Setup production environment  
+   ./deploy-azure.sh setup prod
+   ```
+
+**What these commands do:**
+- Create Azure Resource Groups (`rg-2do-test` and `rg-2do-prod`)
+- Create Azure Static Web Apps (`2do-health-reminders-test` and `2do-health-reminders-prod`)
+- Generate deployment tokens for GitHub Actions
+
+**Important**: Save the deployment tokens provided by the script output - you'll need them for GitHub secrets configuration.
 
 ## 4. Configure GitHub Secrets
 
@@ -183,3 +220,8 @@ After completing setup:
 ---
 
 **Note**: This setup creates separate environments for testing and production, ensuring proper CI/CD practices and reducing risk of production issues.
+
+**Summary of who does what:**
+- **Repository Owner/Azure Admin**: Steps 3-4 (Azure setup, GitHub secrets)
+- **Development Team**: Steps 1-2, 5+ (branch setup, testing, development)  
+- **All Team Members**: Can use the deployment pipeline once setup is complete
