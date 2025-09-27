@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/models/reminder.dart' as model;
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
 class AddReminderScreen extends StatefulWidget {
   final model.Reminder? reminderToEdit;

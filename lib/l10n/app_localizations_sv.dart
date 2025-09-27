@@ -39,7 +39,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get chooseTheme => 'Välj ditt föredragna färgtema';
 
   @override
-  String get oceanTeal => 'Havsblågrön';
+  String get oceanTeal => 'Havsblägrön';
 
   @override
   String get oceanTealDesc => 'Lugnt och avkopplande blågrönt tema';
