@@ -49,6 +49,9 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     super.initState();
     if (widget.reminderToEdit != null) {
       _loadReminderData();
+    } else {
+      // For new reminders, start with a default time
+      _selectedTimes = [_selectedTime];
     }
   }
 
@@ -65,9 +68,13 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
     _tags = List.from(reminder.tags);
     
     // Load new fields
-    if (reminder.times != null) {
+    if (reminder.times != null && reminder.times!.isNotEmpty) {
       _selectedTimes = reminder.times!.map((t) => t.toFlutterTimeOfDay()).toList();
+    } else {
+      // If no times are set, use the primary time
+      _selectedTimes = [reminder.time.toFlutterTimeOfDay()];
     }
+    
     if (reminder.selectedWeekdays != null) {
       _selectedWeekdays = List.from(reminder.selectedWeekdays!);
     }
@@ -204,13 +211,6 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
-            ListTile(
-              leading: const Icon(Icons.access_time),
-              title: Text('${l10n.time}: ${_selectedTime.format(context)}'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: _selectTime,
-            ),
-            const SizedBox(height: 8),
             DropdownButtonFormField<model.ReminderFrequency>(
               value: _selectedFrequency,
               decoration: InputDecoration(
@@ -227,15 +227,17 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
                 setState(() {
                   _selectedFrequency = value!;
                   // Reset related fields when frequency changes
-                  if (_selectedFrequency != model.ReminderFrequency.daily) {
+                  if (_selectedFrequency != model.ReminderFrequency.daily && 
+                      _selectedFrequency != model.ReminderFrequency.weekly) {
                     _selectedWeekdays.clear();
                     _selectedTimes.clear();
                   }
                 });
               },
             ),
-            // Show weekday selection for daily frequency
-            if (_selectedFrequency == model.ReminderFrequency.daily) ...[
+            // Show weekday selection for daily and weekly frequency
+            if (_selectedFrequency == model.ReminderFrequency.daily || 
+                _selectedFrequency == model.ReminderFrequency.weekly) ...[
               const SizedBox(height: 16),
               Text(
                 l10n.selectDays,
@@ -559,13 +561,26 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
 
   void _saveReminder() {
     if (_formKey.currentState!.validate()) {
+      // Ensure we have at least one time selected
+      if (_selectedTimes.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please add at least one time for the reminder'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       final now = DateTime.now();
+      // Use the first time from the list for nextDueDate calculation
+      final firstTime = _selectedTimes.first;
       final nextDueDate = DateTime(
         now.year,
         now.month,
         now.day,
-        _selectedTime.hour,
-        _selectedTime.minute,
+        firstTime.hour,
+        firstTime.minute,
       );
 
       final reminder = model.Reminder(
@@ -574,10 +589,8 @@ class _AddReminderScreenState extends State<AddReminderScreen> {
         description: _descriptionController.text.trim(),
         category: _selectedCategory,
         frequency: _selectedFrequency,
-        time: model.R_TimeOfDay.fromFlutterTimeOfDay(_selectedTime),
-        times: _selectedTimes.isNotEmpty 
-            ? _selectedTimes.map((t) => model.R_TimeOfDay.fromFlutterTimeOfDay(t)).toList()
-            : null,
+        time: model.R_TimeOfDay.fromFlutterTimeOfDay(firstTime), // Use first time as primary
+        times: _selectedTimes.map((t) => model.R_TimeOfDay.fromFlutterTimeOfDay(t)).toList(),
         selectedWeekdays: _selectedWeekdays.isNotEmpty ? _selectedWeekdays : null,
         nextDueDate: nextDueDate.isBefore(now) 
             ? nextDueDate.add(const Duration(days: 1)) 
