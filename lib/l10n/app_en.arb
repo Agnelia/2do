@@ -1,0 +1,107 @@
+{
+  "@@locale": "en",
+  "appTitle": "2do Health Reminders",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance section header"
+  },
+  "general": "General",
+  "@general": {
+    "description": "General section header"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language settings label"
+  },
+  "chooseLanguage": "Choose your preferred language",
+  "@chooseLanguage": {
+    "description": "Language selection description"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "swedish": "Swedish",
+  "@swedish": {
+    "description": "Swedish language option"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme selection label"
+  },
+  "chooseTheme": "Choose your preferred color theme",
+  "@chooseTheme": {
+    "description": "Theme selection description"
+  },
+  "oceanTeal": "Ocean Teal",
+  "@oceanTeal": {
+    "description": "Ocean Teal theme name"
+  },
+  "oceanTealDesc": "Cool and calming teal theme",
+  "@oceanTealDesc": {
+    "description": "Ocean Teal theme description"
+  },
+  "sunnyDay": "Sunny Day",
+  "@sunnyDay": {
+    "description": "Sunny Day theme name"
+  },
+  "sunnyDayDesc": "Bright and energetic orange & yellow theme",
+  "@sunnyDayDesc": {
+    "description": "Sunny Day theme description"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications settings label"
+  },
+  "notificationsDesc": "Manage notification preferences",
+  "@notificationsDesc": {
+    "description": "Notifications settings description"
+  },
+  "dataBackup": "Data Backup",
+  "@dataBackup": {
+    "description": "Data backup settings label"
+  },
+  "dataBackupDesc": "Backup and restore your data",
+  "@dataBackupDesc": {
+    "description": "Data backup settings description"
+  },
+  "helpSupport": "Help & Support",
+  "@helpSupport": {
+    "description": "Help and support settings label"
+  },
+  "helpSupportDesc": "Get help and contact support",
+  "@helpSupportDesc": {
+    "description": "Help and support settings description"
+  },
+  "notificationSettingsComingSoon": "Notification settings coming soon!",
+  "@notificationSettingsComingSoon": {
+    "description": "Notification settings placeholder message"
+  },
+  "backupSettingsComingSoon": "Backup settings coming soon!",
+  "@backupSettingsComingSoon": {
+    "description": "Backup settings placeholder message"
+  },
+  "helpSupportComingSoon": "Help & Support coming soon!",
+  "@helpSupportComingSoon": {
+    "description": "Help and support placeholder message"
+  },
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "description": "Dashboard navigation label"
+  },
+  "statistics": "Statistics",
+  "@statistics": {
+    "description": "Statistics navigation label"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Profile navigation label"
+  }
+}
