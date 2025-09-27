@@ -8,7 +8,7 @@ import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 import 'package:todo_health_reminders/screens/add_reminder_screen.dart';
 import 'package:todo_health_reminders/screens/statistics_screen.dart';
 import 'package:todo_health_reminders/screens/settings_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

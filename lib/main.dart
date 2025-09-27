@@ -6,7 +6,7 @@ import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/providers/statistics_provider.dart';
 import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/providers/locale_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
