@@ -135,6 +135,11 @@ class Reminder {
   String get frequencyDescription {
     switch (frequency) {
       case ReminderFrequency.daily:
+        if (selectedWeekdays != null && selectedWeekdays!.isNotEmpty) {
+          const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+          final selectedDays = selectedWeekdays!.map((day) => dayNames[day - 1]).join(', ');
+          return selectedDays;
+        }
         return 'Daily';
       case ReminderFrequency.weekly:
         return 'Weekly';

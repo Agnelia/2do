@@ -71,7 +71,7 @@ class ReminderCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    reminder.formattedTime,
+                    reminder.formattedTimes,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Colors.grey[600],
                     ),
