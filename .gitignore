@@ -118,4 +118,5 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
-.vs/2do/FileContentIndex/50f11853-7431-4915-aa3a-e14ecbec95d2.vsidx
+.vs/*
+

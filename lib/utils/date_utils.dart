@@ -1,51 +1,101 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 
 class DateUtils {
-  static final DateFormat _dateFormat = DateFormat('MMM dd, yyyy');
-  static final DateFormat _timeFormat = DateFormat('hh:mm a');
-  static final DateFormat _shortFormat = DateFormat('MMM dd');
-
-  /// Format a DateTime to a readable date string
-  static String formatDate(DateTime date) {
-    return _dateFormat.format(date);
+  /// Format a DateTime to a readable date string with locale support
+  static String formatDate(DateTime date, [Locale? locale]) {
+    final format = DateFormat.yMMMd(locale?.languageCode ?? 'en');
+    return format.format(date);
   }
 
-  /// Format a DateTime to a readable time string
-  static String formatTime(DateTime date) {
-    return _timeFormat.format(date);
+  /// Format a DateTime to a readable time string with locale support  
+  static String formatTime(DateTime date, [Locale? locale]) {
+    final format = DateFormat.jm(locale?.languageCode ?? 'en');
+    return format.format(date);
   }
 
-  /// Format a DateTime to a short date string
-  static String formatShortDate(DateTime date) {
-    return _shortFormat.format(date);
+  /// Format a DateTime to a short date string with locale support
+  static String formatShortDate(DateTime date, [Locale? locale]) {
+    final format = DateFormat.MMMd(locale?.languageCode ?? 'en');
+    return format.format(date);
   }
 
-  /// Get a human-readable relative time string
-  static String getRelativeTime(DateTime date) {
+  /// Get a human-readable relative time string with locale support
+  static String getRelativeTime(DateTime date, [Locale? locale]) {
     final now = DateTime.now();
     final difference = now.difference(date);
 
     if (difference.inDays > 0) {
       if (difference.inDays == 1) {
-        return 'Yesterday';
+        return _getLocalizedRelativeTime('yesterday', locale);
       } else if (difference.inDays < 7) {
-        return '${difference.inDays} days ago';
+        return _getLocalizedRelativeTime('daysAgo', locale, difference.inDays);
       } else if (difference.inDays < 30) {
         final weeks = (difference.inDays / 7).floor();
-        return weeks == 1 ? '1 week ago' : '$weeks weeks ago';
+        return weeks == 1 
+            ? _getLocalizedRelativeTime('weekAgo', locale) 
+            : _getLocalizedRelativeTime('weeksAgo', locale, weeks);
       } else if (difference.inDays < 365) {
         final months = (difference.inDays / 30).floor();
-        return months == 1 ? '1 month ago' : '$months months ago';
+        return months == 1 
+            ? _getLocalizedRelativeTime('monthAgo', locale)
+            : _getLocalizedRelativeTime('monthsAgo', locale, months);
       } else {
         final years = (difference.inDays / 365).floor();
-        return years == 1 ? '1 year ago' : '$years years ago';
+        return years == 1 
+            ? _getLocalizedRelativeTime('yearAgo', locale)
+            : _getLocalizedRelativeTime('yearsAgo', locale, years);
       }
     } else if (difference.inHours > 0) {
-      return difference.inHours == 1 ? '1 hour ago' : '${difference.inHours} hours ago';
+      return difference.inHours == 1 
+          ? _getLocalizedRelativeTime('hourAgo', locale)
+          : _getLocalizedRelativeTime('hoursAgo', locale, difference.inHours);
     } else if (difference.inMinutes > 0) {
-      return difference.inMinutes == 1 ? '1 minute ago' : '${difference.inMinutes} minutes ago';
+      return difference.inMinutes == 1 
+          ? _getLocalizedRelativeTime('minuteAgo', locale)
+          : _getLocalizedRelativeTime('minutesAgo', locale, difference.inMinutes);
     } else {
-      return 'Just now';
+      return _getLocalizedRelativeTime('justNow', locale);
+    }
+  }
+
+  /// Helper method to get localized relative time strings
+  static String _getLocalizedRelativeTime(String key, Locale? locale, [int? value]) {
+    if (locale?.languageCode == 'sv') {
+      switch (key) {
+        case 'yesterday': return 'Igår';
+        case 'justNow': return 'Nyss';
+        case 'minuteAgo': return '1 minut sedan';
+        case 'minutesAgo': return '$value minuter sedan';
+        case 'hourAgo': return '1 timme sedan';
+        case 'hoursAgo': return '$value timmar sedan';
+        case 'daysAgo': return '$value dagar sedan';
+        case 'weekAgo': return '1 vecka sedan';
+        case 'weeksAgo': return '$value veckor sedan';
+        case 'monthAgo': return '1 månad sedan';
+        case 'monthsAgo': return '$value månader sedan';
+        case 'yearAgo': return '1 år sedan';
+        case 'yearsAgo': return '$value år sedan';
+        default: return key;
+      }
+    }
+    
+    // Default English
+    switch (key) {
+      case 'yesterday': return 'Yesterday';
+      case 'justNow': return 'Just now';
+      case 'minuteAgo': return '1 minute ago';
+      case 'minutesAgo': return '$value minutes ago';
+      case 'hourAgo': return '1 hour ago';
+      case 'hoursAgo': return '$value hours ago';
+      case 'daysAgo': return '$value days ago';
+      case 'weekAgo': return '1 week ago';
+      case 'weeksAgo': return '$value weeks ago';
+      case 'monthAgo': return '1 month ago';
+      case 'monthsAgo': return '$value months ago';
+      case 'yearAgo': return '1 year ago';
+      case 'yearsAgo': return '$value years ago';
+      default: return key;
     }
   }
 

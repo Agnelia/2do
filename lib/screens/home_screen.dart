@@ -9,7 +9,9 @@ import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 import 'package:todo_health_reminders/screens/add_reminder_screen.dart';
 import 'package:todo_health_reminders/screens/statistics_screen.dart';
 import 'package:todo_health_reminders/screens/settings_screen.dart';
+import 'package:todo_health_reminders/l10n/app_localizations.dart';
 import 'package:todo_health_reminders/utils/constants.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,10 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return ResponsiveLayout(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('2do Health Reminders'),
+          title: Text(l10n.appTitle),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           elevation: 0,
           actions: [
@@ -55,21 +59,21 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: NavigationBar(
           selectedIndex: _selectedIndex,
           onDestinationSelected: _onItemTapped,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Dashboard',
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home),
+              label: l10n.dashboard,
             ),
             NavigationDestination(
-              icon: Icon(Icons.analytics_outlined),
-              selectedIcon: Icon(Icons.analytics),
-              label: 'Statistics',
+              icon: const Icon(Icons.analytics_outlined),
+              selectedIcon: const Icon(Icons.analytics),
+              label: l10n.statistics,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person_outline),
+              selectedIcon: const Icon(Icons.person),
+              label: l10n.profile,
             ),
           ],
         ),
@@ -307,13 +311,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildProfile() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Profile',
+            l10n.profile,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 24),
