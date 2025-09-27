@@ -1,0 +1,34 @@
+# GitHub Copilot Configuration for 2do Health Reminders
+# This configuration ensures Copilot PRs target the test branch
+
+default_branch: test
+target_branches:
+  copilot: test
+  feature: test
+  hotfix: main
+
+# Environment mapping
+environments:
+  test:
+    branch: test
+    azure_secret: AZURE_STATIC_WEB_APPS_API_TOKEN_TEST
+    site_url: https://test-2do-health-reminders.azurestaticapps.net
+  prod:
+    branch: main  
+    azure_secret: AZURE_STATIC_WEB_APPS_API_TOKEN_PROD
+    site_url: https://2do-health-reminders.azurestaticapps.net
+
+# Deployment triggers
+deployment_triggers:
+  test:
+    - push to test branch
+    - PR to test branch (opens/synchronizes)
+  prod:
+    - push to main branch
+    - PR to main branch (opens/synchronizes)
+
+# Required secrets for deployment
+required_secrets:
+  - AZURE_STATIC_WEB_APPS_API_TOKEN_TEST
+  - AZURE_STATIC_WEB_APPS_API_TOKEN_PROD
+  - GITHUB_TOKEN
