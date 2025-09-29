@@ -10,7 +10,7 @@ A responsive Flutter application for health-related reminders with charts, diagn
 - **Priority Levels**: Set urgency levels (Low, Medium, High, Urgent) for better prioritization
 - **Rich Categories**: Pre-defined health categories with custom icons and colors
 
-### 📊 Analytics & Statistics
+### 📊 Statistics & Progress Tracking
 - **Interactive Charts**: Beautiful line charts showing completion trends over time
 - **Progress Tracking**: Daily, weekly, monthly, and yearly views of your health progress
 - **Health Score**: Comprehensive scoring system based on completion rates

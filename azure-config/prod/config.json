@@ -19,7 +19,6 @@
     "ENVIRONMENT": "prod",
     "API_BASE_URL": "https://api.2dohealth.com",
     "SITE_URL": "https://2do-health-reminders.azurestaticapps.net",
-    "ENABLE_DEBUG": "false",
-    "ANALYTICS_ENABLED": "true"
+    "ENABLE_DEBUG": "false"
   }
 }

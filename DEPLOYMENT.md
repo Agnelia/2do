@@ -139,17 +139,13 @@ You can also deploy manually using the deployment script:
 - **URL**: https://test-2do-health-reminders.azurestaticapps.net
 - **Branch**: `test`
 - **Debug Mode**: Enabled (`ENABLE_DEBUG: "true"`)
-- **Analytics**: Disabled (`ANALYTICS_ENABLED: "false"`)
 - **Cache Policy**: No cache (for testing)
 
 ### Production Environment
 - **URL**: https://2do-health-reminders.azurestaticapps.net
 - **Branch**: `main`
 - **Debug Mode**: Disabled (`ENABLE_DEBUG: "false"`)
-- **Analytics**: Enabled (`ANALYTICS_ENABLED: "true"`)
 - **Cache Policy**: 1 hour cache
-
-**Note on Analytics**: The `ANALYTICS_ENABLED` setting is a configuration flag that can be used by the Flutter application to conditionally enable analytics services (such as Google Analytics, Firebase Analytics, or Azure Application Insights). The actual analytics implementation depends on what the Flutter app chooses to integrate with when this flag is true.
 
 ## Copilot Integration
 
