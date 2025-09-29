@@ -88,33 +88,9 @@ flutter build appbundle --release
 flutter build web --release
 ```
 
-### iOS (macOS required)
-```bash
-flutter build ios --release
-```
-
 ## Deployment
 
-### Cloud Deployment (Web)
-
-#### Firebase Hosting
-1. Install Firebase CLI: `npm install -g firebase-tools`
-2. Login to Firebase: `firebase login`
-3. Initialize Firebase: `firebase init hosting`
-4. Build the web app: `flutter build web`
-5. Deploy: `firebase deploy`
-
-#### Netlify
-1. Build the web app: `flutter build web`
-2. Upload the `build/web` folder to Netlify
-3. Configure redirects for SPA routing
-
-#### Vercel
-1. Install Vercel CLI: `npm install -g vercel`
-2. Build the web app: `flutter build web`
-3. Deploy: `vercel --prod`
-
-#### Azure Static Web Apps (Recommended)
+### Azure Static Web Apps (Web Deployment)
 **Automated deployment with GitHub Actions**
 1. Follow setup instructions in `SETUP-INSTRUCTIONS.md`
 2. **Repository owner**: Run deployment script locally: `./deploy-azure.sh setup test && ./deploy-azure.sh setup prod`
@@ -127,17 +103,12 @@ flutter build ios --release
 
 For detailed deployment information, see `DEPLOYMENT.md`.
 
-### Mobile App Stores
+### Mobile App Store (Android)
 
 #### Google Play Store
 1. Build the app bundle: `flutter build appbundle --release`
 2. Upload to Google Play Console
 3. Follow Google's review process
-
-#### Apple App Store
-1. Build for iOS: `flutter build ios --release`
-2. Archive in Xcode
-3. Upload via App Store Connect
 
 ## Architecture
 
