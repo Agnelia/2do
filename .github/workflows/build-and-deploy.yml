@@ -1,114 +1,114 @@
-name: Build and Deploy
+# name: Build and Deploy
 
-on:
-  push:
-    branches: [ main, test ]
-  pull_request:
-    branches: [ main, test ]
+# on:
+#   push:
+#     branches: [ main, test ]
+#   pull_request:
+#     branches: [ main, test ]
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v4
+#     steps:
+#     - uses: actions/checkout@v4
     
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.24.0'
-        channel: 'stable'
+#     - name: Setup Flutter
+#       uses: subosito/flutter-action@v2
+#       with:
+#         flutter-version: '3.24.0'
+#         channel: 'stable'
     
-    - name: Install dependencies
-      run: flutter pub get
+#     - name: Install dependencies
+#       run: flutter pub get
     
-    - name: Run tests
-      run: flutter test
+#     - name: Run tests
+#       run: flutter test
     
-    - name: Analyze code
-      run: flutter analyze
+#     - name: Analyze code
+#       run: flutter analyze
 
-  build-web:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test'
+#   build-web:
+#     needs: test
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test'
     
-    steps:
-    - uses: actions/checkout@v4
+#     steps:
+#     - uses: actions/checkout@v4
     
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.24.0'
-        channel: 'stable'
+#     - name: Setup Flutter
+#       uses: subosito/flutter-action@v2
+#       with:
+#         flutter-version: '3.24.0'
+#         channel: 'stable'
     
-    - name: Install dependencies
-      run: flutter pub get
+#     - name: Install dependencies
+#       run: flutter pub get
     
-    - name: Build web
-      run: flutter build web --release
+#     - name: Build web
+#       run: flutter build web --release
     
-    - name: Upload web build
-      uses: actions/upload-artifact@v4
-      with:
-        name: web-build
-        path: build/web/
+#     - name: Upload web build
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: web-build
+#         path: build/web/
 
-  build-android:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test'
+#   build-android:
+#     needs: test
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/test'
     
-    steps:
-    - uses: actions/checkout@v4
+#     steps:
+#     - uses: actions/checkout@v4
     
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.24.0'
-        channel: 'stable'
+#     - name: Setup Flutter
+#       uses: subosito/flutter-action@v2
+#       with:
+#         flutter-version: '3.24.0'
+#         channel: 'stable'
     
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'zulu'
-        java-version: '17'
+#     - name: Setup Java
+#       uses: actions/setup-java@v4
+#       with:
+#         distribution: 'zulu'
+#         java-version: '17'
     
-    - name: Install dependencies
-      run: flutter pub get
+#     - name: Install dependencies
+#       run: flutter pub get
     
-    - name: Build APK
-      run: flutter build apk --release
+#     - name: Build APK
+#       run: flutter build apk --release
     
-    - name: Build App Bundle
-      run: flutter build appbundle --release
+#     - name: Build App Bundle
+#       run: flutter build appbundle --release
     
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: android-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+#     - name: Upload APK
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: android-apk
+#         path: build/app/outputs/flutter-apk/app-release.apk
     
-    - name: Upload App Bundle
-      uses: actions/upload-artifact@v4
-      with:
-        name: android-bundle
-        path: build/app/outputs/bundle/release/app-release.aab
+#     - name: Upload App Bundle
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: android-bundle
+#         path: build/app/outputs/bundle/release/app-release.aab
 
-  deploy-web:
-    needs: build-web
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+#   deploy-web:
+#     needs: build-web
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/main'
     
-    steps:
-    - uses: actions/checkout@v4
+#     steps:
+#     - uses: actions/checkout@v4
     
-    - name: Download web build
-      uses: actions/download-artifact@v4
-      with:
-        name: web-build
-        path: build/web/
+#     - name: Download web build
+#       uses: actions/download-artifact@v4
+#       with:
+#         name: web-build
+#         path: build/web/
     
-    - name: Deployment complete
-      run: echo "Web deployment is handled by Azure Static Web Apps workflow"
+#     - name: Deployment complete
+#       run: echo "Web deployment is handled by Azure Static Web Apps workflow"
 
