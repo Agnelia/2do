@@ -1,0 +1,24 @@
+{
+  "environment": "test",
+  "name": "2do Health Reminders - Test",
+  "description": "Test environment for 2do Health Reminders application",
+  "version": "1.0.0",
+  "build": {
+    "flutter_version": "3.24.0",
+    "flutter_channel": "stable",
+    "build_command": "flutter build web --release --dart-define=ENVIRONMENT=test",
+    "output_location": "build/web"
+  },
+  "deployment": {
+    "azure_static_web_app_name": "2do-health-reminders-test",
+    "resource_group": "rg-2do-test",
+    "subscription_id": "AZURE_SUBSCRIPTION_ID",
+    "location": "West Europe"
+  },
+  "app_settings": {
+    "ENVIRONMENT": "test",
+    "API_BASE_URL": "https://api-test.2dohealth.com",
+    "SITE_URL": "https://test-2do-health-reminders.azurestaticapps.net",
+    "ENABLE_DEBUG": "true"
+  }
+}

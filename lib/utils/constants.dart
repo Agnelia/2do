@@ -163,7 +163,6 @@ class AppConstants {
   // Feature Flags
   static const bool enableCloudSync = false;
   static const bool enableNotifications = true;
-  static const bool enableAnalytics = false;
   static const bool enableDarkMode = true;
 
   // Limits

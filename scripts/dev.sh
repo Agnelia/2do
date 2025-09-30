@@ -67,24 +67,16 @@ build() {
             flutter build appbundle --release
             print_color $GREEN "Android build complete! Check build/app/outputs/"
             ;;
-        ios)
-            print_color $BLUE "Building for iOS..."
-            flutter build ios --release
-            print_color $GREEN "iOS build complete! Open ios/Runner.xcworkspace in Xcode"
-            ;;
         all)
-            print_color $BLUE "Building for all platforms..."
+            print_color $BLUE "Building for all supported platforms..."
             flutter build web --release
             flutter build apk --release
             flutter build appbundle --release
-            if [[ "$OSTYPE" == "darwin"* ]]; then
-                flutter build ios --release
-            fi
             print_color $GREEN "All builds complete!"
             ;;
         *)
             print_color $RED "Unknown platform: $platform"
-            print_color $YELLOW "Available platforms: web, android, ios, all"
+            print_color $YELLOW "Available platforms: web, android, all"
             exit 1
             ;;
     esac
@@ -128,7 +120,7 @@ help() {
     print_color $GREEN "Commands:"
     echo "  setup              Setup the project (install dependencies, generate code)"
     echo "  run [device]       Run the app (default: chrome)"
-    echo "  build [platform]   Build the app (web, android, ios, all)"
+    echo "  build [platform]   Build the app (web, android, all)"
     echo "  test               Run tests"
     echo "  analyze            Analyze code"
     echo "  format             Format code"

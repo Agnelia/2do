@@ -10,7 +10,7 @@ A responsive Flutter application for health-related reminders with charts, diagn
 - **Priority Levels**: Set urgency levels (Low, Medium, High, Urgent) for better prioritization
 - **Rich Categories**: Pre-defined health categories with custom icons and colors
 
-### 📊 Analytics & Statistics
+### 📊 Statistics & Progress Tracking
 - **Interactive Charts**: Beautiful line charts showing completion trends over time
 - **Progress Tracking**: Daily, weekly, monthly, and yearly views of your health progress
 - **Health Score**: Comprehensive scoring system based on completion rates
@@ -88,43 +88,27 @@ flutter build appbundle --release
 flutter build web --release
 ```
 
-### iOS (macOS required)
-```bash
-flutter build ios --release
-```
-
 ## Deployment
 
-### Cloud Deployment (Web)
+### Azure Static Web Apps (Web Deployment)
+**Automated deployment with GitHub Actions**
+1. Follow setup instructions in `SETUP-INSTRUCTIONS.md`
+2. **Repository owner**: Run deployment script locally: `./deploy-azure.sh setup test && ./deploy-azure.sh setup prod`
+3. Configure GitHub secrets with Azure deployment tokens
+4. Create PRs targeting `test` branch for testing, `main` branch for production
 
-#### Firebase Hosting
-1. Install Firebase CLI: `npm install -g firebase-tools`
-2. Login to Firebase: `firebase login`
-3. Initialize Firebase: `firebase init hosting`
-4. Build the web app: `flutter build web`
-5. Deploy: `firebase deploy`
+**Environment URLs:**
+- Test: https://test-2do-health-reminders.azurestaticapps.net
+- Production: https://2do-health-reminders.azurestaticapps.net
 
-#### Netlify
-1. Build the web app: `flutter build web`
-2. Upload the `build/web` folder to Netlify
-3. Configure redirects for SPA routing
+For detailed deployment information, see `DEPLOYMENT.md`.
 
-#### Vercel
-1. Install Vercel CLI: `npm install -g vercel`
-2. Build the web app: `flutter build web`
-3. Deploy: `vercel --prod`
-
-### Mobile App Stores
+### Mobile App Store (Android)
 
 #### Google Play Store
 1. Build the app bundle: `flutter build appbundle --release`
 2. Upload to Google Play Console
 3. Follow Google's review process
-
-#### Apple App Store
-1. Build for iOS: `flutter build ios --release`
-2. Archive in Xcode
-3. Upload via App Store Connect
 
 ## Architecture
 
