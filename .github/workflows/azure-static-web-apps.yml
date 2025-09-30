@@ -31,6 +31,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # Regenerate code if needed
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs || echo "No code generation needed"
+
       # Tests disabled - will be re-enabled later
       # - name: Run tests
       #   run: flutter test
@@ -38,8 +42,14 @@ jobs:
       # - name: Analyze code
       #   run: flutter analyze
 
+      - name: Clean build artifacts
+        run: flutter clean
+
+      - name: Reinstall dependencies
+        run: flutter pub get
+
       - name: Build Flutter web app for test
-        run: flutter build web --release --dart-define=ENVIRONMENT=test
+        run: flutter build web --release --dart-define=ENVIRONMENT=test --verbose
 
       - name: Copy test static web app config
         run: cp azure-config/test/staticwebapp.config.json build/web/
@@ -75,6 +85,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # Regenerate code if needed
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs || echo "No code generation needed"
+
       # Tests disabled - will be re-enabled later
       # - name: Run tests
       #   run: flutter test
@@ -82,8 +96,14 @@ jobs:
       # - name: Analyze code
       #   run: flutter analyze
 
+      - name: Clean build artifacts
+        run: flutter clean
+
+      - name: Reinstall dependencies
+        run: flutter pub get
+
       - name: Build Flutter web app for production
-        run: flutter build web --release --dart-define=ENVIRONMENT=prod
+        run: flutter build web --release --dart-define=ENVIRONMENT=prod --verbose
 
       - name: Copy production static web app config
         run: cp azure-config/prod/staticwebapp.config.json build/web/
