@@ -4,7 +4,7 @@
   "description": "Test environment for 2do Health Reminders application",
   "version": "1.0.0",
   "build": {
-    "flutter_version": "3.24.0",
+    "flutter_version": "3.35.4",
     "flutter_channel": "stable",
     "build_command": "flutter build web --release --dart-define=ENVIRONMENT=test",
     "output_location": "build/web"
