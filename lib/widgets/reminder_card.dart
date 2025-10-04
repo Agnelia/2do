@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_health_reminders/models/reminder.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
+import 'package:todo_health_reminders/screens/stand_up_timer_screen.dart';
 
 class ReminderCard extends StatelessWidget {
   final Reminder reminder;
@@ -356,21 +357,48 @@ class ReminderCard extends StatelessWidget {
   }
 
   void _completeReminder(BuildContext context) {
-    final reminderProvider = context.read<ReminderProvider>();
-    reminderProvider.completeReminder(reminder.id);
+    // Check if this is a stand-up challenge
+    final isStandUpChallenge = reminder.tags.contains('standup');
     
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${reminder.title} completed!'),
-        backgroundColor: Colors.green,
-        action: SnackBarAction(
-          label: 'UNDO',
-          onPressed: () {
-            // Implement undo functionality if needed
-          },
+    if (isStandUpChallenge) {
+      // Open the timer screen for stand-up challenges
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StandUpTimerScreen(reminder: reminder),
         ),
-      ),
-    );
+      ).then((completed) {
+        if (completed == true) {
+          // Mark as completed after timer finishes
+          final reminderProvider = context.read<ReminderProvider>();
+          reminderProvider.completeReminder(reminder.id);
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${reminder.title} completed!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      });
+    } else {
+      // Regular reminder completion
+      final reminderProvider = context.read<ReminderProvider>();
+      reminderProvider.completeReminder(reminder.id);
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${reminder.title} completed!'),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: 'UNDO',
+            onPressed: () {
+              // Implement undo functionality if needed
+            },
+          ),
+        ),
+      );
+    }
   }
 
   void _snoozeReminder(BuildContext context) {

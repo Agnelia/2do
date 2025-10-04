@@ -164,4 +164,76 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterNumberOfDays => 'Enter number of days';
+
+  @override
+  String get reminderType => 'Reminder Type';
+
+  @override
+  String get customReminder => 'Custom';
+
+  @override
+  String get officeReminder => 'Office';
+
+  @override
+  String get selectReminderType => 'Select Reminder Type';
+
+  @override
+  String get walk => 'Walk';
+
+  @override
+  String get standUpChallenge => 'Stand Up Challenge';
+
+  @override
+  String get duration => 'Duration';
+
+  @override
+  String get minutes => 'Minutes';
+
+  @override
+  String get repetitions => 'Repetitions';
+
+  @override
+  String get timesPerDay => 'Times per day';
+
+  @override
+  String get workHours => 'Work Hours';
+
+  @override
+  String get startTime => 'Start Time';
+
+  @override
+  String get endTime => 'End Time';
+
+  @override
+  String get timerRunning => 'Timer Running';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get resume => 'Resume';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get addMinutes => 'Add Minutes';
+
+  @override
+  String get greatJob => 'Great Job!';
+
+  @override
+  String get youDidIt => 'You completed your stand-up challenge!';
+
+  @override
+  String get workHoursSettings => 'Work Hours Settings';
+
+  @override
+  String get setDefaultWorkHours => 'Set default work hours for office reminders';
+
+  @override
+  String get configureStandUp => 'Configure Stand Up Challenge';
+
+  @override
+  String get selectTemplate => 'Select Template';
 }
