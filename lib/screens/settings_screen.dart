@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/providers/locale_provider.dart';
+import 'package:todo_health_reminders/providers/work_hours_provider.dart';
 import 'package:todo_health_reminders/utils/constants.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
@@ -40,6 +41,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildLanguageSelection(context),
+            const SizedBox(height: 16),
+            _buildWorkHoursSettings(context),
             const SizedBox(height: 16),
             _buildGeneralSettings(context),
           ],
@@ -401,6 +404,89 @@ class SettingsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildWorkHoursSettings(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
+    return Consumer<WorkHoursProvider>(
+      builder: (context, workHoursProvider, child) {
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.workHoursSettings,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.setDefaultWorkHours,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ListTile(
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.startTime),
+                  trailing: Text(
+                    workHoursProvider.startTime.format(context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: workHoursProvider.startTime,
+                    );
+                    if (time != null) {
+                      workHoursProvider.setWorkHours(
+                        time,
+                        workHoursProvider.endTime,
+                      );
+                    }
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.endTime),
+                  trailing: Text(
+                    workHoursProvider.endTime.format(context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: workHoursProvider.endTime,
+                    );
+                    if (time != null) {
+                      workHoursProvider.setWorkHours(
+                        workHoursProvider.startTime,
+                        time,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
