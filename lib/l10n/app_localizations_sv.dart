@@ -164,4 +164,76 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get enterNumberOfDays => 'Ange antal dagar';
+
+  @override
+  String get reminderType => 'Påminnelsetyp';
+
+  @override
+  String get customReminder => 'Anpassad';
+
+  @override
+  String get officeReminder => 'Kontor';
+
+  @override
+  String get selectReminderType => 'Välj påminnelsetyp';
+
+  @override
+  String get walk => 'Promenad';
+
+  @override
+  String get standUpChallenge => 'Stå upp utmaning';
+
+  @override
+  String get duration => 'Varaktighet';
+
+  @override
+  String get minutes => 'Minuter';
+
+  @override
+  String get repetitions => 'Upprepningar';
+
+  @override
+  String get timesPerDay => 'Gånger per dag';
+
+  @override
+  String get workHours => 'Arbetstid';
+
+  @override
+  String get startTime => 'Starttid';
+
+  @override
+  String get endTime => 'Sluttid';
+
+  @override
+  String get timerRunning => 'Timer körs';
+
+  @override
+  String get pause => 'Pausa';
+
+  @override
+  String get resume => 'Återuppta';
+
+  @override
+  String get complete => 'Slutför';
+
+  @override
+  String get addMinutes => 'Lägg till minuter';
+
+  @override
+  String get greatJob => 'Bra jobbat!';
+
+  @override
+  String get youDidIt => 'Du klarade din stå upp utmaning!';
+
+  @override
+  String get workHoursSettings => 'Arbetstidsinställningar';
+
+  @override
+  String get setDefaultWorkHours => 'Ange standardarbetstider för kontorspåminnelser';
+
+  @override
+  String get configureStandUp => 'Konfigurera stå upp utmaning';
+
+  @override
+  String get selectTemplate => 'Välj mall';
 }
