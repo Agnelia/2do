@@ -1,21 +1,26 @@
-name: Azure Static Web Apps CI/CD
+name: Manual Azure Static Web Apps Deployment
 
 on:
-  push:
-    branches: [ main, test ]
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches: [ main, test ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        type: choice
+        options:
+          - test
+          - production
+        default: 'test'
 
 env:
   FLUTTER_VERSION: '3.35.4'
   FLUTTER_CHANNEL: 'stable'
 
 jobs:
-  build_and_deploy_test:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/test') || (github.event_name == 'pull_request' && github.event.action != 'closed' && github.base_ref == 'test')
+  manual_deploy:
     runs-on: ubuntu-latest
-    name: Build and Deploy Test Environment
+    name: Manual Deploy to ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,16 +36,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Regenerate code if needed
       - name: Generate code
         run: flutter pub run build_runner build --delete-conflicting-outputs || echo "No code generation needed"
-
-      # Tests disabled - will be re-enabled later
-      # - name: Run tests
-      #   run: flutter test
-
-      # - name: Analyze code
-      #   run: flutter analyze
 
       - name: Clean build artifacts
         run: flutter clean
@@ -48,17 +45,17 @@ jobs:
       - name: Reinstall dependencies
         run: flutter pub get
 
-      - name: Build Flutter web app for test
-        run: flutter build web --release --dart-define=ENVIRONMENT=test --verbose
+      - name: Build Flutter web app
+        run: flutter build web --release --dart-define=ENVIRONMENT=${{ github.event.inputs.environment }} --verbose
 
-      - name: Copy test static web app config
-        run: cp azure-config/test/staticwebapp.config.json build/web/
+      - name: Copy static web app config
+        run: cp azure-config/${{ github.event.inputs.environment }}/staticwebapp.config.json build/web/
 
-      - name: Build And Deploy to Test
-        id: builddeploy_test
+      - name: Deploy to Azure Static Web App
+        id: deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST }}
+          azure_static_web_apps_api_token: ${{ github.event.inputs.environment == 'test' && secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST || secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROD }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "build/web"
@@ -66,80 +63,9 @@ jobs:
           output_location: ""
           skip_app_build: true
 
-  build_and_deploy_prod:
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'pull_request' && github.event.action != 'closed' && github.base_ref == 'main')
-    runs-on: ubuntu-latest
-    name: Build and Deploy Production Environment
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-          lfs: false
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: ${{ env.FLUTTER_CHANNEL }}
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      # Regenerate code if needed
-      - name: Generate code
-        run: flutter pub run build_runner build --delete-conflicting-outputs || echo "No code generation needed"
-
-      # Tests disabled - will be re-enabled later
-      # - name: Run tests
-      #   run: flutter test
-
-      # - name: Analyze code
-      #   run: flutter analyze
-
-      - name: Clean build artifacts
-        run: flutter clean
-
-      - name: Reinstall dependencies
-        run: flutter pub get
-
-      - name: Build Flutter web app for production
-        run: flutter build web --release --dart-define=ENVIRONMENT=prod --verbose
-
-      - name: Copy production static web app config
-        run: cp azure-config/prod/staticwebapp.config.json build/web/
-
-      - name: Build And Deploy to Production
-        id: builddeploy_prod
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROD }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "build/web"
-          api_location: ""
-          output_location: ""
-          skip_app_build: true
-
-  close_pull_request_test:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.base_ref == 'test'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Test Environment
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest_test
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST }}
-          action: "close"
-
-  close_pull_request_prod:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.base_ref == 'main'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Production Environment
-    steps:
-      - name: Close Pull Request
-        id: closepullrequest_prod
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROD }}
-          action: "close"
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** https://brave-grass-026944103.1.azurestaticapps.net" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
