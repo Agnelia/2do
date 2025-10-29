@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/providers/locale_provider.dart';
 import 'package:todo_health_reminders/providers/work_hours_provider.dart';
+import 'package:todo_health_reminders/providers/admin_provider.dart';
 import 'package:todo_health_reminders/utils/constants.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
@@ -41,6 +42,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildLanguageSelection(context),
+            const SizedBox(height: 16),
+            _buildAdminSettings(context),
             const SizedBox(height: 16),
             _buildWorkHoursSettings(context),
             const SizedBox(height: 16),
@@ -404,6 +407,58 @@ class SettingsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAdminSettings(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
+    return Consumer<AdminProvider>(
+      builder: (context, adminProvider, child) {
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.admin_panel_settings,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.adminMode,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.enableAdminMode,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SwitchListTile(
+                  value: adminProvider.isAdminMode,
+                  onChanged: (value) {
+                    adminProvider.setAdminMode(value);
+                  },
+                  title: Text(adminProvider.isAdminMode ? 'Enabled' : 'Disabled'),
+                  secondary: Icon(
+                    adminProvider.isAdminMode ? Icons.lock_open : Icons.lock,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

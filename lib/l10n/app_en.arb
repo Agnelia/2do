@@ -303,5 +303,33 @@
   "selectTemplate": "Select Template",
   "@selectTemplate": {
     "description": "Select template title"
+  },
+  "adminMode": "Admin Mode",
+  "@adminMode": {
+    "description": "Admin mode toggle label"
+  },
+  "enableAdminMode": "Enable admin mode for advanced features",
+  "@enableAdminMode": {
+    "description": "Admin mode toggle description"
+  },
+  "startManually": "Start Manually",
+  "@startManually": {
+    "description": "Start challenge manually button"
+  },
+  "manualSession": "Manual Session",
+  "@manualSession": {
+    "description": "Manual session label"
+  },
+  "nextPeriodMarked": "Next scheduled period will be marked as complete",
+  "@nextPeriodMarked": {
+    "description": "Message when manual session completes full time"
+  },
+  "customTime": "Custom Time",
+  "@customTime": {
+    "description": "Custom time input label for admin"
+  },
+  "enterMinutes": "Enter minutes",
+  "@enterMinutes": {
+    "description": "Enter custom minutes hint"
   }
 }

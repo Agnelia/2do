@@ -236,4 +236,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectTemplate => 'Select Template';
+
+  @override
+  String get adminMode => 'Admin Mode';
+
+  @override
+  String get enableAdminMode => 'Enable admin mode for advanced features';
+
+  @override
+  String get startManually => 'Start Manually';
+
+  @override
+  String get manualSession => 'Manual Session';
+
+  @override
+  String get nextPeriodMarked => 'Next scheduled period will be marked as complete';
+
+  @override
+  String get customTime => 'Custom Time';
+
+  @override
+  String get enterMinutes => 'Enter minutes';
 }

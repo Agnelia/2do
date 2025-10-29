@@ -75,5 +75,12 @@
   "workHoursSettings": "Arbetstidsinställningar",
   "setDefaultWorkHours": "Ange standardarbetstider för kontorspåminnelser",
   "configureStandUp": "Konfigurera stå upp utmaning",
-  "selectTemplate": "Välj mall"
+  "selectTemplate": "Välj mall",
+  "adminMode": "Administratörsläge",
+  "enableAdminMode": "Aktivera administratörsläge för avancerade funktioner",
+  "startManually": "Starta manuellt",
+  "manualSession": "Manuell session",
+  "nextPeriodMarked": "Nästa schemalagda period kommer att markeras som slutförd",
+  "customTime": "Anpassad tid",
+  "enterMinutes": "Ange minuter"
 }

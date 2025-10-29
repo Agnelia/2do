@@ -7,10 +7,12 @@ import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class StandUpTimerScreen extends StatefulWidget {
   final Reminder reminder;
+  final bool isManualSession;
 
   const StandUpTimerScreen({
     super.key,
     required this.reminder,
+    this.isManualSession = false,
   });
 
   @override
@@ -76,15 +78,20 @@ class _StandUpTimerScreenState extends State<StandUpTimerScreen> {
     _confettiController.play();
   }
 
+  bool get _completedFullDuration => _elapsedMinutes >= _targetMinutes;
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final progress = _elapsedMinutes / _targetMinutes;
+    final title = widget.isManualSession 
+        ? '${l10n.standUpChallenge} (${l10n.manualSession})'
+        : l10n.standUpChallenge;
 
     return ResponsiveLayout(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(l10n.standUpChallenge),
+          title: Text(title),
         ),
         body: Stack(
           children: [
@@ -200,7 +207,8 @@ class _StandUpTimerScreenState extends State<StandUpTimerScreen> {
                     if (_isCompleted) ...[
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop(true); // Return true to indicate completion
+                          // Return true if completed full duration, especially for manual sessions
+                          Navigator.of(context).pop(_completedFullDuration);
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -213,6 +221,17 @@ class _StandUpTimerScreenState extends State<StandUpTimerScreen> {
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
+                      if (widget.isManualSession && _completedFullDuration) ...[
+                        const SizedBox(height: 16),
+                        Text(
+                          l10n.nextPeriodMarked,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.green,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ],
                   ],
                 ),

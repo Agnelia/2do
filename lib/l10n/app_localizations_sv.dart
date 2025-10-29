@@ -236,4 +236,25 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get selectTemplate => 'Välj mall';
+
+  @override
+  String get adminMode => 'Administratörsläge';
+
+  @override
+  String get enableAdminMode => 'Aktivera administratörsläge för avancerade funktioner';
+
+  @override
+  String get startManually => 'Starta manuellt';
+
+  @override
+  String get manualSession => 'Manuell session';
+
+  @override
+  String get nextPeriodMarked => 'Nästa schemalagda period kommer att markeras som slutförd';
+
+  @override
+  String get customTime => 'Anpassad tid';
+
+  @override
+  String get enterMinutes => 'Ange minuter';
 }

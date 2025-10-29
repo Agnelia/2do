@@ -4,6 +4,7 @@ import 'package:todo_health_reminders/l10n/app_localizations.dart';
 import 'package:todo_health_reminders/models/reminder.dart' as model;
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/providers/work_hours_provider.dart';
+import 'package:todo_health_reminders/providers/admin_provider.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class StandUpConfigScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class _StandUpConfigScreenState extends State<StandUpConfigScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final workHoursProvider = context.watch<WorkHoursProvider>();
+    final adminProvider = context.watch<AdminProvider>();
 
     final startTime = _customStartTime ?? workHoursProvider.startTime;
     final endTime = _customEndTime ?? workHoursProvider.endTime;
@@ -50,32 +52,53 @@ class _StandUpConfigScreenState extends State<StandUpConfigScreen> {
                             ),
                       ),
                       const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Slider(
-                              value: _durationMinutes.toDouble(),
-                              min: 5,
-                              max: 60,
-                              divisions: 11,
-                              label: '$_durationMinutes ${l10n.minutes}',
-                              onChanged: (value) {
-                                setState(() {
-                                  _durationMinutes = value.toInt();
-                                });
-                              },
-                            ),
+                      if (adminProvider.isAdminMode) ...[
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: l10n.customTime,
+                            hintText: l10n.enterMinutes,
+                            suffixText: l10n.minutes,
+                            border: const OutlineInputBorder(),
                           ),
-                          SizedBox(
-                            width: 80,
-                            child: Text(
-                              '$_durationMinutes ${l10n.minutes}',
-                              style: Theme.of(context).textTheme.titleMedium,
-                              textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            final parsed = int.tryParse(value);
+                            if (parsed != null && parsed > 0) {
+                              setState(() {
+                                _durationMinutes = parsed;
+                              });
+                            }
+                          },
+                          controller: TextEditingController(text: _durationMinutes.toString()),
+                        ),
+                      ] else ...[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Slider(
+                                value: _durationMinutes.toDouble(),
+                                min: 5,
+                                max: 60,
+                                divisions: 11,
+                                label: '$_durationMinutes ${l10n.minutes}',
+                                onChanged: (value) {
+                                  setState(() {
+                                    _durationMinutes = value.toInt();
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                            SizedBox(
+                              width: 80,
+                              child: Text(
+                                '$_durationMinutes ${l10n.minutes}',
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),

@@ -222,9 +222,19 @@ class ReminderCard extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context) {
+    final isStandUpChallenge = reminder.tags.contains('standup');
+    
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        if (isStandUpChallenge)
+          IconButton(
+            onPressed: () => _startManualSession(context),
+            icon: const Icon(Icons.play_circle),
+            iconSize: 20,
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            tooltip: 'Start Manually',
+          ),
         IconButton(
           onPressed: () => _snoozeReminder(context),
           icon: const Icon(Icons.snooze),
@@ -241,6 +251,32 @@ class ReminderCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _startManualSession(BuildContext context) {
+    // Start manual standup session
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StandUpTimerScreen(
+          reminder: reminder,
+          isManualSession: true,
+        ),
+      ),
+    ).then((result) {
+      if (result == true) {
+        // Mark as completed after manual session finishes
+        final reminderProvider = context.read<ReminderProvider>();
+        reminderProvider.completeReminder(reminder.id);
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Manual session completed! Next scheduled period marked as complete.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    });
   }
 
   void _showReminderDetails(BuildContext context) {

@@ -403,6 +403,27 @@ abstract class AppLocalizations {
 
   /// Select template title
   String get selectTemplate;
+
+  /// Admin mode toggle label
+  String get adminMode;
+
+  /// Admin mode toggle description
+  String get enableAdminMode;
+
+  /// Start challenge manually button
+  String get startManually;
+
+  /// Manual session label
+  String get manualSession;
+
+  /// Message when manual session completes full time
+  String get nextPeriodMarked;
+
+  /// Custom time input label for admin
+  String get customTime;
+
+  /// Enter custom minutes hint
+  String get enterMinutes;
 }
 
 class _AppLocalizationsDelegate
