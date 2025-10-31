@@ -86,14 +86,66 @@ Add the following secrets to your GitHub repository:
 
 | Secret Name | Description | Source |
 |-------------|-------------|---------|
-| `AZURE_STATIC_WEB_APPS_API_TOKEN_TEST` | Test environment deployment token | Azure CLI output |
-| `AZURE_STATIC_WEB_APPS_API_TOKEN_PROD` | Production environment deployment token | Azure CLI output |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN_TEST` | Test environment deployment token | Azure Portal or Azure CLI |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN_PROD` | Production environment deployment token | Azure Portal or Azure CLI |
 
-To add secrets:
+#### How to Generate API Tokens
+
+**Option 1: Using Azure Portal (Recommended)**
+
+1. Log in to [Azure Portal](https://portal.azure.com)
+2. Navigate to your Static Web App:
+   - For Test: `swa-2doHealth-app-test` in resource group `rg-2doHealth-app-test-v2`
+   - For Prod: `swa-2doHealth-app-prod` in resource group `rg-2doHealth-app-prod-v2`
+3. In the left menu, click **"Manage deployment token"** or **"Overview"**
+4. Click **"Manage deployment token"** button
+5. Copy the deployment token (it will look like a long alphanumeric string)
+6. Save this token securely - you'll need it for GitHub secrets
+
+**Option 2: Using Azure CLI**
+
+```bash
+# For Test Environment
+az staticwebapp secrets list \
+  --name swa-2doHealth-app-test \
+  --resource-group rg-2doHealth-app-test-v2 \
+  --query "properties.apiKey" -o tsv
+
+# For Production Environment
+az staticwebapp secrets list \
+  --name swa-2doHealth-app-prod \
+  --resource-group rg-2doHealth-app-prod-v2 \
+  --query "properties.apiKey" -o tsv
+```
+
+**Option 3: Using the Deployment Script**
+
+The deployment script will automatically display the token when you run setup:
+
+```bash
+./deploy-azure.sh setup test
+./deploy-azure.sh setup prod
+```
+
+#### Adding Secrets to GitHub
+
+To add the tokens as secrets:
 1. Go to your GitHub repository
-2. Navigate to Settings → Secrets and variables → Actions
-3. Click "New repository secret"
-4. Add each secret with the appropriate name and value
+2. Navigate to **Settings** → **Secrets and variables** → **Actions**
+3. Click **"New repository secret"**
+4. For the test token:
+   - Name: `AZURE_STATIC_WEB_APPS_API_TOKEN_TEST`
+   - Value: (paste the token from test environment)
+   - Click **"Add secret"**
+5. For the production token:
+   - Name: `AZURE_STATIC_WEB_APPS_API_TOKEN_PROD`
+   - Value: (paste the token from production environment)
+   - Click **"Add secret"**
+
+**Important Notes:**
+- Keep these tokens secure - they provide deployment access to your Azure resources
+- If a token is compromised, you can reset it in the Azure Portal and update the GitHub secret
+- Tokens don't expire unless manually reset
 
 ### 3. Branch Structure
 
