@@ -27,6 +27,17 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Set environment folder
+        id: env_folder
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "production" ]; then
+            echo "folder=prod" >> $GITHUB_OUTPUT
+            echo "env_name=prod" >> $GITHUB_OUTPUT
+          else
+            echo "folder=test" >> $GITHUB_OUTPUT
+            echo "env_name=test" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -46,10 +57,10 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter web app
-        run: flutter build web --release --dart-define=ENVIRONMENT=${{ github.event.inputs.environment }} --verbose
+        run: flutter build web --release --dart-define=ENVIRONMENT=${{ steps.env_folder.outputs.env_name }} --verbose
 
       - name: Copy static web app config
-        run: cp azure-config/${{ github.event.inputs.environment }}/staticwebapp.config.json build/web/
+        run: cp azure-config/${{ steps.env_folder.outputs.folder }}/staticwebapp.config.json build/web/
 
       - name: Deploy to Azure Static Web App
         id: deploy
