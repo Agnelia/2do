@@ -18,7 +18,7 @@
   "app_settings": {
     "ENVIRONMENT": "test",
     "API_BASE_URL": "https://api-test.2dohealth.com",
-    "SITE_URL": "https://test-2do-health-reminders.azurestaticapps.net",
+    "SITE_URL": "https://blue-pebble-0447e6e03.3.azurestaticapps.net",
     "ENABLE_DEBUG": "true"
   }
 }
