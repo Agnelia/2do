@@ -10,8 +10,8 @@
     "output_location": "build/web"
   },
   "deployment": {
-    "azure_static_web_app_name": "2do-health-reminders-test",
-    "resource_group": "rg-2do-test",
+    "azure_static_web_app_name": "swa-2doHealth-app-test",
+    "resource_group": "rg-2doHealth-app-test-v2",
     "subscription_id": "AZURE_SUBSCRIPTION_ID",
     "location": "West Europe"
   },
