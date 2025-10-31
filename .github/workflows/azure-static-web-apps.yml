@@ -67,5 +67,9 @@ jobs:
         run: |
           echo "## 🚀 Deployment Complete!" >> $GITHUB_STEP_SUMMARY
           echo "**Environment:** ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
-          echo "**URL:** https://brave-grass-026944103.1.azurestaticapps.net" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ github.event.inputs.environment }}" == "test" ]; then
+            echo "**URL:** https://blue-pebble-0447e6e03.3.azurestaticapps.net" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**URL:** https://delightful-bay-09df94f03.3.azurestaticapps.net" >> $GITHUB_STEP_SUMMARY
+          fi
           echo "**Status:** ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
