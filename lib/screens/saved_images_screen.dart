@@ -4,6 +4,7 @@ import 'package:todo_health_reminders/providers/inspiration_provider.dart';
 import 'package:todo_health_reminders/models/inspiration_image.dart';
 import 'package:todo_health_reminders/models/inspiration_theme.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
+import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 import 'package:intl/intl.dart';
 
 class SavedImagesScreen extends StatelessWidget {
@@ -54,25 +55,32 @@ class SavedImagesScreen extends StatelessWidget {
             );
           }
           
-          return GridView.builder(
-            padding: const EdgeInsets.all(16),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
+          final crossAxisCount = ResponsiveBreakpoints.isMobile(context) ? 2 :
+                                 ResponsiveBreakpoints.isTablet(context) ? 3 : 4;
+          
+          return ResponsiveLayout(
+            child: GridView.builder(
+              padding: EdgeInsets.all(
+                ResponsiveBreakpoints.getHorizontalPadding(context),
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                childAspectRatio: 0.7,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              itemCount: provider.savedImages.length,
+              itemBuilder: (context, index) {
+                final savedImage = provider.savedImages[index];
+                return _buildSavedImageCard(
+                  context,
+                  savedImage.id,
+                  savedImage.image,
+                  savedImage.savedAt,
+                  provider,
+                );
+              },
             ),
-            itemCount: provider.savedImages.length,
-            itemBuilder: (context, index) {
-              final savedImage = provider.savedImages[index];
-              return _buildSavedImageCard(
-                context,
-                savedImage.id,
-                savedImage.image,
-                savedImage.savedAt,
-                provider,
-              );
-            },
           );
         },
       ),
@@ -89,9 +97,9 @@ class SavedImagesScreen extends StatelessWidget {
     final dateFormat = DateFormat('yyyy-MM-dd');
     
     return Card(
-      elevation: 3,
+      elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -104,20 +112,36 @@ class SavedImagesScreen extends StatelessWidget {
                 Image.network(
                   image.imageUrl,
                   fit: BoxFit.cover,
+                  filterQuality: FilterQuality.medium,
+                  cacheWidth: 400,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: Colors.grey.shade300,
                       child: const Icon(
                         Icons.image_not_supported,
-                        size: 50,
+                        size: 40,
                         color: Colors.grey,
+                      ),
+                    );
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      color: Colors.grey.shade200,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
                       ),
                     );
                   },
                 ),
                 Positioned(
-                  top: 8,
-                  right: 8,
+                  top: 4,
+                  right: 4,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
@@ -126,9 +150,11 @@ class SavedImagesScreen extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(
                         Icons.delete,
-                        size: 20,
+                        size: 16,
                         color: Colors.red,
                       ),
+                      padding: const EdgeInsets.all(4),
+                      constraints: const BoxConstraints(),
                       onPressed: () {
                         _showDeleteDialog(
                           context,
@@ -144,7 +170,7 @@ class SavedImagesScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(8),
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,15 +178,15 @@ class SavedImagesScreen extends StatelessWidget {
                 Text(
                   'Sparad: ${dateFormat.format(savedAt)}',
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 10,
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   'Tema: ${image.theme.displayName}',
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 10,
                     color: Colors.black87,
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:todo_health_reminders/screens/saved_images_screen.dart';
 import 'package:todo_health_reminders/screens/upload_artwork_screen.dart';
 import 'package:todo_health_reminders/screens/user_gallery_screen.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
+import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class InspirationHomeScreen extends StatelessWidget {
   const InspirationHomeScreen({super.key});
@@ -113,80 +114,172 @@ class InspirationHomeScreen extends StatelessWidget {
   Widget _buildDashboard(BuildContext context) {
     return Consumer<InspirationProvider>(
       builder: (context, provider, child) {
-        return Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Vad vill du göra?',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+        return SingleChildScrollView(
+          child: ResponsiveLayout(
+            child: Padding(
+              padding: EdgeInsets.all(
+                ResponsiveBreakpoints.getHorizontalPadding(context),
               ),
-              const SizedBox(height: 48),
-              _buildDashboardButton(
-                context,
-                'Sök inspiration',
-                'Hitta nya motiv och teman',
-                Icons.search,
-                InspirationColors.orange,
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const InspirationSearchScreen(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Vad vill du göra?',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 24),
+                  _buildDashboardGrid(context, provider),
+                  const SizedBox(height: 16),
+                ],
               ),
-              const SizedBox(height: 24),
-              _buildDashboardButton(
-                context,
-                'Valda bilder',
-                'Se dina sparade bilder (${provider.savedImages.length})',
-                Icons.image,
-                InspirationColors.turquoise,
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SavedImagesScreen(),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              _buildDashboardButton(
-                context,
-                'Ladda upp konst',
-                'Dela dina egna verk',
-                Icons.upload,
-                InspirationColors.copper,
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UploadArtworkScreen(),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              _buildDashboardButton(
-                context,
-                'Användargalleri',
-                'Se och kommentera andras verk',
-                Icons.people,
-                InspirationColors.lightGreen,
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UserGalleryScreen(),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         );
       },
     );
+  }
+
+  Widget _buildDashboardGrid(BuildContext context, InspirationProvider provider) {
+    final isMobile = ResponsiveBreakpoints.isMobile(context);
+    
+    if (isMobile) {
+      return Column(
+        children: [
+          _buildDashboardButton(
+            context,
+            'Sök inspiration',
+            'Hitta nya motiv och teman',
+            Icons.search,
+            InspirationColors.orange,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const InspirationSearchScreen(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _buildDashboardButton(
+            context,
+            'Valda bilder',
+            'Se dina sparade bilder (${provider.savedImages.length})',
+            Icons.image,
+            InspirationColors.turquoise,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SavedImagesScreen(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _buildDashboardButton(
+            context,
+            'Ladda upp konst',
+            'Dela dina egna verk',
+            Icons.upload,
+            InspirationColors.copper,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UploadArtworkScreen(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _buildDashboardButton(
+            context,
+            'Användargalleri',
+            'Se och kommentera andras verk',
+            Icons.people,
+            InspirationColors.lightGreen,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UserGalleryScreen(),
+              ),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Wrap(
+        spacing: 16,
+        runSpacing: 16,
+        alignment: WrapAlignment.center,
+        children: [
+          SizedBox(
+            width: 340,
+            child: _buildDashboardButton(
+              context,
+              'Sök inspiration',
+              'Hitta nya motiv och teman',
+              Icons.search,
+              InspirationColors.orange,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const InspirationSearchScreen(),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 340,
+            child: _buildDashboardButton(
+              context,
+              'Valda bilder',
+              'Se dina sparade bilder (${provider.savedImages.length})',
+              Icons.image,
+              InspirationColors.turquoise,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SavedImagesScreen(),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 340,
+            child: _buildDashboardButton(
+              context,
+              'Ladda upp konst',
+              'Dela dina egna verk',
+              Icons.upload,
+              InspirationColors.copper,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UploadArtworkScreen(),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 340,
+            child: _buildDashboardButton(
+              context,
+              'Användargalleri',
+              'Se och kommentera andras verk',
+              Icons.people,
+              InspirationColors.lightGreen,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserGalleryScreen(),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   Widget _buildDashboardButton(
@@ -206,22 +299,22 @@ class InspirationHomeScreen extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   icon,
-                  size: 36,
+                  size: 28,
                   color: color,
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +322,7 @@ class InspirationHomeScreen extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
@@ -238,7 +331,7 @@ class InspirationHomeScreen extends StatelessWidget {
                     Text(
                       subtitle,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         color: Colors.black54,
                       ),
                     ),
@@ -248,7 +341,7 @@ class InspirationHomeScreen extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios,
                 color: color,
-                size: 20,
+                size: 16,
               ),
             ],
           ),

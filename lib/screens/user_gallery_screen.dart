@@ -5,6 +5,7 @@ import 'package:todo_health_reminders/models/inspiration_image.dart';
 import 'package:todo_health_reminders/models/inspiration_theme.dart';
 import 'package:todo_health_reminders/models/image_style.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
+import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class UserGalleryScreen extends StatelessWidget {
   const UserGalleryScreen({super.key});
@@ -54,13 +55,17 @@ class UserGalleryScreen extends StatelessWidget {
             );
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: provider.userArtworks.length,
-            itemBuilder: (context, index) {
-              final artwork = provider.userArtworks[index];
-              return _buildArtworkCard(context, artwork, provider);
-            },
+          return ResponsiveLayout(
+            child: ListView.builder(
+              padding: EdgeInsets.all(
+                ResponsiveBreakpoints.getHorizontalPadding(context),
+              ),
+              itemCount: provider.userArtworks.length,
+              itemBuilder: (context, index) {
+                final artwork = provider.userArtworks[index];
+                return _buildArtworkCard(context, artwork, provider);
+              },
+            ),
           );
         },
       ),
@@ -72,32 +77,52 @@ class UserGalleryScreen extends StatelessWidget {
     InspirationImage artwork,
     InspirationProvider provider,
   ) {
+    final isMobile = ResponsiveBreakpoints.isMobile(context);
+    final imageHeight = isMobile ? 250.0 : 350.0;
+    
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
-      elevation: 3,
+      elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Image
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.network(
               artwork.imageUrl,
               width: double.infinity,
-              height: 300,
+              height: imageHeight,
               fit: BoxFit.cover,
+              filterQuality: FilterQuality.medium,
+              cacheWidth: 800,
               errorBuilder: (context, error, stackTrace) {
                 return Container(
-                  height: 300,
+                  height: imageHeight,
                   color: Colors.grey.shade300,
                   child: const Center(
                     child: Icon(
                       Icons.image_not_supported,
                       size: 50,
                       color: Colors.grey,
+                    ),
+                  ),
+                );
+              },
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  height: imageHeight,
+                  color: Colors.grey.shade200,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
                     ),
                   ),
                 );

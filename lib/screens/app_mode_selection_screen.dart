@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_health_reminders/models/app_mode.dart';
 import 'package:todo_health_reminders/screens/home_screen.dart';
 import 'package:todo_health_reminders/screens/inspiration_home_screen.dart';
+import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class AppModeSelectionScreen extends StatelessWidget {
   const AppModeSelectionScreen({super.key});
@@ -23,35 +24,22 @@ class AppModeSelectionScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 40),
-              _buildAppTitle(),
-              const SizedBox(height: 60),
+              _buildAppHeader(context),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildModeCard(
-                        context,
-                        AppMode.health,
-                        Icons.favorite,
-                        Colors.red.shade400,
-                        () => _navigateToMode(context, AppMode.health),
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: ResponsiveLayout(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ResponsiveBreakpoints.getHorizontalPadding(context),
+                          vertical: 24.0,
+                        ),
+                        child: _buildCardLayout(context),
                       ),
-                      const SizedBox(height: 32),
-                      _buildModeCard(
-                        context,
-                        AppMode.inspiration,
-                        Icons.palette,
-                        Colors.orange.shade400,
-                        () => _navigateToMode(context, AppMode.inspiration),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -59,30 +47,109 @@ class AppModeSelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAppTitle() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
+  Widget _buildAppHeader(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.orange.shade400,
+            Colors.deepOrange.shade300,
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: const Column(
         children: [
           Text(
             '2do',
             style: TextStyle(
-              fontSize: 48,
+              fontSize: 56,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.white,
+              letterSpacing: 2,
+              shadows: [
+                Shadow(
+                  color: Colors.black26,
+                  offset: Offset(2, 2),
+                  blurRadius: 4,
+                ),
+              ],
             ),
           ),
           SizedBox(height: 8),
           Text(
             'Välj din app',
             style: TextStyle(
-              fontSize: 20,
-              color: Colors.black54,
+              fontSize: 22,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildCardLayout(BuildContext context) {
+    final isMobile = ResponsiveBreakpoints.isMobile(context);
+    
+    if (isMobile) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildModeCard(
+            context,
+            AppMode.health,
+            Icons.favorite,
+            Colors.red.shade400,
+            () => _navigateToMode(context, AppMode.health),
+          ),
+          const SizedBox(height: 24),
+          _buildModeCard(
+            context,
+            AppMode.inspiration,
+            Icons.palette,
+            Colors.orange.shade400,
+            () => _navigateToMode(context, AppMode.inspiration),
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: _buildModeCard(
+              context,
+              AppMode.health,
+              Icons.favorite,
+              Colors.red.shade400,
+              () => _navigateToMode(context, AppMode.health),
+            ),
+          ),
+          const SizedBox(width: 24),
+          Expanded(
+            child: _buildModeCard(
+              context,
+              AppMode.inspiration,
+              Icons.palette,
+              Colors.orange.shade400,
+              () => _navigateToMode(context, AppMode.inspiration),
+            ),
+          ),
+        ],
+      );
+    }
   }
 
   Widget _buildModeCard(
