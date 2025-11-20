@@ -255,174 +255,345 @@ abstract class AppLocalizations {
   String get profile;
 
   /// Add reminder page title
+  ///
+  /// In en, this message translates to:
+  /// **'Add Reminder'**
   String get addReminder;
 
   /// Edit reminder page title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Reminder'**
   String get editReminder;
 
   /// Save button label
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
   String get save;
 
   /// Update button label
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
   String get update;
 
   /// Schedule section header
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
   String get schedule;
 
   /// Time field label
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
   String get time;
 
   /// Frequency field label
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency'**
   String get frequency;
 
   /// Priority field label
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
   String get priority;
 
   /// Category field label
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
   String get category;
 
   /// Daily frequency option
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
   String get daily;
 
   /// Weekly frequency option
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
   String get weekly;
 
   /// Monthly frequency option
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
   String get monthly;
 
   /// Custom frequency option
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
   String get custom;
 
   /// Select days label for weekday selection
+  ///
+  /// In en, this message translates to:
+  /// **'Select Days'**
   String get selectDays;
 
   /// Monday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
   String get monday;
 
   /// Tuesday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
   String get tuesday;
 
   /// Wednesday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
   String get wednesday;
 
   /// Thursday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
   String get thursday;
 
   /// Friday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
   String get friday;
 
   /// Saturday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
   String get saturday;
 
   /// Sunday day name
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
   String get sunday;
 
   /// Multiple times label
+  ///
+  /// In en, this message translates to:
+  /// **'Times'**
   String get times;
 
   /// Add time button label
+  ///
+  /// In en, this message translates to:
+  /// **'Add Time'**
   String get addTime;
 
   /// Save reminder button label
+  ///
+  /// In en, this message translates to:
+  /// **'Save Reminder'**
   String get saveReminder;
 
   /// Custom interval label
+  ///
+  /// In en, this message translates to:
+  /// **'Every X days'**
   String get everyXDays;
 
   /// Custom interval hint text
+  ///
+  /// In en, this message translates to:
+  /// **'Enter number of days'**
   String get enterNumberOfDays;
 
   /// Reminder type selection label
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Type'**
   String get reminderType;
 
   /// Custom reminder type option
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
   String get customReminder;
 
   /// Office reminder type option
+  ///
+  /// In en, this message translates to:
+  /// **'Office'**
   String get officeReminder;
 
   /// Select reminder type title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Reminder Type'**
   String get selectReminderType;
 
   /// Walk template name
+  ///
+  /// In en, this message translates to:
+  /// **'Walk'**
   String get walk;
 
   /// Stand up challenge template name
+  ///
+  /// In en, this message translates to:
+  /// **'Stand Up Challenge'**
   String get standUpChallenge;
 
   /// Duration label
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
   String get duration;
 
   /// Minutes unit
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
   String get minutes;
 
   /// Number of repetitions label
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitions'**
   String get repetitions;
 
   /// Times per day label
+  ///
+  /// In en, this message translates to:
+  /// **'Times per day'**
   String get timesPerDay;
 
   /// Work hours label
+  ///
+  /// In en, this message translates to:
+  /// **'Work Hours'**
   String get workHours;
 
   /// Start time label
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
   String get startTime;
 
   /// End time label
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
   String get endTime;
 
   /// Timer running label
+  ///
+  /// In en, this message translates to:
+  /// **'Timer Running'**
   String get timerRunning;
 
   /// Pause button label
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
   String get pause;
 
   /// Resume button label
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
   String get resume;
 
   /// Complete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
   String get complete;
 
   /// Add minutes button label
+  ///
+  /// In en, this message translates to:
+  /// **'Add Minutes'**
   String get addMinutes;
 
   /// Completion message
+  ///
+  /// In en, this message translates to:
+  /// **'Great Job!'**
   String get greatJob;
 
   /// Completion description
+  ///
+  /// In en, this message translates to:
+  /// **'You completed your stand-up challenge!'**
   String get youDidIt;
 
   /// Work hours settings label
+  ///
+  /// In en, this message translates to:
+  /// **'Work Hours Settings'**
   String get workHoursSettings;
 
   /// Work hours settings description
+  ///
+  /// In en, this message translates to:
+  /// **'Set default work hours for office reminders'**
   String get setDefaultWorkHours;
 
   /// Configure stand up challenge title
+  ///
+  /// In en, this message translates to:
+  /// **'Configure Stand Up Challenge'**
   String get configureStandUp;
 
   /// Select template title
+  ///
+  /// In en, this message translates to:
+  /// **'Select Template'**
   String get selectTemplate;
 
   /// Admin mode toggle label
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Mode'**
   String get adminMode;
 
   /// Admin mode toggle description
+  ///
+  /// In en, this message translates to:
+  /// **'Enable admin mode for advanced features'**
   String get enableAdminMode;
 
   /// Start challenge manually button
+  ///
+  /// In en, this message translates to:
+  /// **'Start Manually'**
   String get startManually;
 
   /// Manual session label
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Session'**
   String get manualSession;
 
   /// Message when manual session completes full time
+  ///
+  /// In en, this message translates to:
+  /// **'Next scheduled period will be marked as complete'**
   String get nextPeriodMarked;
 
   /// Custom time input label for admin
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Time'**
   String get customTime;
 
   /// Enter custom minutes hint
+  ///
+  /// In en, this message translates to:
+  /// **'Enter minutes'**
   String get enterMinutes;
 }
 

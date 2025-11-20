@@ -229,7 +229,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workHoursSettings => 'Work Hours Settings';
 
   @override
-  String get setDefaultWorkHours => 'Set default work hours for office reminders';
+  String get setDefaultWorkHours =>
+      'Set default work hours for office reminders';
 
   @override
   String get configureStandUp => 'Configure Stand Up Challenge';
@@ -250,7 +251,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manualSession => 'Manual Session';
 
   @override
-  String get nextPeriodMarked => 'Next scheduled period will be marked as complete';
+  String get nextPeriodMarked =>
+      'Next scheduled period will be marked as complete';
 
   @override
   String get customTime => 'Custom Time';

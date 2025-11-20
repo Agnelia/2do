@@ -229,7 +229,8 @@ class AppLocalizationsSv extends AppLocalizations {
   String get workHoursSettings => 'Arbetstidsinställningar';
 
   @override
-  String get setDefaultWorkHours => 'Ange standardarbetstider för kontorspåminnelser';
+  String get setDefaultWorkHours =>
+      'Ange standardarbetstider för kontorspåminnelser';
 
   @override
   String get configureStandUp => 'Konfigurera stå upp utmaning';
@@ -241,7 +242,8 @@ class AppLocalizationsSv extends AppLocalizations {
   String get adminMode => 'Administratörsläge';
 
   @override
-  String get enableAdminMode => 'Aktivera administratörsläge för avancerade funktioner';
+  String get enableAdminMode =>
+      'Aktivera administratörsläge för avancerade funktioner';
 
   @override
   String get startManually => 'Starta manuellt';
@@ -250,7 +252,8 @@ class AppLocalizationsSv extends AppLocalizations {
   String get manualSession => 'Manuell session';
 
   @override
-  String get nextPeriodMarked => 'Nästa schemalagda period kommer att markeras som slutförd';
+  String get nextPeriodMarked =>
+      'Nästa schemalagda period kommer att markeras som slutförd';
 
   @override
   String get customTime => 'Anpassad tid';
