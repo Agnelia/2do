@@ -49,29 +49,34 @@ class AppModeSelectionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAppHeader(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+  double _getResponsiveLogoFontSize(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final headerHeight = screenHeight * 0.5; // Half the page
     
-    // Responsive font size based on screen width
+    // Font size constants for different breakpoints
+    // Scale factor of 0.35 ensures logo fits on one line on mobile devices
+    // while maintaining readability (35% of screen width works well for 3-character text)
     const double mobileFontSizeScale = 0.35;
     const double mobileFontSizeMin = 80.0;
     const double mobileFontSizeMax = 140.0;
     const double tabletFontSize = 180.0;
     const double desktopFontSize = 240.0;
     
-    final double fontSize;
     if (ResponsiveBreakpoints.isMobile(context)) {
       // Mobile: scale with screen width, but cap at reasonable sizes
-      fontSize = (screenWidth * mobileFontSizeScale).clamp(mobileFontSizeMin, mobileFontSizeMax);
+      return (screenWidth * mobileFontSizeScale).clamp(mobileFontSizeMin, mobileFontSizeMax);
     } else if (ResponsiveBreakpoints.isTablet(context)) {
       // Tablet
-      fontSize = tabletFontSize;
+      return tabletFontSize;
     } else {
       // Desktop
-      fontSize = desktopFontSize;
+      return desktopFontSize;
     }
+  }
+
+  Widget _buildAppHeader(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final headerHeight = screenHeight * 0.5; // Half the page
+    final fontSize = _getResponsiveLogoFontSize(context);
     
     return SizedBox(
       height: headerHeight,
