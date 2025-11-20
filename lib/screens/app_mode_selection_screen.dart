@@ -55,16 +55,22 @@ class AppModeSelectionScreen extends StatelessWidget {
     final headerHeight = screenHeight * 0.5; // Half the page
     
     // Responsive font size based on screen width
+    const double mobileFontSizeScale = 0.35;
+    const double mobileFontSizeMin = 80.0;
+    const double mobileFontSizeMax = 140.0;
+    const double tabletFontSize = 180.0;
+    const double desktopFontSize = 240.0;
+    
     final double fontSize;
-    if (screenWidth < 600) {
+    if (ResponsiveBreakpoints.isMobile(context)) {
       // Mobile: scale with screen width, but cap at reasonable sizes
-      fontSize = (screenWidth * 0.35).clamp(80.0, 140.0);
-    } else if (screenWidth < 1200) {
+      fontSize = (screenWidth * mobileFontSizeScale).clamp(mobileFontSizeMin, mobileFontSizeMax);
+    } else if (ResponsiveBreakpoints.isTablet(context)) {
       // Tablet
-      fontSize = 180;
+      fontSize = tabletFontSize;
     } else {
       // Desktop
-      fontSize = 240;
+      fontSize = desktopFontSize;
     }
     
     return SizedBox(
