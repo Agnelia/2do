@@ -3,6 +3,7 @@ import 'package:todo_health_reminders/models/app_mode.dart';
 import 'package:todo_health_reminders/screens/home_screen.dart';
 import 'package:todo_health_reminders/screens/inspiration_home_screen.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 
 class AppModeSelectionScreen extends StatelessWidget {
@@ -61,10 +62,26 @@ class AppModeSelectionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Bubble-style painted "2do" logo
-              CustomPaint(
-                size: const Size(400, 180),
-                painter: _BubbleTextPainter(),
+              // Graffiti-style "2do" text using bold font
+              Text(
+                '2do',
+                style: GoogleFonts.rubikBubbles(
+                  fontSize: 120,
+                  fontWeight: FontWeight.w900,
+                  color: const Color(0xFFFF1744), // Bright vibrant red
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.5),
+                      offset: const Offset(4, 4),
+                      blurRadius: 8,
+                    ),
+                    Shadow(
+                      color: const Color(0xFFFF1744).withOpacity(0.5),
+                      offset: const Offset(-2, -2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               Container(
@@ -401,260 +418,6 @@ class _AppHeaderPainter extends CustomPainter {
       final radius = 2 + random.nextDouble() * 4;
       
       canvas.drawCircle(Offset(x, y), radius, paint);
-    }
-  }
-  
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// Custom painter for bubble-style "2do" text
-class _BubbleTextPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.fill;
-    
-    // Draw "2"
-    _drawBubble2(canvas, Offset(40, size.height / 2), paint);
-    
-    // Draw "d"
-    _drawBubbleD(canvas, Offset(170, size.height / 2), paint);
-    
-    // Draw "o"
-    _drawBubbleO(canvas, Offset(290, size.height / 2), paint);
-  }
-  
-  void _drawBubble2(Canvas canvas, Offset center, Paint paint) {
-    final path = Path();
-    
-    // Create rounded "2" shape
-    path.moveTo(center.dx + 10, center.dy - 60);
-    path.cubicTo(
-      center.dx + 10, center.dy - 80,
-      center.dx + 30, center.dy - 90,
-      center.dx + 50, center.dy - 90,
-    );
-    path.cubicTo(
-      center.dx + 70, center.dy - 90,
-      center.dx + 80, center.dy - 80,
-      center.dx + 80, center.dy - 60,
-    );
-    path.cubicTo(
-      center.dx + 80, center.dy - 45,
-      center.dx + 70, center.dy - 30,
-      center.dx + 50, center.dy - 15,
-    );
-    path.lineTo(center.dx + 10, center.dy + 20);
-    path.cubicTo(
-      center.dx + 5, center.dy + 30,
-      center.dx + 0, center.dy + 40,
-      center.dx + 0, center.dy + 50,
-    );
-    path.lineTo(center.dx + 80, center.dy + 50);
-    path.cubicTo(
-      center.dx + 90, center.dy + 50,
-      center.dx + 95, center.dy + 60,
-      center.dx + 95, center.dy + 70,
-    );
-    path.cubicTo(
-      center.dx + 95, center.dy + 80,
-      center.dx + 90, center.dy + 90,
-      center.dx + 80, center.dy + 90,
-    );
-    path.lineTo(center.dx + 10, center.dy + 90);
-    path.cubicTo(
-      center.dx - 10, center.dy + 90,
-      center.dx - 20, center.dy + 80,
-      center.dx - 20, center.dy + 60,
-    );
-    path.cubicTo(
-      center.dx - 20, center.dy + 40,
-      center.dx - 10, center.dy + 20,
-      center.dx + 10, center.dy,
-    );
-    path.lineTo(center.dx + 40, center.dy - 30);
-    path.cubicTo(
-      center.dx + 50, center.dy - 40,
-      center.dx + 55, center.dy - 50,
-      center.dx + 55, center.dy - 60,
-    );
-    path.cubicTo(
-      center.dx + 55, center.dy - 70,
-      center.dx + 50, center.dy - 75,
-      center.dx + 40, center.dy - 75,
-    );
-    path.cubicTo(
-      center.dx + 30, center.dy - 75,
-      center.dx + 20, center.dy - 70,
-      center.dx + 10, center.dy - 60,
-    );
-    path.close();
-    
-    _paintBubbleLetter(canvas, path, center);
-  }
-  
-  void _drawBubbleD(Canvas canvas, Offset center, Paint paint) {
-    final path = Path();
-    
-    // Create rounded "d" shape
-    // Vertical line
-    path.moveTo(center.dx + 50, center.dy - 90);
-    path.lineTo(center.dx + 50, center.dy + 90);
-    path.cubicTo(
-      center.dx + 50, center.dy + 100,
-      center.dx + 55, center.dy + 105,
-      center.dx + 65, center.dy + 105,
-    );
-    path.cubicTo(
-      center.dx + 75, center.dy + 105,
-      center.dx + 80, center.dy + 100,
-      center.dx + 80, center.dy + 90,
-    );
-    path.lineTo(center.dx + 80, center.dy - 90);
-    path.cubicTo(
-      center.dx + 80, center.dy - 100,
-      center.dx + 75, center.dy - 105,
-      center.dx + 65, center.dy - 105,
-    );
-    path.cubicTo(
-      center.dx + 55, center.dy - 105,
-      center.dx + 50, center.dy - 100,
-      center.dx + 50, center.dy - 90,
-    );
-    path.close();
-    
-    // Bowl of "d"
-    final bowlPath = Path();
-    bowlPath.addOval(Rect.fromCenter(
-      center: Offset(center.dx + 15, center.dy + 20),
-      width: 80,
-      height: 120,
-    ));
-    
-    path.addPath(bowlPath, Offset.zero);
-    
-    _paintBubbleLetter(canvas, path, center);
-  }
-  
-  void _drawBubbleO(Canvas canvas, Offset center, Paint paint) {
-    final path = Path();
-    
-    // Create rounded "o" shape with inner hole using evenOdd fill type
-    path.fillType = PathFillType.evenOdd;
-    
-    // Outer oval
-    path.addOval(Rect.fromCenter(
-      center: Offset(center.dx, center.dy + 20),
-      width: 80,
-      height: 120,
-    ));
-    
-    // Inner hole
-    path.addOval(Rect.fromCenter(
-      center: Offset(center.dx, center.dy + 20),
-      width: 40,
-      height: 80,
-    ));
-    
-    _paintBubbleLetter(canvas, path, center);
-  }
-  
-  void _paintBubbleLetter(Canvas canvas, Path path, Offset center) {
-    // Draw shadow
-    final shadowPaint = Paint()
-      ..color = Colors.black.withOpacity(0.3)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
-    canvas.save();
-    canvas.translate(5, 8);
-    canvas.drawPath(path, shadowPaint);
-    canvas.restore();
-    
-    // Draw thick black outline
-    final outlinePaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = Colors.black
-      ..strokeWidth = 8;
-    canvas.drawPath(path, outlinePaint);
-    
-    // Draw main letter with bright pink/magenta color
-    final mainPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = const Color(0xFFFF69B4); // Hot pink
-    canvas.drawPath(path, mainPaint);
-    
-    // Draw inner darker pink for depth
-    canvas.save();
-    canvas.clipPath(path);
-    
-    final innerShadowPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..shader = LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [
-          const Color(0xFFFF69B4), // Hot pink
-          const Color(0xFFFF1493), // Deep pink
-        ],
-      ).createShader(path.getBounds());
-    canvas.drawPath(path, innerShadowPaint);
-    
-    // Draw white highlight on top-left
-    final highlightPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.white.withOpacity(0.7);
-    
-    final bounds = path.getBounds();
-    final highlightPath = Path()
-      ..addOval(Rect.fromLTWH(
-        bounds.left + bounds.width * 0.15,
-        bounds.top + bounds.height * 0.1,
-        bounds.width * 0.3,
-        bounds.height * 0.15,
-      ));
-    
-    canvas.drawPath(highlightPath, highlightPaint);
-    canvas.restore();
-    
-    // Draw drips at the bottom
-    _drawDrips(canvas, path);
-  }
-  
-  void _drawDrips(Canvas canvas, Path letterPath) {
-    final bounds = letterPath.getBounds();
-    
-    // Add 2-3 drips at the bottom of each letter
-    final dripPositions = [
-      bounds.left + bounds.width * 0.3,
-      bounds.left + bounds.width * 0.7,
-    ];
-    
-    for (final x in dripPositions) {
-      final dripPath = Path();
-      final startY = bounds.bottom;
-      
-      // Drip shape
-      dripPath.moveTo(x - 3, startY);
-      dripPath.lineTo(x - 4, startY + 8);
-      dripPath.quadraticBezierTo(
-        x, startY + 12,
-        x + 4, startY + 8,
-      );
-      dripPath.lineTo(x + 3, startY);
-      dripPath.close();
-      
-      // Black outline for drip
-      final dripOutline = Paint()
-        ..style = PaintingStyle.stroke
-        ..color = Colors.black
-        ..strokeWidth = 2;
-      canvas.drawPath(dripPath, dripOutline);
-      
-      // Pink fill for drip
-      final dripFill = Paint()
-        ..style = PaintingStyle.fill
-        ..color = const Color(0xFFFF1493); // Deep pink
-      canvas.drawPath(dripPath, dripFill);
     }
   }
   
