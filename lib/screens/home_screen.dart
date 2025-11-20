@@ -39,6 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text(l10n.appTitle),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.apps),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+            tooltip: 'Byt app-läge',
+          ),
           actions: [
             IconButton(
               icon: const Icon(Icons.notifications),

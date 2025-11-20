@@ -1,6 +1,14 @@
-# 2do Health Reminders
+# 2do - Health & Inspiration App
 
-A responsive Flutter application for health-related reminders with charts, diagnostics, and statistics. This app helps users maintain their health goals through personalized reminders and comprehensive progress tracking.
+A responsive Flutter application with two powerful modes:
+1. **Health Reminders** - Track health goals with personalized reminders and comprehensive progress tracking
+2. **Inspirationsappen** - Find artistic inspiration, discover creative motifs, and share your artwork
+
+## App Modes
+
+When you launch the app, you can choose between:
+- **Health Mode** - Health reminders and wellness tracking
+- **Inspirationsappen** - Artistic inspiration and creative sharing
 
 ## Features
 
@@ -41,6 +49,30 @@ A responsive Flutter application for health-related reminders with charts, diagn
 - **Snooze Options**: Flexible snooze durations (15min, 30min, 1hr, tomorrow)
 - **Completion Tracking**: Mark reminders as complete with a single tap
 - **Overdue Indicators**: Visual indicators for missed reminders
+
+### 🎨 Inspirationsappen (Inspiration App)
+- **Theme Selection**: Choose from multiple themes including Animals, Nature, Fantasy, People, Flowers, and more
+- **Style Selection**: Select from various art styles:
+  - Simple with/without background
+  - Tropical with detailed/simple elements
+  - Realistic with detailed/simple elements
+  - Bohemian style with detailed/simple elements
+- **Image Sources**: Toggle between internet images and user-uploaded artwork (cannot combine)
+- **Smart Suggestions**: View 4 image suggestions at a time
+- **Refresh Options**: Remove individual images to get new suggestions, or refresh all at once
+- **Save Favorites**: Download and save inspiring images locally
+- **Auto-Cleanup**: Saved images automatically removed after 3 months
+- **Upload Your Art**: Share your own artwork with the community
+- **User Attribution**: All uploaded images display the creator's username
+- **Comments**: Comment on user-uploaded artwork (not available for internet images)
+- **Vintage Design**: Beautiful matte color palette with orange, green, copper, yellow, and turquoise
+- **Sun Banner**: Welcoming smiling sun banner with gold and red gradient
+
+#### Inspirationsappen Dashboard
+Three main actions available from the dashboard:
+1. **Sök inspiration** (Search Inspiration) - Find new motifs and themes
+2. **Valda bilder** (Saved Images) - View your saved inspiration images
+3. **Ladda upp konst** (Upload Art) - Share your own artwork with others
 
 ## Screenshots
 

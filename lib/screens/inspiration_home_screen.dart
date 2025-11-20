@@ -4,6 +4,7 @@ import 'package:todo_health_reminders/providers/inspiration_provider.dart';
 import 'package:todo_health_reminders/screens/inspiration_search_screen.dart';
 import 'package:todo_health_reminders/screens/saved_images_screen.dart';
 import 'package:todo_health_reminders/screens/upload_artwork_screen.dart';
+import 'package:todo_health_reminders/screens/user_gallery_screen.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
 
 class InspirationHomeScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class InspirationHomeScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              _buildTopBar(context),
               _buildBanner(context),
               Expanded(
                 child: _buildDashboard(context),
@@ -33,6 +35,25 @@ class InspirationHomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTopBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.apps),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+            tooltip: 'Byt app-läge',
+          ),
+          const SizedBox(width: 48),
+        ],
       ),
     );
   }
@@ -144,6 +165,20 @@ class InspirationHomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const UploadArtworkScreen(),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildDashboardButton(
+                context,
+                'Användargalleri',
+                'Se och kommentera andras verk',
+                Icons.people,
+                InspirationColors.lightGreen,
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UserGalleryScreen(),
                   ),
                 ),
               ),

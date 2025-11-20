@@ -45,7 +45,10 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: LocaleProvider.supportedLocales,
-            home: const AppModeSelectionScreen(),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => const AppModeSelectionScreen(),
+            },
             debugShowCheckedModeBanner: false,
           );
         },
