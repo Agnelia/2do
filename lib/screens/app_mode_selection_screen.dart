@@ -540,7 +540,10 @@ class _BubbleTextPainter extends CustomPainter {
   void _drawBubbleO(Canvas canvas, Offset center, Paint paint) {
     final path = Path();
     
-    // Create rounded "o" shape
+    // Create rounded "o" shape with inner hole using evenOdd fill type
+    path.fillType = PathFillType.evenOdd;
+    
+    // Outer oval
     path.addOval(Rect.fromCenter(
       center: Offset(center.dx, center.dy + 20),
       width: 80,
@@ -548,14 +551,11 @@ class _BubbleTextPainter extends CustomPainter {
     ));
     
     // Inner hole
-    final innerPath = Path();
-    innerPath.addOval(Rect.fromCenter(
+    path.addOval(Rect.fromCenter(
       center: Offset(center.dx, center.dy + 20),
       width: 40,
       height: 80,
     ));
-    
-    path = Path.combine(PathOperation.difference, path, innerPath);
     
     _paintBubbleLetter(canvas, path, center);
   }
