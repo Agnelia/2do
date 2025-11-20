@@ -1,239 +1,239 @@
-# Inspirationsappen - Artist Inspiration Feature
+# Inspirationsappen - Konstnärlig Inspirationsfunktion
 
-## Overview
+## Översikt
 
-Inspirationsappen is a dedicated mode within the 2do app designed to inspire artists and art enthusiasts. It provides a platform to discover artistic inspiration, explore different themes and styles, save favorite images, and share your own artwork with the community.
+Inspirationsappen är ett dedikerat läge inom 2do-appen designad för att inspirera konstnärer och konstentusiaster. Den erbjuder en plattform för att upptäcka konstnärlig inspiration, utforska olika teman och stilar, spara favoritbilder och dela dina egna konstverk med gemenskapen.
 
-## Features
+## Funktioner
 
-### 🎨 Theme Selection
-Choose from a variety of artistic themes:
-- **Djur** (Animals) - Animal-themed artwork
-- **Natur** (Nature) - Natural landscapes and scenery
-- **Fantasy** - Fantasy and imaginative themes
-- **Människor** (People) - Portraits and people
-- **Blommor** (Flowers) - Floral artwork
-- **Abstrakt** (Abstract) - Abstract art
-- **Landskap** (Landscape) - Landscape scenes
-- **Porträtt** (Portrait) - Portrait art
-- **Stilleben** (Still Life) - Still life compositions
+### 🎨 Temaval
+Välj bland en mängd olika konstnärliga teman:
+- **Djur** - Djurtema konstverk
+- **Natur** - Naturlandskap och sceneri
+- **Fantasy** - Fantasy och fantasifulla teman
+- **Människor** - Porträtt och människor
+- **Blommor** - Blommiga konstverk
+- **Abstrakt** - Abstrakt konst
+- **Landskap** - Landskapsscener
+- **Porträtt** - Porträttkonst
+- **Stilleben** - Stilleben kompositioner
 
-### 🖌️ Style Selection
-Select from various artistic styles:
-- **Enkel med bakgrund** - Simple with background
-- **Enkel utan bakgrund** - Simple without background
-- **Tropisk med mycket detaljer** - Tropical with detailed elements
-- **Tropisk med enkla detaljer** - Tropical with simple details
-- **Naturtrogen med mycket detaljer** - Realistic with detailed elements
-- **Naturtrogen med enkla detaljer** - Realistic with simple details
-- **Bohemisk stil med mycket detaljer** - Bohemian style with detailed elements
-- **Bohemisk stil med lite detaljer** - Bohemian style with simple details
+### 🖌️ Stilval
+Välj bland olika konstnärliga stilar:
+- **Enkel med bakgrund** - Enkla motiv med bakgrund
+- **Enkel utan bakgrund** - Enkla motiv utan bakgrund
+- **Tropisk med mycket detaljer** - Tropiska motiv med många detaljer
+- **Tropisk med enkla detaljer** - Tropiska motiv med enkla detaljer
+- **Naturtrogen med mycket detaljer** - Realistiska motiv med många detaljer
+- **Naturtrogen med enkla detaljer** - Realistiska motiv med enkla detaljer
+- **Bohemisk stil med mycket detaljer** - Bohemisk stil med många detaljer
+- **Bohemisk stil med lite detaljer** - Bohemisk stil med få detaljer
 
-### 📷 Image Sources
-Toggle between two exclusive image sources:
-- **Internet bilder** - Images from the internet
-- **Användare bilder** - Images uploaded by app users
+### 📷 Bildkällor
+Växla mellan två exklusiva bildkällor:
+- **Internet bilder** - Bilder från internet
+- **Användare bilder** - Bilder uppladdade av appanvändare
 
-**Note:** You cannot combine both sources simultaneously.
+**Observera:** Du kan inte kombinera båda källorna samtidigt.
 
-### 🔍 Search & Discovery
-1. Select your preferred image source
-2. Choose a theme that inspires you
-3. Pick an artistic style
-4. Get 4 curated image suggestions
-5. Remove and replace individual images if desired
-6. Refresh all suggestions for a new set
+### 🔍 Sök & Upptäck
+1. Välj din föredragna bildkälla
+2. Välj ett tema som inspirerar dig
+3. Välj en konstnärlig stil
+4. Få 4 kurerade bildförslag
+5. Ta bort och ersätt enskilda bilder om önskat
+6. Uppdatera alla förslag för en ny uppsättning
 
-### 💾 Save & Organize
-- **Download Images** - Save inspiring images to your local collection
-- **Automatic Cleanup** - Saved images are automatically removed after 3 months
-- **Gallery View** - View all your saved images in one place
-- **Date Tracking** - See when each image was saved
+### 💾 Spara & Organisera
+- **Ladda ner bilder** - Spara inspirerande bilder till din lokala samling
+- **Automatisk rensning** - Sparade bilder tas automatiskt bort efter 3 månader
+- **Gallerivy** - Visa alla dina sparade bilder på ett ställe
+- **Datumspårning** - Se när varje bild sparades
 
-### 🎭 Share Your Art
-Upload your own artwork to inspire others:
-1. Enter your username
-2. Provide the image URL
-3. Select the theme and style
-4. Share with the community
+### 🎭 Dela Din Konst
+Ladda upp dina egna konstverk för att inspirera andra:
+1. Ange ditt användarnamn
+2. Ange bild-URL
+3. Välj tema och stil
+4. Dela med gemenskapen
 
-Your username will be displayed on all images you upload.
+Ditt användarnamn kommer att visas på alla bilder du laddar upp.
 
-### 💬 Community Engagement
-For user-uploaded artwork only:
-- **View Artworks** - Browse all artwork uploaded by community members
-- **Add Comments** - Share your thoughts and appreciation
-- **View All Comments** - Read what others think
-- **User Attribution** - Every artwork shows the creator's username
+### 💬 Gemenskapsengagemang
+Endast för användaruppladdade konstverk:
+- **Visa konstverk** - Bläddra bland alla konstverk uppladdade av community-medlemmar
+- **Lägg till kommentarer** - Dela dina tankar och uppskattning
+- **Visa alla kommentarer** - Läs vad andra tycker
+- **Användarattribution** - Varje konstverk visar skaparens användarnamn
 
-**Important:** Comments are only available for user-uploaded images, not internet images.
+**Viktigt:** Kommentarer är endast tillgängliga för användaruppladdade bilder, inte internetbilder.
 
-## Design & Colors
+## Design & Färger
 
-### Color Palette
-The app uses a vintage, matte color scheme:
-- **Orange** (#E67E22) - Primary accent
-- **Light Orange** (#F39C12) - Secondary accent
-- **Dark Green** (#27AE60) - Nature tones
-- **Light Green** (#52BE80) - Fresh accents
-- **Copper** (#B87333) - Warm metallic
-- **Yellow** (#F4D03F) - Bright highlights
-- **Turquoise** (#1ABC9C) - Cool accents
-- **Gold** (#FFD700) - Sun banner
-- **Red** (#E74C3C) - Sun gradient
+### Färgpalett
+Appen använder ett vintage, matt färgschema:
+- **Orange** (#E67E22) - Primär accent
+- **Ljus Orange** (#F39C12) - Sekundär accent
+- **Mörkgrön** (#27AE60) - Naturtoner
+- **Ljusgrön** (#52BE80) - Friska accenter
+- **Koppar** (#B87333) - Varm metallisk
+- **Gul** (#F4D03F) - Ljusa höjdpunkter
+- **Turkos** (#1ABC9C) - Svala accenter
+- **Guld** (#FFD700) - Sol banner
+- **Röd** (#E74C3C) - Sol gradient
 
-### Typography
-- **Font Color:** Black for main text
-- **Style:** Simple, clean typeface
-- **Headers:** Bold black text
-- **Secondary Text:** Dark gray for subtitles
+### Typografi
+- **Teckenfärg:** Svart för huvudtext
+- **Stil:** Enkel, ren teckensnitt
+- **Rubriker:** Fet svart text
+- **Sekundär text:** Mörkgrå för undertexter
 
-### Banner Design
-The welcome banner features:
-- Smiling sun icon (☀️)
-- Gold and red gradient background
-- "Inspirationsappen" title
-- Tagline: "Din kreativa inspirationskälla"
+### Bannerdesign
+Välkomstbannern innehåller:
+- Leende sol-ikon (☀️)
+- Guld och röd gradient bakgrund
+- "Inspirationsappen" titel
+- Slogan: "Din kreativa inspirationskälla"
 
-## Navigation
+## Navigering
 
-### Main Dashboard
-Four main actions available:
-1. **Sök inspiration** (Search Inspiration) - Find new motifs and themes
-2. **Valda bilder** (Saved Images) - View your saved inspiration images
-3. **Ladda upp konst** (Upload Art) - Share your own artwork
-4. **Användargalleri** (User Gallery) - View and comment on community art
+### Huvudinstrumentpanel
+Fyra huvudåtgärder tillgängliga:
+1. **Sök inspiration** - Hitta nya motiv och teman
+2. **Valda bilder** - Visa dina sparade inspirationsbilder
+3. **Ladda upp konst** - Dela dina egna konstverk
+4. **Användargalleri** - Visa och kommentera gemenskapskonst
 
-### Mode Switching
-Use the app switcher icon (⊞) in the top-left corner to switch between:
-- Health Mode - Health reminders and wellness tracking
-- Inspirationsappen - Artistic inspiration and sharing
+### Lägesväxling
+Använd app-växlarikonen (⊞) i övre vänstra hörnet för att växla mellan:
+- Hälsoläge - Hälsopåminnelser och välmåendespårning
+- Inspirationsappen - Konstnärlig inspiration och delning
 
-## Usage Guide
+## Användarguide
 
-### Finding Inspiration
+### Hitta Inspiration
 
-1. **Start from Dashboard**
-   - Tap "Sök inspiration"
+1. **Starta från instrumentpanelen**
+   - Tryck på "Sök inspiration"
 
-2. **Select Source**
-   - Choose between Internet or User images
-   - Selection is exclusive - cannot combine
+2. **Välj källa**
+   - Välj mellan Internet- eller Användarbilder
+   - Valet är exklusivt - kan inte kombineras
 
-3. **Choose Theme**
-   - Browse available themes
-   - Tap your preferred theme
-   - Icon turns highlighted when selected
+3. **Välj Tema**
+   - Bläddra bland tillgängliga teman
+   - Tryck på ditt föredragna tema
+   - Ikonen blir markerad när den väljs
 
-4. **Pick Style**
-   - Scroll through style options
-   - Select one that matches your preference
-   - Card highlights when selected
+4. **Välj Stil**
+   - Bläddra igenom stilalternativ
+   - Välj en som matchar dina preferenser
+   - Kortet markeras när det väljs
 
-5. **View Results**
-   - Tap "Visa inspiration"
-   - See 4 curated suggestions
-   - Each image has a close (×) button
+5. **Visa Resultat**
+   - Tryck på "Visa inspiration"
+   - Se 4 kurerade förslag
+   - Varje bild har en stäng (×) knapp
 
-6. **Refine Results**
-   - Remove individual images to get new suggestions
-   - Or use refresh icon to reload all 4 images
-   - Continue until you find perfect inspiration
+6. **Förfina Resultat**
+   - Ta bort enskilda bilder för att få nya förslag
+   - Eller använd uppdateringsikonen för att ladda om alla 4 bilder
+   - Fortsätt tills du hittar perfekt inspiration
 
-7. **Save Favorites**
-   - Tap "Spara" button on any image
-   - Image saved to your collection
-   - Access later from "Valda bilder"
+7. **Spara Favoriter**
+   - Tryck på "Spara" knappen på valfri bild
+   - Bilden sparas till din samling
+   - Åtkomst senare från "Valda bilder"
 
-### Sharing Your Art
+### Dela Din Konst
 
-1. **Navigate to Upload**
-   - From dashboard, tap "Ladda upp konst"
+1. **Navigera till Uppladdning**
+   - Från instrumentpanelen, tryck på "Ladda upp konst"
 
-2. **Enter Details**
-   - Username: Your artist name
-   - Image URL: Link to your artwork
-   - Theme: Category of your art
-   - Style: Artistic style used
+2. **Ange Detaljer**
+   - Användarnamn: Ditt konstnärsnamn
+   - Bild-URL: Länk till ditt konstverk
+   - Tema: Kategori för din konst
+   - Stil: Konstnärlig stil som använts
 
-3. **Upload**
-   - Tap "Ladda upp"
-   - Your art appears in user gallery
-   - Username displayed on image
+3. **Ladda Upp**
+   - Tryck på "Ladda upp"
+   - Din konst visas i användargalleriet
+   - Användarnamnet visas på bilden
 
-### Engaging with Community
+### Engagera Dig i Gemenskapen
 
-1. **Browse Gallery**
-   - From dashboard, tap "Användargalleri"
-   - Scroll through all user artworks
+1. **Bläddra i Galleriet**
+   - Från instrumentpanelen, tryck på "Användargalleri"
+   - Bläddra igenom alla användarkonstverk
 
-2. **View Artwork**
-   - See creator's username
-   - View theme and style tags
-   - Read existing comments
+2. **Visa Konstverk**
+   - Se skaparens användarnamn
+   - Visa tema- och stiltaggar
+   - Läs befintliga kommentarer
 
-3. **Add Comments**
-   - Tap "Lägg till kommentar"
-   - Write your thoughts
-   - Tap "Skicka" to post
+3. **Lägg Till Kommentarer**
+   - Tryck på "Lägg till kommentar"
+   - Skriv dina tankar
+   - Tryck på "Skicka" för att posta
 
-4. **Save to Collection**
-   - Tap "Spara" button
-   - Artwork added to your saved images
+4. **Spara till Samling**
+   - Tryck på "Spara" knappen
+   - Konstverket läggs till i dina sparade bilder
 
-## Technical Details
+## Tekniska Detaljer
 
-### Data Storage
-- **Local Storage:** All data stored using SharedPreferences
-- **Saved Images:** Persisted with 3-month expiration
-- **User Artworks:** Permanently stored locally
-- **Comments:** Stored with associated artwork
+### Datalagring
+- **Lokal lagring:** All data lagras med SharedPreferences
+- **Sparade bilder:** Bevaras med 3 månaders utgångsdatum
+- **Användarkonstverk:** Permanent lagrade lokalt
+- **Kommentarer:** Lagras med associerat konstverk
 
-### Models
-- `AppMode` - Health/Inspiration mode selection
-- `InspirationTheme` - Theme categories
-- `ImageStyle` - Style options
-- `InspirationImage` - Image data with metadata
-- `SavedImage` - Saved image with timestamp
-- `ImageSource` - Internet vs User source
+### Modeller
+- `AppMode` - Val av Hälso-/Inspirationsläge
+- `InspirationTheme` - Temakategorier
+- `ImageStyle` - Stilalternativ
+- `InspirationImage` - Bilddata med metadata
+- `SavedImage` - Sparad bild med tidsstämpel
+- `ImageSource` - Internet vs Användarkälla
 
 ### Providers
-- `InspirationProvider` - Central state management
-  - Manages saved images
-  - Handles user artworks
-  - Generates suggestions
-  - Processes comments
+- `InspirationProvider` - Central tillståndshantering
+  - Hanterar sparade bilder
+  - Hanterar användarkonstverk
+  - Genererar förslag
+  - Bearbetar kommentarer
 
-### Screens
-- `AppModeSelectionScreen` - Mode selection entry point
-- `InspirationHomeScreen` - Main dashboard
-- `InspirationSearchScreen` - Theme and style selection
-- `ImageResultsScreen` - Display suggestions
-- `SavedImagesScreen` - Saved images gallery
-- `UploadArtworkScreen` - Upload your art
-- `UserGalleryScreen` - Community artwork with comments
+### Skärmar
+- `AppModeSelectionScreen` - Lägesval ingångspunkt
+- `InspirationHomeScreen` - Huvudinstrumentpanel
+- `InspirationSearchScreen` - Tema- och stilval
+- `ImageResultsScreen` - Visa förslag
+- `SavedImagesScreen` - Galleri för sparade bilder
+- `UploadArtworkScreen` - Ladda upp din konst
+- `UserGalleryScreen` - Gemenskapskonstverk med kommentarer
 
-## Future Enhancements
+## Framtida Förbättringar
 
-Potential improvements for future versions:
-- Integration with real image APIs
-- Image upload from device camera/gallery
-- Like/favorite system for artworks
-- User profiles and followers
-- Search and filter in user gallery
-- Export saved collections
-- Push notifications for comments
-- Direct sharing to social media
-- Collaborative art projects
-- Art challenges and themes
+Potentiella förbättringar för framtida versioner:
+- Integration med riktiga bild-API:er
+- Bilduppladdning från enhetens kamera/galleri
+- Gilla/favoritsystem för konstverk
+- Användarprofiler och följare
+- Sök och filter i användargalleriet
+- Exportera sparade samlingar
+- Push-notifieringar för kommentarer
+- Direkt delning till sociala medier
+- Samarbetskonstprojekt
+- Konstutmaningar och teman
 
 ## Support
 
-For questions or issues with Inspirationsappen:
-- Check the main README for general app information
-- Review this documentation for feature-specific help
-- Contact support through the app settings
+För frågor eller problem med Inspirationsappen:
+- Kolla huvud-README för allmän appinformation
+- Granska denna dokumentation för funktionsspecifik hjälp
+- Kontakta support genom appinställningarna
 
 ---
 
-**Made with ❤️ for artists and creators**
+**Skapad med ❤️ för konstnärer och skapare**

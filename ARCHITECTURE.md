@@ -1,73 +1,73 @@
-# 2do App Architecture
+# 2do App-arkitektur
 
-## Overview
+## Översikt
 
-The 2do app is a dual-mode Flutter application that combines health reminder functionality with an artistic inspiration platform. The app follows a clean architecture pattern with clear separation of concerns.
+2do-appen är en dual-mode Flutter-applikation som kombinerar hälsopåminnelsefunktionalitet med en konstnärlig inspirationsplattform. Appen följer ett rent arkitekturmönster med tydlig separation av concerns.
 
-## App Structure
+## Appstruktur
 
 ```
 ┌─────────────────────────────────────┐
-│      App Mode Selection Screen      │
-│   (Entry Point - Choose Mode)       │
+│    Lägesvalssk ärm (App Mode)       │
+│   (Ingångspunkt - Välj Läge)        │
 └────────────┬───────────┬────────────┘
              │           │
     ┌────────┘           └────────┐
     │                              │
 ┌───▼──────────────┐   ┌──────────▼───────────┐
-│   Health Mode    │   │  Inspirationsappen   │
-│  (Original App)  │   │   (New Feature)      │
+│   Hälsoläge      │   │  Inspirationsappen   │
+│  (Original App)  │   │   (Ny Funktion)      │
 └──────────────────┘   └──────────────────────┘
 ```
 
-## Dual Mode System
+## Dubbelt Lägessystem
 
-### Health Mode
-- Health reminders and tracking
-- Statistics and progress charts
-- Stand-up timer
-- Office templates
-- Settings and preferences
+### Hälsoläge
+- Hälsopåminnelser och spårning
+- Statistik och framstegsdiagram
+- Stå-upp-timer
+- Kontorsmallar
+- Inställningar och preferenser
 
-### Inspirationsappen Mode
-- Artistic inspiration search
-- Image suggestions (4 at a time)
-- Saved images gallery
-- Upload artwork
-- User gallery with comments
+### Inspirationsappen-läge
+- Konstnärlig inspirationssökning
+- Bildförslag (4 åt gången)
+- Galleri för sparade bilder
+- Ladda upp konstverk
+- Användargalleri med kommentarer
 
-## Inspirationsappen Architecture
+## Inspirationsappen-arkitektur
 
-### Data Flow
+### Dataflöde
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                    User Interface                     │
-│  (Screens: Dashboard, Search, Results, Gallery, etc) │
+│                 Användargränssnitt                    │
+│  (Skärmar: Instrumentpanel, Sök, Resultat, Galleri)  │
 └─────────────────────┬────────────────────────────────┘
                       │
                       ▼
 ┌──────────────────────────────────────────────────────┐
 │                 InspirationProvider                   │
-│         (State Management - ChangeNotifier)           │
+│         (Tillståndshantering - ChangeNotifier)        │
 │                                                       │
-│  • Manages selected theme/style/source               │
-│  • Generates image suggestions                       │
-│  • Handles saved images (3-month cleanup)            │
-│  • Manages user artworks and comments                │
+│  • Hanterar valt tema/stil/källa                     │
+│  • Genererar bildförslag                             │
+│  • Hanterar sparade bilder (3-månaders rensning)     │
+│  • Hanterar användarkonstverk och kommentarer        │
 └─────────────────────┬────────────────────────────────┘
                       │
                       ▼
 ┌──────────────────────────────────────────────────────┐
 │                SharedPreferences                      │
-│              (Local Data Persistence)                 │
+│              (Lokal Databeständighet)                 │
 │                                                       │
-│  • saved_images: List of SavedImage                  │
-│  • user_artworks: List of InspirationImage           │
+│  • saved_images: Lista av SavedImage                 │
+│  • user_artworks: Lista av InspirationImage          │
 └──────────────────────────────────────────────────────┘
 ```
 
-### Model Structure
+### Modellstruktur
 
 ```
 InspirationImage
