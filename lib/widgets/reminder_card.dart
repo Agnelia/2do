@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_health_reminders/models/reminder.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/reminder_provider.dart';
+import 'package:todo_health_reminders/screens/stand_up_timer_screen.dart';
 
 class ReminderCard extends StatelessWidget {
   final Reminder reminder;
@@ -221,9 +222,19 @@ class ReminderCard extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context) {
+    final isStandUpChallenge = reminder.tags.contains('standup');
+    
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        if (isStandUpChallenge)
+          IconButton(
+            onPressed: () => _startManualSession(context),
+            icon: const Icon(Icons.play_circle),
+            iconSize: 20,
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+            tooltip: 'Start Manually',
+          ),
         IconButton(
           onPressed: () => _snoozeReminder(context),
           icon: const Icon(Icons.snooze),
@@ -240,6 +251,32 @@ class ReminderCard extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _startManualSession(BuildContext context) {
+    // Start manual standup session
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StandUpTimerScreen(
+          reminder: reminder,
+          isManualSession: true,
+        ),
+      ),
+    ).then((result) {
+      if (result == true) {
+        // Mark as completed after manual session finishes
+        final reminderProvider = context.read<ReminderProvider>();
+        reminderProvider.completeReminder(reminder.id);
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Manual session completed! Next scheduled period marked as complete.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    });
   }
 
   void _showReminderDetails(BuildContext context) {
@@ -356,21 +393,48 @@ class ReminderCard extends StatelessWidget {
   }
 
   void _completeReminder(BuildContext context) {
-    final reminderProvider = context.read<ReminderProvider>();
-    reminderProvider.completeReminder(reminder.id);
+    // Check if this is a stand-up challenge
+    final isStandUpChallenge = reminder.tags.contains('standup');
     
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('${reminder.title} completed!'),
-        backgroundColor: Colors.green,
-        action: SnackBarAction(
-          label: 'UNDO',
-          onPressed: () {
-            // Implement undo functionality if needed
-          },
+    if (isStandUpChallenge) {
+      // Open the timer screen for stand-up challenges
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StandUpTimerScreen(reminder: reminder),
         ),
-      ),
-    );
+      ).then((completed) {
+        if (completed == true) {
+          // Mark as completed after timer finishes
+          final reminderProvider = context.read<ReminderProvider>();
+          reminderProvider.completeReminder(reminder.id);
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${reminder.title} completed!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      });
+    } else {
+      // Regular reminder completion
+      final reminderProvider = context.read<ReminderProvider>();
+      reminderProvider.completeReminder(reminder.id);
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${reminder.title} completed!'),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: 'UNDO',
+            onPressed: () {
+              // Implement undo functionality if needed
+            },
+          ),
+        ),
+      );
+    }
   }
 
   void _snoozeReminder(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/widgets/reminder_card.dart';
 import 'package:todo_health_reminders/widgets/statistics_chart.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
-import 'package:todo_health_reminders/screens/add_reminder_screen.dart';
+import 'package:todo_health_reminders/screens/reminder_type_selection_screen.dart';
 import 'package:todo_health_reminders/screens/statistics_screen.dart';
 import 'package:todo_health_reminders/screens/settings_screen.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const AddReminderScreen(),
+                      builder: (context) => const ReminderTypeSelectionScreen(),
                     ),
                   );
                 },

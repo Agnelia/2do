@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/providers/locale_provider.dart';
+import 'package:todo_health_reminders/providers/work_hours_provider.dart';
+import 'package:todo_health_reminders/providers/admin_provider.dart';
 import 'package:todo_health_reminders/utils/constants.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
@@ -18,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +42,10 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildLanguageSelection(context),
+            const SizedBox(height: 16),
+            _buildAdminSettings(context),
+            const SizedBox(height: 16),
+            _buildWorkHoursSettings(context),
             const SizedBox(height: 16),
             _buildGeneralSettings(context),
           ],
@@ -401,6 +407,141 @@ class SettingsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildAdminSettings(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
+    return Consumer<AdminProvider>(
+      builder: (context, adminProvider, child) {
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.admin_panel_settings,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.adminMode,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.enableAdminMode,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SwitchListTile(
+                  value: adminProvider.isAdminMode,
+                  onChanged: (value) {
+                    adminProvider.setAdminMode(value);
+                  },
+                  title: Text(adminProvider.isAdminMode ? 'Enabled' : 'Disabled'),
+                  secondary: Icon(
+                    adminProvider.isAdminMode ? Icons.lock_open : Icons.lock,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildWorkHoursSettings(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
+    return Consumer<WorkHoursProvider>(
+      builder: (context, workHoursProvider, child) {
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      l10n.workHoursSettings,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.setDefaultWorkHours,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ListTile(
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.startTime),
+                  trailing: Text(
+                    workHoursProvider.startTime.format(context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: workHoursProvider.startTime,
+                    );
+                    if (time != null) {
+                      workHoursProvider.setWorkHours(
+                        time,
+                        workHoursProvider.endTime,
+                      );
+                    }
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.endTime),
+                  trailing: Text(
+                    workHoursProvider.endTime.format(context),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: workHoursProvider.endTime,
+                    );
+                    if (time != null) {
+                      workHoursProvider.setWorkHours(
+                        workHoursProvider.startTime,
+                        time,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

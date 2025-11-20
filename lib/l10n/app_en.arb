@@ -207,5 +207,129 @@
   "enterNumberOfDays": "Enter number of days",
   "@enterNumberOfDays": {
     "description": "Custom interval hint text"
+  },
+  "reminderType": "Reminder Type",
+  "@reminderType": {
+    "description": "Reminder type selection label"
+  },
+  "customReminder": "Custom",
+  "@customReminder": {
+    "description": "Custom reminder type option"
+  },
+  "officeReminder": "Office",
+  "@officeReminder": {
+    "description": "Office reminder type option"
+  },
+  "selectReminderType": "Select Reminder Type",
+  "@selectReminderType": {
+    "description": "Select reminder type title"
+  },
+  "walk": "Walk",
+  "@walk": {
+    "description": "Walk template name"
+  },
+  "standUpChallenge": "Stand Up Challenge",
+  "@standUpChallenge": {
+    "description": "Stand up challenge template name"
+  },
+  "duration": "Duration",
+  "@duration": {
+    "description": "Duration label"
+  },
+  "minutes": "Minutes",
+  "@minutes": {
+    "description": "Minutes unit"
+  },
+  "repetitions": "Repetitions",
+  "@repetitions": {
+    "description": "Number of repetitions label"
+  },
+  "timesPerDay": "Times per day",
+  "@timesPerDay": {
+    "description": "Times per day label"
+  },
+  "workHours": "Work Hours",
+  "@workHours": {
+    "description": "Work hours label"
+  },
+  "startTime": "Start Time",
+  "@startTime": {
+    "description": "Start time label"
+  },
+  "endTime": "End Time",
+  "@endTime": {
+    "description": "End time label"
+  },
+  "timerRunning": "Timer Running",
+  "@timerRunning": {
+    "description": "Timer running label"
+  },
+  "pause": "Pause",
+  "@pause": {
+    "description": "Pause button label"
+  },
+  "resume": "Resume",
+  "@resume": {
+    "description": "Resume button label"
+  },
+  "complete": "Complete",
+  "@complete": {
+    "description": "Complete button label"
+  },
+  "addMinutes": "Add Minutes",
+  "@addMinutes": {
+    "description": "Add minutes button label"
+  },
+  "greatJob": "Great Job!",
+  "@greatJob": {
+    "description": "Completion message"
+  },
+  "youDidIt": "You completed your stand-up challenge!",
+  "@youDidIt": {
+    "description": "Completion description"
+  },
+  "workHoursSettings": "Work Hours Settings",
+  "@workHoursSettings": {
+    "description": "Work hours settings label"
+  },
+  "setDefaultWorkHours": "Set default work hours for office reminders",
+  "@setDefaultWorkHours": {
+    "description": "Work hours settings description"
+  },
+  "configureStandUp": "Configure Stand Up Challenge",
+  "@configureStandUp": {
+    "description": "Configure stand up challenge title"
+  },
+  "selectTemplate": "Select Template",
+  "@selectTemplate": {
+    "description": "Select template title"
+  },
+  "adminMode": "Admin Mode",
+  "@adminMode": {
+    "description": "Admin mode toggle label"
+  },
+  "enableAdminMode": "Enable admin mode for advanced features",
+  "@enableAdminMode": {
+    "description": "Admin mode toggle description"
+  },
+  "startManually": "Start Manually",
+  "@startManually": {
+    "description": "Start challenge manually button"
+  },
+  "manualSession": "Manual Session",
+  "@manualSession": {
+    "description": "Manual session label"
+  },
+  "nextPeriodMarked": "Next scheduled period will be marked as complete",
+  "@nextPeriodMarked": {
+    "description": "Message when manual session completes full time"
+  },
+  "customTime": "Custom Time",
+  "@customTime": {
+    "description": "Custom time input label for admin"
+  },
+  "enterMinutes": "Enter minutes",
+  "@enterMinutes": {
+    "description": "Enter custom minutes hint"
   }
 }

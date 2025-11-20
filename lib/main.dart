@@ -6,6 +6,8 @@ import 'package:todo_health_reminders/providers/reminder_provider.dart';
 import 'package:todo_health_reminders/providers/statistics_provider.dart';
 import 'package:todo_health_reminders/providers/theme_provider.dart';
 import 'package:todo_health_reminders/providers/locale_provider.dart';
+import 'package:todo_health_reminders/providers/work_hours_provider.dart';
+import 'package:todo_health_reminders/providers/admin_provider.dart';
 import 'package:todo_health_reminders/l10n/app_localizations.dart';
 
 void main() {
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StatisticsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => WorkHoursProvider()),
+        ChangeNotifierProvider(create: (_) => AdminProvider()),
       ],
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeProvider, child) {

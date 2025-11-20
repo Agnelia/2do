@@ -9,6 +9,19 @@ A responsive Flutter application for health-related reminders with charts, diagn
 - **Flexible Scheduling**: Daily, weekly, monthly, or custom frequency options
 - **Priority Levels**: Set urgency levels (Low, Medium, High, Urgent) for better prioritization
 - **Rich Categories**: Pre-defined health categories with custom icons and colors
+- **Office Templates**: Pre-configured reminders for office environments
+  - **Stand Up Challenge**: Configurable stand-up reminders with timer functionality
+  - **Walk Reminders**: Scheduled walking breaks (coming soon)
+
+### ⏱️ Stand Up Timer
+- **Count-Up Timer**: Track how long you've been standing (updates every minute)
+- **Customizable Duration**: Set your target duration (5-60 minutes)
+- **Flexible Repetitions**: Configure how many times per day (1-10 times)
+- **Work Hours Integration**: Automatically spaces reminders throughout your work day
+- **Add Extra Time**: Can add more minutes during the challenge, but cannot reduce
+- **Pause Functionality**: Pause and resume your timer as needed
+- **Completion Animation**: Celebratory animation when you complete your challenge
+- **Work Hours Settings**: Set default work hours in settings for all office reminders
 
 ### 📊 Statistics & Progress Tracking
 - **Interactive Charts**: Beautiful line charts showing completion trends over time

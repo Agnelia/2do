@@ -331,6 +331,99 @@ abstract class AppLocalizations {
 
   /// Custom interval hint text
   String get enterNumberOfDays;
+
+  /// Reminder type selection label
+  String get reminderType;
+
+  /// Custom reminder type option
+  String get customReminder;
+
+  /// Office reminder type option
+  String get officeReminder;
+
+  /// Select reminder type title
+  String get selectReminderType;
+
+  /// Walk template name
+  String get walk;
+
+  /// Stand up challenge template name
+  String get standUpChallenge;
+
+  /// Duration label
+  String get duration;
+
+  /// Minutes unit
+  String get minutes;
+
+  /// Number of repetitions label
+  String get repetitions;
+
+  /// Times per day label
+  String get timesPerDay;
+
+  /// Work hours label
+  String get workHours;
+
+  /// Start time label
+  String get startTime;
+
+  /// End time label
+  String get endTime;
+
+  /// Timer running label
+  String get timerRunning;
+
+  /// Pause button label
+  String get pause;
+
+  /// Resume button label
+  String get resume;
+
+  /// Complete button label
+  String get complete;
+
+  /// Add minutes button label
+  String get addMinutes;
+
+  /// Completion message
+  String get greatJob;
+
+  /// Completion description
+  String get youDidIt;
+
+  /// Work hours settings label
+  String get workHoursSettings;
+
+  /// Work hours settings description
+  String get setDefaultWorkHours;
+
+  /// Configure stand up challenge title
+  String get configureStandUp;
+
+  /// Select template title
+  String get selectTemplate;
+
+  /// Admin mode toggle label
+  String get adminMode;
+
+  /// Admin mode toggle description
+  String get enableAdminMode;
+
+  /// Start challenge manually button
+  String get startManually;
+
+  /// Manual session label
+  String get manualSession;
+
+  /// Message when manual session completes full time
+  String get nextPeriodMarked;
+
+  /// Custom time input label for admin
+  String get customTime;
+
+  /// Enter custom minutes hint
+  String get enterMinutes;
 }
 
 class _AppLocalizationsDelegate
