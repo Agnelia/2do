@@ -3,6 +3,7 @@ import 'package:todo_health_reminders/models/app_mode.dart';
 import 'package:todo_health_reminders/screens/home_screen.dart';
 import 'package:todo_health_reminders/screens/inspiration_home_screen.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'dart:math' as math;
 
 class AppModeSelectionScreen extends StatelessWidget {
   const AppModeSelectionScreen({super.key});
@@ -48,54 +49,75 @@ class AppModeSelectionScreen extends StatelessWidget {
   }
 
   Widget _buildAppHeader(BuildContext context) {
-    return Container(
+    final screenHeight = MediaQuery.of(context).size.height;
+    final headerHeight = screenHeight * 0.5; // Half the page
+    
+    return SizedBox(
+      height: headerHeight,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.orange.shade400,
-            Colors.deepOrange.shade300,
-          ],
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.orange.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: const Column(
-        children: [
-          Text(
-            '2do',
-            style: TextStyle(
-              fontSize: 56,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 2,
-              shadows: [
-                Shadow(
-                  color: Colors.black26,
-                  offset: Offset(2, 2),
-                  blurRadius: 4,
+      child: CustomPaint(
+        painter: _AppHeaderPainter(),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Graffiti-style title with multiple shadows for 3D effect
+              Text(
+                '2do',
+                style: TextStyle(
+                  fontSize: 120,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 8,
+                  fontFamily: 'Arial Black',
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.8),
+                      offset: const Offset(4, 4),
+                      blurRadius: 2,
+                    ),
+                    Shadow(
+                      color: Colors.red.shade900,
+                      offset: const Offset(-3, -3),
+                      blurRadius: 4,
+                    ),
+                    Shadow(
+                      color: Colors.orange.shade700,
+                      offset: const Offset(6, 6),
+                      blurRadius: 8,
+                    ),
+                    Shadow(
+                      color: Colors.yellow.shade600,
+                      offset: const Offset(2, 8),
+                      blurRadius: 12,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.5),
+                    width: 2,
+                  ),
+                ),
+                child: const Text(
+                  'Välj din app',
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 8),
-          Text(
-            'Välj din app',
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -256,4 +278,160 @@ class AppModeSelectionScreen extends StatelessWidget {
       MaterialPageRoute(builder: (context) => destination),
     );
   }
+}
+
+// Custom painter for the header background representing both apps
+class _AppHeaderPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint();
+    
+    // Base gradient background
+    final gradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Colors.red.shade300,
+        Colors.orange.shade400,
+        Colors.yellow.shade300,
+        Colors.orange.shade300,
+      ],
+      stops: const [0.0, 0.3, 0.7, 1.0],
+    );
+    
+    paint.shader = gradient.createShader(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+    );
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
+    
+    // Draw abstract shapes representing health (left side - hearts theme)
+    _drawHealthTheme(canvas, size);
+    
+    // Draw abstract shapes representing inspiration (right side - art/palette theme)
+    _drawInspirationTheme(canvas, size);
+    
+    // Add some decorative dots/splatter effect
+    _drawSplatterEffect(canvas, size);
+  }
+  
+  void _drawHealthTheme(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.red.shade700.withOpacity(0.3)
+      ..style = PaintingStyle.fill;
+    
+    // Draw stylized hearts on the left
+    for (int i = 0; i < 3; i++) {
+      final x = size.width * 0.15 + i * 40;
+      final y = size.height * 0.3 + i * 60;
+      _drawHeart(canvas, Offset(x, y), 30 + i * 10.0, paint);
+    }
+    
+    // Add some pulse lines
+    paint
+      ..color = Colors.red.shade400.withOpacity(0.4)
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+    
+    final path = Path();
+    path.moveTo(size.width * 0.05, size.height * 0.7);
+    path.lineTo(size.width * 0.15, size.height * 0.7);
+    path.lineTo(size.width * 0.2, size.height * 0.6);
+    path.lineTo(size.width * 0.25, size.height * 0.8);
+    path.lineTo(size.width * 0.3, size.height * 0.7);
+    canvas.drawPath(path, paint);
+  }
+  
+  void _drawHeart(Canvas canvas, Offset center, double size, Paint paint) {
+    final path = Path();
+    path.moveTo(center.dx, center.dy + size * 0.3);
+    
+    // Left curve
+    path.cubicTo(
+      center.dx - size * 0.5, center.dy - size * 0.3,
+      center.dx - size * 0.8, center.dy + size * 0.1,
+      center.dx, center.dy + size * 0.7,
+    );
+    
+    // Right curve
+    path.cubicTo(
+      center.dx + size * 0.8, center.dy + size * 0.1,
+      center.dx + size * 0.5, center.dy - size * 0.3,
+      center.dx, center.dy + size * 0.3,
+    );
+    
+    canvas.drawPath(path, paint);
+  }
+  
+  void _drawInspirationTheme(Canvas canvas, Size size) {
+    // Draw palette on the right side
+    final paint = Paint()
+      ..style = PaintingStyle.fill;
+    
+    // Palette base
+    paint.color = Colors.brown.shade600.withOpacity(0.4);
+    final palettePath = Path();
+    final paletteX = size.width * 0.75;
+    final paletteY = size.height * 0.4;
+    
+    palettePath.addOval(Rect.fromCenter(
+      center: Offset(paletteX, paletteY),
+      width: 80,
+      height: 100,
+    ));
+    canvas.drawPath(palettePath, paint);
+    
+    // Paint dabs on palette
+    final colors = [
+      Colors.blue.shade600,
+      Colors.green.shade600,
+      Colors.purple.shade600,
+      Colors.yellow.shade700,
+      Colors.pink.shade400,
+    ];
+    
+    for (int i = 0; i < colors.length; i++) {
+      paint.color = colors[i].withOpacity(0.6);
+      final angle = (i * math.pi * 2 / colors.length);
+      final x = paletteX + 25 * math.cos(angle);
+      final y = paletteY + 25 * math.sin(angle);
+      canvas.drawCircle(Offset(x, y), 8, paint);
+    }
+    
+    // Draw paintbrush strokes
+    paint
+      ..color = Colors.orange.shade600.withOpacity(0.3)
+      ..strokeWidth = 8
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+    
+    final brushPath = Path();
+    brushPath.moveTo(size.width * 0.85, size.height * 0.25);
+    brushPath.quadraticBezierTo(
+      size.width * 0.88, size.height * 0.35,
+      size.width * 0.82, size.height * 0.45,
+    );
+    canvas.drawPath(brushPath, paint);
+  }
+  
+  void _drawSplatterEffect(Canvas canvas, Size size) {
+    final paint = Paint()..style = PaintingStyle.fill;
+    
+    final random = math.Random(42); // Fixed seed for consistency
+    for (int i = 0; i < 30; i++) {
+      paint.color = [
+        Colors.white.withOpacity(0.3),
+        Colors.yellow.shade200.withOpacity(0.4),
+        Colors.orange.shade200.withOpacity(0.3),
+      ][i % 3];
+      
+      final x = random.nextDouble() * size.width;
+      final y = random.nextDouble() * size.height;
+      final radius = 2 + random.nextDouble() * 4;
+      
+      canvas.drawCircle(Offset(x, y), radius, paint);
+    }
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
