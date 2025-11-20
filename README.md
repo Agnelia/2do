@@ -69,10 +69,13 @@ When you launch the app, you can choose between:
 - **Sun Banner**: Welcoming smiling sun banner with gold and red gradient
 
 #### Inspirationsappen Dashboard
-Three main actions available from the dashboard:
+Four main actions available from the dashboard:
 1. **Sök inspiration** (Search Inspiration) - Find new motifs and themes
 2. **Valda bilder** (Saved Images) - View your saved inspiration images
 3. **Ladda upp konst** (Upload Art) - Share your own artwork with others
+4. **Användargalleri** (User Gallery) - View and comment on community art
+
+📖 **For detailed documentation about Inspirationsappen, see [INSPIRATIONSAPPEN.md](INSPIRATIONSAPPEN.md)**
 
 ## Screenshots
 
