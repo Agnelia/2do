@@ -570,50 +570,92 @@ class _BubbleTextPainter extends CustomPainter {
     canvas.drawPath(path, shadowPaint);
     canvas.restore();
     
-    // Draw main letter with strong color
-    final mainPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.deepOrange.shade600;
-    canvas.drawPath(path, mainPaint);
-    
-    // Draw darker outline for depth
+    // Draw thick black outline
     final outlinePaint = Paint()
       ..style = PaintingStyle.stroke
-      ..color = Colors.deepOrange.shade800
-      ..strokeWidth = 3;
+      ..color = Colors.black
+      ..strokeWidth = 8;
     canvas.drawPath(path, outlinePaint);
     
-    // Draw shine/highlight on top
-    final shinePaint = Paint()
+    // Draw main letter with bright pink/magenta color
+    final mainPaint = Paint()
       ..style = PaintingStyle.fill
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.center,
-        colors: [
-          Colors.white.withOpacity(0.6),
-          Colors.white.withOpacity(0.0),
-        ],
-      ).createShader(path.getBounds());
+      ..color = const Color(0xFFFF69B4); // Hot pink
+    canvas.drawPath(path, mainPaint);
     
-    // Create a clipped shine area (top portion of letter)
+    // Draw inner darker pink for depth
     canvas.save();
     canvas.clipPath(path);
     
-    final shineRect = Rect.fromLTWH(
-      path.getBounds().left,
-      path.getBounds().top,
-      path.getBounds().width,
-      path.getBounds().height * 0.4,
-    );
+    final innerShadowPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..shader = LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          const Color(0xFFFF69B4), // Hot pink
+          const Color(0xFFFF1493), // Deep pink
+        ],
+      ).createShader(path.getBounds());
+    canvas.drawPath(path, innerShadowPaint);
     
-    final shinePath = Path()
-      ..addRRect(RRect.fromRectAndRadius(
-        shineRect,
-        const Radius.circular(20),
+    // Draw white highlight on top-left
+    final highlightPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.white.withOpacity(0.7);
+    
+    final bounds = path.getBounds();
+    final highlightPath = Path()
+      ..addOval(Rect.fromLTWH(
+        bounds.left + bounds.width * 0.15,
+        bounds.top + bounds.height * 0.1,
+        bounds.width * 0.3,
+        bounds.height * 0.15,
       ));
     
-    canvas.drawPath(shinePath, shinePaint);
+    canvas.drawPath(highlightPath, highlightPaint);
     canvas.restore();
+    
+    // Draw drips at the bottom
+    _drawDrips(canvas, path);
+  }
+  
+  void _drawDrips(Canvas canvas, Path letterPath) {
+    final bounds = letterPath.getBounds();
+    
+    // Add 2-3 drips at the bottom of each letter
+    final dripPositions = [
+      bounds.left + bounds.width * 0.3,
+      bounds.left + bounds.width * 0.7,
+    ];
+    
+    for (final x in dripPositions) {
+      final dripPath = Path();
+      final startY = bounds.bottom;
+      
+      // Drip shape
+      dripPath.moveTo(x - 3, startY);
+      dripPath.lineTo(x - 4, startY + 8);
+      dripPath.quadraticBezierTo(
+        x, startY + 12,
+        x + 4, startY + 8,
+      );
+      dripPath.lineTo(x + 3, startY);
+      dripPath.close();
+      
+      // Black outline for drip
+      final dripOutline = Paint()
+        ..style = PaintingStyle.stroke
+        ..color = Colors.black
+        ..strokeWidth = 2;
+      canvas.drawPath(dripPath, dripOutline);
+      
+      // Pink fill for drip
+      final dripFill = Paint()
+        ..style = PaintingStyle.fill
+        ..color = const Color(0xFFFF1493); // Deep pink
+      canvas.drawPath(dripPath, dripFill);
+    }
   }
   
   @override
