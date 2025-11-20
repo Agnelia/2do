@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/inspiration_provider.dart';
 import 'package:todo_health_reminders/models/inspiration_image.dart';
+import 'package:todo_health_reminders/models/inspiration_theme.dart';
+import 'package:todo_health_reminders/models/image_style.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
 
 class UserGalleryScreen extends StatelessWidget {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_health_reminders/providers/inspiration_provider.dart';
+import 'package:todo_health_reminders/models/inspiration_image.dart';
+import 'package:todo_health_reminders/models/inspiration_theme.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
 import 'package:intl/intl.dart';
 
@@ -80,7 +82,7 @@ class SavedImagesScreen extends StatelessWidget {
   Widget _buildSavedImageCard(
     BuildContext context,
     String savedImageId,
-    dynamic image,
+    InspirationImage image,
     DateTime savedAt,
     InspirationProvider provider,
   ) {
