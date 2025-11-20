@@ -51,7 +51,21 @@ class AppModeSelectionScreen extends StatelessWidget {
 
   Widget _buildAppHeader(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     final headerHeight = screenHeight * 0.5; // Half the page
+    
+    // Responsive font size based on screen width
+    final double fontSize;
+    if (screenWidth < 600) {
+      // Mobile: scale with screen width, but cap at reasonable sizes
+      fontSize = (screenWidth * 0.35).clamp(80.0, 140.0);
+    } else if (screenWidth < 1200) {
+      // Tablet
+      fontSize = 180;
+    } else {
+      // Desktop
+      fontSize = 240;
+    }
     
     return SizedBox(
       height: headerHeight,
@@ -66,7 +80,7 @@ class AppModeSelectionScreen extends StatelessWidget {
               Text(
                 '2do',
                 style: GoogleFonts.rubikBubbles(
-                  fontSize: 240,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.w900,
                   color: const Color(0xFFE53935), // Toned down red
                   shadows: [
