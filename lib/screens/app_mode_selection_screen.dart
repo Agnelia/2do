@@ -66,42 +66,21 @@ class AppModeSelectionScreen extends StatelessWidget {
               Text(
                 '2do',
                 style: GoogleFonts.rubikBubbles(
-                  fontSize: 120,
+                  fontSize: 240,
                   fontWeight: FontWeight.w900,
-                  color: const Color(0xFFFF1744), // Bright vibrant red
+                  color: const Color(0xFFE53935), // Toned down red
                   shadows: [
                     Shadow(
                       color: Colors.black.withOpacity(0.5),
-                      offset: const Offset(4, 4),
-                      blurRadius: 8,
+                      offset: const Offset(6, 6),
+                      blurRadius: 12,
                     ),
                     Shadow(
-                      color: const Color(0xFFFF1744).withOpacity(0.5),
-                      offset: const Offset(-2, -2),
-                      blurRadius: 4,
+                      color: const Color(0xFFE53935).withOpacity(0.3),
+                      offset: const Offset(-3, -3),
+                      blurRadius: 6,
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.5),
-                    width: 2,
-                  ),
-                ),
-                child: const Text(
-                  'Välj din app',
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                  ),
                 ),
               ),
             ],
