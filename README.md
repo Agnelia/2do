@@ -1,6 +1,14 @@
-# 2do Health Reminders
+# 2do - Hälso & Inspirationsapp
 
-A responsive Flutter application for health-related reminders with charts, diagnostics, and statistics. This app helps users maintain their health goals through personalized reminders and comprehensive progress tracking.
+En responsiv Flutter-applikation med två kraftfulla lägen:
+1. **Hälsopåminnelser** - Spåra hälsomål med personliga påminnelser och omfattande framstegsspårning
+2. **Inspirationsappen** - Hitta konstnärlig inspiration, upptäck kreativa motiv och dela dina konstverk
+
+## Applägen
+
+När du startar appen kan du välja mellan:
+- **Hälsoläge** - Hälsopåminnelser och välmåendespårning
+- **Inspirationsappen** - Konstnärlig inspiration och kreativ delning
 
 ## Features
 
@@ -41,6 +49,33 @@ A responsive Flutter application for health-related reminders with charts, diagn
 - **Snooze Options**: Flexible snooze durations (15min, 30min, 1hr, tomorrow)
 - **Completion Tracking**: Mark reminders as complete with a single tap
 - **Overdue Indicators**: Visual indicators for missed reminders
+
+### 🎨 Inspirationsappen
+- **Temaval**: Välj bland flera teman inklusive Djur, Natur, Fantasy, Människor, Blommor och mer
+- **Stilval**: Välj bland olika konststilar:
+  - Enkel med/utan bakgrund
+  - Tropisk med detaljerade/enkla element
+  - Naturtrogen med detaljerade/enkla element
+  - Bohemisk stil med detaljerade/enkla element
+- **Bildkällor**: Växla mellan internetbilder och användaruppladdade konstverk (kan inte kombineras)
+- **Smarta förslag**: Visa 4 bildförslag åt gången
+- **Uppdateringsalternativ**: Ta bort enskilda bilder för att få nya förslag, eller uppdatera alla på en gång
+- **Spara favoriter**: Ladda ner och spara inspirerande bilder lokalt
+- **Automatisk rensning**: Sparade bilder tas automatiskt bort efter 3 månader
+- **Ladda upp din konst**: Dela dina egna konstverk med gemenskapen
+- **Användarattribution**: Alla uppladdade bilder visar skaparens användarnamn
+- **Kommentarer**: Kommentera användaruppladdade konstverk (ej tillgängligt för internetbilder)
+- **Vintagedesign**: Vacker matt färgpalett med orange, grönt, koppar, gult och turkost
+- **Solbanner**: Välkomnande leende solbanner med guld- och röd gradient
+
+#### Inspirationsappen Instrumentpanel
+Fyra huvudåtgärder tillgängliga från instrumentpanelen:
+1. **Sök inspiration** - Hitta nya motiv och teman
+2. **Valda bilder** - Visa dina sparade inspirationsbilder
+3. **Ladda upp konst** - Dela dina egna konstverk med andra
+4. **Användargalleri** - Visa och kommentera gemenskapskonst
+
+📖 **För detaljerad dokumentation om Inspirationsappen, se [INSPIRATIONSAPPEN.md](INSPIRATIONSAPPEN.md)**
 
 ## Screenshots
 
