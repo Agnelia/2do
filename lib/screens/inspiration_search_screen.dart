@@ -6,6 +6,7 @@ import 'package:todo_health_reminders/models/image_style.dart';
 import 'package:todo_health_reminders/models/inspiration_image.dart';
 import 'package:todo_health_reminders/screens/image_results_screen.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
+import 'package:todo_health_reminders/widgets/responsive_layout.dart';
 
 class InspirationSearchScreen extends StatefulWidget {
   const InspirationSearchScreen({super.key});
@@ -30,68 +31,72 @@ class _InspirationSearchScreenState extends State<InspirationSearchScreen> {
       body: Consumer<InspirationProvider>(
         builder: (context, provider, child) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildSectionTitle('1. Välj källa'),
-                  const SizedBox(height: 12),
-                  _buildSourceToggle(provider),
-                  const SizedBox(height: 32),
-                  
-                  _buildSectionTitle('2. Välj tema'),
-                  const SizedBox(height: 12),
-                  _buildThemeGrid(provider),
-                  const SizedBox(height: 32),
-                  
-                  _buildSectionTitle('3. Välj stil'),
-                  const SizedBox(height: 12),
-                  _buildStyleList(provider),
-                  const SizedBox(height: 32),
-                  
-                  if (provider.selectedTheme != null && 
-                      provider.selectedStyle != null)
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          provider.generateSuggestions();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ImageResultsScreen(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: InspirationColors.orange,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 48,
-                            vertical: 16,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.search, color: Colors.white),
-                            SizedBox(width: 12),
-                            Text(
-                              'Visa inspiration',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+            child: ResponsiveLayout(
+              child: Padding(
+                padding: EdgeInsets.all(
+                  ResponsiveBreakpoints.getHorizontalPadding(context),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildSectionTitle('1. Välj källa'),
+                    const SizedBox(height: 12),
+                    _buildSourceToggle(context, provider),
+                    const SizedBox(height: 32),
+                    
+                    _buildSectionTitle('2. Välj tema'),
+                    const SizedBox(height: 12),
+                    _buildThemeGrid(context, provider),
+                    const SizedBox(height: 32),
+                    
+                    _buildSectionTitle('3. Välj stil'),
+                    const SizedBox(height: 12),
+                    _buildStyleList(provider),
+                    const SizedBox(height: 32),
+                    
+                    if (provider.selectedTheme != null && 
+                        provider.selectedStyle != null)
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            provider.generateSuggestions();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ImageResultsScreen(),
                               ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: InspirationColors.orange,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 48,
+                              vertical: 16,
                             ),
-                          ],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.search, color: Colors.white),
+                              SizedBox(width: 12),
+                              Text(
+                                'Visa inspiration',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  const SizedBox(height: 32),
-                ],
+                    const SizedBox(height: 32),
+                  ],
+                ),
               ),
             ),
           );
@@ -111,30 +116,67 @@ class _InspirationSearchScreenState extends State<InspirationSearchScreen> {
     );
   }
 
-  Widget _buildSourceToggle(InspirationProvider provider) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildSourceCard(
-            'Internet bilder',
-            Icons.public,
-            ImageSource.internet,
-            provider.selectedSource == ImageSource.internet,
-            () => provider.setSource(ImageSource.internet),
+  Widget _buildSourceToggle(BuildContext context, InspirationProvider provider) {
+    final isMobile = ResponsiveBreakpoints.isMobile(context);
+    
+    if (isMobile) {
+      return Row(
+        children: [
+          Expanded(
+            child: _buildSourceCard(
+              'Internet bilder',
+              Icons.public,
+              ImageSource.internet,
+              provider.selectedSource == ImageSource.internet,
+              () => provider.setSource(ImageSource.internet),
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildSourceCard(
-            'Användare bilder',
-            Icons.people,
-            ImageSource.userUploaded,
-            provider.selectedSource == ImageSource.userUploaded,
-            () => provider.setSource(ImageSource.userUploaded),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _buildSourceCard(
+              'Användare bilder',
+              Icons.people,
+              ImageSource.userUploaded,
+              provider.selectedSource == ImageSource.userUploaded,
+              () => provider.setSource(ImageSource.userUploaded),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Flexible(
+            flex: 1,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 250),
+              child: _buildSourceCard(
+                'Internet bilder',
+                Icons.public,
+                ImageSource.internet,
+                provider.selectedSource == ImageSource.internet,
+                () => provider.setSource(ImageSource.internet),
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Flexible(
+            flex: 1,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 250),
+              child: _buildSourceCard(
+                'Användare bilder',
+                Icons.people,
+                ImageSource.userUploaded,
+                provider.selectedSource == ImageSource.userUploaded,
+                () => provider.setSource(ImageSource.userUploaded),
+              ),
+            ),
+          ),
+          const Spacer(flex: 2),
+        ],
+      );
+    }
   }
 
   Widget _buildSourceCard(
@@ -189,15 +231,17 @@ class _InspirationSearchScreenState extends State<InspirationSearchScreen> {
     );
   }
 
-  Widget _buildThemeGrid(InspirationProvider provider) {
+  Widget _buildThemeGrid(BuildContext context, InspirationProvider provider) {
     final themes = InspirationTheme.values;
+    final crossAxisCount = ResponsiveBreakpoints.isMobile(context) ? 2 : 
+                           ResponsiveBreakpoints.isTablet(context) ? 3 : 4;
     
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 1,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: 1.1,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
       ),
@@ -241,25 +285,30 @@ class _InspirationSearchScreenState extends State<InspirationSearchScreen> {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              theme.icon,
-              size: 36,
-              color: isSelected ? color : Colors.grey,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              theme.displayName,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: Colors.black87,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                theme.icon,
+                size: 28,
+                color: isSelected ? color : Colors.grey,
               ),
-            ),
-          ],
+              const SizedBox(height: 6),
+              Text(
+                theme.displayName,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: Colors.black87,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );
