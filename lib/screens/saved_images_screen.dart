@@ -5,6 +5,7 @@ import 'package:todo_health_reminders/models/inspiration_image.dart';
 import 'package:todo_health_reminders/models/inspiration_theme.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'package:todo_health_reminders/widgets/comment_badge.dart';
 import 'package:intl/intl.dart';
 
 class SavedImagesScreen extends StatelessWidget {
@@ -139,6 +140,17 @@ class SavedImagesScreen extends StatelessWidget {
                     );
                   },
                 ),
+                // Comment badge for user-uploaded images
+                if (image.comments.isNotEmpty)
+                  Positioned(
+                    top: 4,
+                    left: 4,
+                    child: CommentBadge(
+                      commentCount: image.comments.length,
+                      backgroundColor: InspirationColors.orange,
+                      size: 28,
+                    ),
+                  ),
                 Positioned(
                   top: 4,
                   right: 4,
