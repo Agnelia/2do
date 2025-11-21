@@ -23,8 +23,7 @@ class CommentBadge extends StatelessWidget {
     }
 
     return Container(
-      width: size,
-      height: size,
+      constraints: BoxConstraints.tightFor(width: size, height: size),
       decoration: BoxDecoration(
         color: backgroundColor,
         shape: BoxShape.circle,
