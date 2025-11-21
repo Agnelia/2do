@@ -120,5 +120,53 @@ void main() {
       
       expect(recentSavedImage.shouldBeRemoved(), isFalse);
     });
+
+    test('Comment added callback is triggered when comment is added', () async {
+      final provider = InspirationProvider();
+      bool callbackTriggered = false;
+      InspirationImage? callbackImage;
+      String? callbackComment;
+      
+      // Set up callback
+      provider.setCommentAddedCallback((image, comment) {
+        callbackTriggered = true;
+        callbackImage = image;
+        callbackComment = comment;
+      });
+      
+      // Upload an artwork first
+      provider.setTheme(InspirationTheme.animals);
+      provider.setStyle(ImageStyle.simpleWithBackground);
+      await provider.uploadArtwork('https://example.com/test.jpg', 'testuser');
+      
+      final artworkId = provider.userArtworks.first.id;
+      
+      // Add a comment
+      await provider.addComment(artworkId, 'Great artwork!');
+      
+      expect(callbackTriggered, isTrue);
+      expect(callbackImage?.id, equals(artworkId));
+      expect(callbackComment, equals('Great artwork!'));
+    });
+
+    test('Comment is added to artwork', () async {
+      final provider = InspirationProvider();
+      
+      // Upload an artwork
+      provider.setTheme(InspirationTheme.nature);
+      provider.setStyle(ImageStyle.realisticDetailed);
+      await provider.uploadArtwork('https://example.com/nature.jpg', 'natureartist');
+      
+      final artworkId = provider.userArtworks.first.id;
+      
+      // Add comments
+      await provider.addComment(artworkId, 'Beautiful!');
+      await provider.addComment(artworkId, 'Amazing work!');
+      
+      final artwork = provider.userArtworks.first;
+      expect(artwork.comments.length, equals(2));
+      expect(artwork.comments[0], equals('Beautiful!'));
+      expect(artwork.comments[1], equals('Amazing work!'));
+    });
   });
 }

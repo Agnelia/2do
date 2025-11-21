@@ -161,7 +161,19 @@ class InspirationProvider extends ChangeNotifier {
       );
       await _saveUserArtworks();
       notifyListeners();
+      
+      // Trigger notification callback if set
+      if (_onCommentAdded != null) {
+        _onCommentAdded!(_userArtworks[index], comment);
+      }
     }
+  }
+  
+  // Callback for when a comment is added (used for notifications)
+  Function(InspirationImage, String)? _onCommentAdded;
+  
+  void setCommentAddedCallback(Function(InspirationImage, String)? callback) {
+    _onCommentAdded = callback;
   }
   
   void clearSelection() {

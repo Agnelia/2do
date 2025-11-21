@@ -6,9 +6,61 @@ import 'package:todo_health_reminders/models/inspiration_theme.dart';
 import 'package:todo_health_reminders/models/image_style.dart';
 import 'package:todo_health_reminders/utils/inspiration_colors.dart';
 import 'package:todo_health_reminders/widgets/responsive_layout.dart';
+import 'package:todo_health_reminders/widgets/comment_badge.dart';
 
-class UserGalleryScreen extends StatelessWidget {
+class UserGalleryScreen extends StatefulWidget {
   const UserGalleryScreen({super.key});
+
+  @override
+  State<UserGalleryScreen> createState() => _UserGalleryScreenState();
+}
+
+class _UserGalleryScreenState extends State<UserGalleryScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Set up the comment notification callback
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<InspirationProvider>(context, listen: false);
+      provider.setCommentAddedCallback((artwork, comment) {
+        if (mounted) {
+          _showCommentNotification(artwork, comment);
+        }
+      });
+    });
+  }
+
+  void _showCommentNotification(InspirationImage artwork, String comment) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.comment, color: Colors.white),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Ny kommentar!',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'På ${artwork.uploaderUsername ?? "okänd"}s bild',
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: InspirationColors.orange,
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,45 +141,59 @@ class UserGalleryScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.network(
-              artwork.imageUrl,
-              width: double.infinity,
-              height: imageHeight,
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.medium,
-              cacheWidth: 800,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
+          // Image with comment badge
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.network(
+                  artwork.imageUrl,
+                  width: double.infinity,
                   height: imageHeight,
-                  color: Colors.grey.shade300,
-                  child: const Center(
-                    child: Icon(
-                      Icons.image_not_supported,
-                      size: 50,
-                      color: Colors.grey,
-                    ),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.medium,
+                  cacheWidth: 800,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: imageHeight,
+                      color: Colors.grey.shade300,
+                      child: const Center(
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: 50,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      height: imageHeight,
+                      color: Colors.grey.shade200,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              // Comment badge positioned at top-right
+              if (artwork.comments.isNotEmpty)
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: CommentBadge(
+                    commentCount: artwork.comments.length,
+                    backgroundColor: InspirationColors.orange,
                   ),
-                );
-              },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  height: imageHeight,
-                  color: Colors.grey.shade200,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  ),
-                );
-              },
-            ),
+                ),
+            ],
           ),
           
           // Info section
